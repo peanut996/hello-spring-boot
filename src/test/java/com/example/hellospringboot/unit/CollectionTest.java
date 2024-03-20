@@ -3,7 +3,7 @@ package com.example.hellospringboot.unit;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.*;
 
 public class CollectionTest {
 
@@ -29,5 +29,19 @@ public class CollectionTest {
         HashSet hashSet = new HashSet();
         LinkedHashSet linkedHashSet = new LinkedHashSet<>();
         TreeSet treeSet = new TreeSet();
+    }
+
+    @Test
+    void iterator() {
+        ListIterator listIterator = new ArrayList<>().listIterator();
+    }
+
+    @Test
+    void concurrent() {
+        CopyOnWriteArrayList copyOnWriteArrayList = new CopyOnWriteArrayList();
+        ConcurrentHashMap concurrentHashMap = new ConcurrentHashMap<>();
+        ConcurrentLinkedQueue concurrentLinkedQueue = new ConcurrentLinkedQueue<>();
+        BlockingQueue blockingQueue = new ArrayBlockingQueue(0);
+        ConcurrentSkipListMap concurrentSkipListMap = new ConcurrentSkipListMap();
     }
 }
