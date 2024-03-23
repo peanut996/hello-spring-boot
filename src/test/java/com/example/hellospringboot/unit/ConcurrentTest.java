@@ -9,7 +9,7 @@ public class ConcurrentTest {
 
 
     @Test
-    void synchronize() {
+    void synchronize() throws InterruptedException {
         Counter counter = new Counter();
 
         // 创建并启动两个线程，一个用于增加计数，一个用于减少计数
@@ -27,6 +27,7 @@ public class ConcurrentTest {
 
         // 启动线程
         incrementThread.start();
+        Thread.sleep(100);
         decrementThread.start();
 
         // 等待两个线程执行完成
