@@ -41,7 +41,7 @@ public class CollectionTest {
         CopyOnWriteArrayList copyOnWriteArrayList = new CopyOnWriteArrayList();
         ConcurrentHashMap concurrentHashMap = new ConcurrentHashMap<>();
         ConcurrentLinkedQueue concurrentLinkedQueue = new ConcurrentLinkedQueue<>();
-        BlockingQueue blockingQueue = new ArrayBlockingQueue(0);
+        BlockingQueue blockingQueue = new ArrayBlockingQueue(10);
         ConcurrentSkipListMap concurrentSkipListMap = new ConcurrentSkipListMap();
     }
 }
