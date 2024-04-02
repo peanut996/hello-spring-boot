@@ -12,7 +12,7 @@ import org.springframework.web.context.WebApplicationContext;
 @AutoConfigureMockMvc
 public class BaseTest {
 
-    protected static MockMvc mvc;
+    protected static volatile MockMvc mvc;
 
     @Autowired
     private WebApplicationContext context;
