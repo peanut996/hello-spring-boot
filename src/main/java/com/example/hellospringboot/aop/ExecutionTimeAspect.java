@@ -1,7 +1,6 @@
 package com.example.hellospringboot.aop;
 
 
-import com.example.hellospringboot.annotation.MeasureExecutionTime;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -41,6 +40,7 @@ public class ExecutionTimeAspect {
         String className = joinPoint.getSignature().getDeclaringTypeName();
         logger.info("After execution of [{}.{}]", className, methodName);
     }
+
     @AfterReturning(pointcut = "@annotation(com.example.hellospringboot.annotation.MeasureExecutionTime)",
             returning = "retVal")
     public void logMethodAccessAfterReturning(JoinPoint joinPoint, Object retVal) {

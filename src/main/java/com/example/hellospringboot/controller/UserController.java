@@ -21,4 +21,5 @@ public class UserController {
     @MeasureExecutionTime
     List<User> ping() {
         return userService.list();
-    }}
+    }
+}
