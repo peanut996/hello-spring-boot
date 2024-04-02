@@ -17,3 +17,5 @@ mybatis:
   auto-mapping-behavior: none
   mapper-locations: "classpath:mapper/*.xml"
   type-aliases-package: "com.example.hellospringboot.mapper"
+  configuration:
+    cache-enabled: true
