@@ -13,6 +13,7 @@ import java.util.List;
 public class UserRepositoryImpl implements UserRepository {
 
     private final UserMapper userMapper;
+
     @Override
     public List<User> list() {
         return userMapper.list();
