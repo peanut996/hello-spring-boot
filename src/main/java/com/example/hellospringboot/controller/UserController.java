@@ -19,7 +19,7 @@ public class UserController {
 
     @GetMapping("/users")
     @MeasureExecutionTime
-    List<User> ping() {
+    List<User> list() {
         return userService.list();
     }
 }
