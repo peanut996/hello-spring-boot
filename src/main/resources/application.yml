@@ -4,7 +4,10 @@
 #    username: root
 #    password: 123456
 #    driver-class-name: com.mysql.cj.jdbc.Driver
+
 spring:
+  application:
+    name: hello-spring-boot
   datasource:
     url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driverClassName: org.h2.Driver
@@ -19,3 +22,8 @@ mybatis:
   type-aliases-package: "com.example.hellospringboot.mapper"
   configuration:
     cache-enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: "http://localhost:8002/eureka/, http://localhost:8003/eureka/"
