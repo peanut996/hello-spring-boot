@@ -63,4 +63,10 @@ class ProblemTest {
         nums = new int[]{1, 10, 100, 1000};
         Assertions.assertEquals(3, problem.minOperations(nums));
     }
+
+    @Test
+    void maximumCount() {
+        int[] nums = new int[]{-2, -1, -1, 1, 2, 3};
+        assertEquals(3, problem.maximumCount(nums));
+    }
 }
