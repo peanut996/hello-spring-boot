@@ -1,4 +1,4 @@
-package com.example.hellospringboot.unit;
+package com.example.hellospringboot.base;
 
 
 import org.junit.jupiter.api.Test;
@@ -98,7 +98,7 @@ public class ConcurrentTest {
     void Semaphore() throws InterruptedException {
         final int N = 7;
         Semaphore s = new Semaphore(3);
-        for(int i = 0; i < N; i++) {
+        for (int i = 0; i < N; i++) {
             new Worker(s, i).start();
         }
 
@@ -143,6 +143,7 @@ class Counter {
 class Worker extends Thread {
     private Semaphore s;
     private int num;
+
     public Worker(Semaphore s, int num) {
         this.s = s;
         this.num = num;
@@ -152,9 +153,9 @@ class Worker extends Thread {
     public void run() {
         try {
             s.acquire();
-            System.out.println("worker" + num +  " using the machine");
+            System.out.println("worker" + num + " using the machine");
             Thread.sleep(1000);
-            System.out.println("worker" + num +  " finished the task");
+            System.out.println("worker" + num + " finished the task");
             s.release();
         } catch (InterruptedException e) {
             e.printStackTrace();

@@ -1,4 +1,4 @@
-package com.example.hellospringboot.unit;
+package com.example.hellospringboot.base;
 
 import com.example.hellospringboot.model.Cat;
 import com.example.hellospringboot.model.User;
