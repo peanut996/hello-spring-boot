@@ -67,18 +67,29 @@ public class Problem {
      */
     public boolean canMakeArithmeticProgression(int[] arr) {
         int length = arr.length;
-        if (arr.length < 3) {
-            return false;
-        }
-        int max = 0, min = 0;
+        int max = Integer.MIN_VALUE, min = Integer.MAX_VALUE;
         for (int n : arr) {
             max = Math.max(max, n);
             min = Math.min(min, n);
         }
-
+        if ((max - min) % (length - 1) != 0) {
+            return false;
+        }
         int d = (max - min) / (length - 1);
         if (d == 0) {
             return true;
+        }
+
+        int[] sorted = new int[length];
+        for (int n : arr) {
+            int diff = n - min;
+            if (diff % d != 0) {
+                return false;
+            }
+            if (sorted[diff / d] != 0) {
+                return false;
+            }
+            sorted[diff / d]++;
         }
         return true;
     }

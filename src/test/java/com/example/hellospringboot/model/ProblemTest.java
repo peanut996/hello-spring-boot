@@ -69,4 +69,13 @@ class ProblemTest {
         int[] nums = new int[]{-2, -1, -1, 1, 2, 3};
         assertEquals(3, problem.maximumCount(nums));
     }
+
+    @Test
+    void canMakeArithmeticProgression() {
+        int[] nums = new int[]{1,2,4};
+        assertFalse(problem.canMakeArithmeticProgression(nums));
+
+        nums = new int[]{1,3,5};
+        assertTrue(problem.canMakeArithmeticProgression(nums));
+    }
 }
