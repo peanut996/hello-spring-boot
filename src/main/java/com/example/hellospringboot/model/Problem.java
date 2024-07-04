@@ -2,7 +2,6 @@ package com.example.hellospringboot.model;
 
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import java.util.*;
 
@@ -61,5 +60,26 @@ public class Problem {
             }
         }
         return start;
+    }
+
+    /**
+     * <a href="https://leetcode.cn/problems/can-make-arithmetic-progression-from-sequence/description/"> 1502. 判断能否形成等差数列</a>
+     */
+    public boolean canMakeArithmeticProgression(int[] arr) {
+        int length = arr.length;
+        if (arr.length < 3) {
+            return false;
+        }
+        int max = 0, min = 0;
+        for (int n : arr) {
+            max = Math.max(max, n);
+            min = Math.min(min, n);
+        }
+
+        int d = (max - min) / (length - 1);
+        if (d == 0) {
+            return true;
+        }
+        return true;
     }
 }
