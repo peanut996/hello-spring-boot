@@ -1,10 +1,7 @@
 package com.example.hellospringboot.model;
 
 
-import lombok.Data;
-
-@Data
-public class Easy extends Problem{
+public class Easy extends Problem {
 
     /**
      * <a href="https://leetcode.cn/problems/can-make-arithmetic-progression-from-sequence/description/"> 1502. 判断能否形成等差数列</a>
@@ -62,5 +59,32 @@ public class Easy extends Problem{
         }
 
         return matrix;
+    }
+
+    /**
+     * <a href="https://leetcode.cn/problems/merge-sorted-array/">88. 合并两个有序数组</a>
+     * 原地倒排序
+     */
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int nums1Index = m - 1;
+        int nums2Index = n - 1;
+        int currentIndex = m + n - 1;
+
+        // 终止条件是 nums1Index 1 < 0 && nums2Index < 0
+        for (int i = currentIndex; nums1Index >= 0 || nums2Index >= 0; i--) {
+            if (nums1Index == -1) {
+                nums1[i] = nums2[nums2Index];
+                nums2Index--;
+            } else if (nums2Index == -1) {
+                nums1[i] = nums1[nums1Index];
+                nums1Index--;
+            } else if (nums1[nums1Index] > nums2[nums2Index]) {
+                nums1[i] = nums1[nums1Index];
+                nums1Index--;
+            } else {
+                nums1[i] = nums2[nums2Index];
+                nums2Index--;
+            }
+        }
     }
 }

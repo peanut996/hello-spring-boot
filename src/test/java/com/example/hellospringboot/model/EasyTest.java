@@ -35,4 +35,13 @@ class EasyTest {
 
         assertEquals("[[1, 2, 9], [4, 8, 6], [7, 8, 9]]", Arrays.deepToString(matrix));
     }
+
+
+    @Test
+    void easy88Merge() {
+        int[] nums1 = new int[] {1,2,3,0,0,0};
+        int[] nums2 = new int[] {2,5,6};
+        problem.merge(nums1, 3, nums2, 3);
+        assertEquals("[1, 2, 2, 3, 5, 6]", Arrays.toString(nums1));
+    }
 }
