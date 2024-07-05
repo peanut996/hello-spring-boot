@@ -3,7 +3,12 @@ package com.example.hellospringboot.model;
 
 import lombok.Data;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 
 @Data
 public class Problem {
@@ -60,37 +65,5 @@ public class Problem {
             }
         }
         return start;
-    }
-
-    /**
-     * <a href="https://leetcode.cn/problems/can-make-arithmetic-progression-from-sequence/description/"> 1502. 判断能否形成等差数列</a>
-     */
-    public boolean canMakeArithmeticProgression(int[] arr) {
-        int length = arr.length;
-        int max = Integer.MIN_VALUE, min = Integer.MAX_VALUE;
-        for (int n : arr) {
-            max = Math.max(max, n);
-            min = Math.min(min, n);
-        }
-        if ((max - min) % (length - 1) != 0) {
-            return false;
-        }
-        int d = (max - min) / (length - 1);
-        if (d == 0) {
-            return true;
-        }
-
-        int[] sorted = new int[length];
-        for (int n : arr) {
-            int diff = n - min;
-            if (diff % d != 0) {
-                return false;
-            }
-            if (sorted[diff / d] != 0) {
-                return false;
-            }
-            sorted[diff / d]++;
-        }
-        return true;
     }
 }
