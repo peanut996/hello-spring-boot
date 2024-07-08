@@ -2,7 +2,11 @@ package com.example.hellospringboot.base;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ThreadTest {
     private static void print(ExecutorService t) {
@@ -43,6 +47,28 @@ public class ThreadTest {
         boolean res = scheduledExecutorService.awaitTermination(15, TimeUnit.SECONDS);
 
         System.out.println(res);
+
+    }
+
+    private void doSomething(String webSite) {
+        System.out.println("ready for parse " + webSite);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    void completableFuture() {
+        String[] webSites = new String[]{"https://www.baidu.com", "https://google.com"};
+
+        CompletableFuture[] allTasks = Arrays
+                .stream(webSites)
+                .map(s -> CompletableFuture.runAsync(() -> doSomething(s)))
+                .toArray(CompletableFuture[]::new);
+
+        CompletableFuture.allOf(allTasks).join();
 
     }
 
