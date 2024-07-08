@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -24,9 +25,11 @@ public class ThreadTest {
 
 
     @Test
-    void threadPool() throws InterruptedException {
+    void threadPool() throws InterruptedException, ExecutionException {
         // 采用无界阻塞队列，不会拒绝任何任务，适合CPU密集型任务
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(9);
+        Future res = fixedThreadPool.submit(() -> doSomething("sd"));
+        Object r = res.get();
 
         // 采用无界阻塞队列，但是线程只有1，适合串行执行的任务
         ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
@@ -50,10 +53,11 @@ public class ThreadTest {
 
     }
 
-    private void doSomething(String webSite) {
+    private String doSomething(String webSite) {
         System.out.println("ready for parse " + webSite);
         try {
             Thread.sleep(1000);
+            return "";
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -70,6 +74,19 @@ public class ThreadTest {
 
         CompletableFuture.allOf(allTasks).join();
 
+        List<String> result = Arrays.stream(allTasks)
+                .map(this::handleTask)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+    }
+
+    private String handleTask(Future<String> future) {
+        try {
+            return future.get();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }
