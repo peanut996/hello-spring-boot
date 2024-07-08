@@ -28,8 +28,6 @@ public class ThreadTest {
     void threadPool() throws InterruptedException, ExecutionException {
         // 采用无界阻塞队列，不会拒绝任何任务，适合CPU密集型任务
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(9);
-        Future res = fixedThreadPool.submit(() -> doSomething("sd"));
-        Object r = res.get();
 
         // 采用无界阻塞队列，但是线程只有1，适合串行执行的任务
         ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
