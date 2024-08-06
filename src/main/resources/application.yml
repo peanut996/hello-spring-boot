@@ -4,6 +4,10 @@
 #    username: root
 #    password: 123456
 #    driver-class-name: com.mysql.cj.jdbc.Driver
+grpc:
+  server:
+    port: 9090
+
 
 spring:
   application:
