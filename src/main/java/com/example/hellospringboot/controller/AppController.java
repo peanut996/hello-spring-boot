@@ -1,8 +1,8 @@
 package com.example.hellospringboot.controller;
 
-import com.example.hellospringboot.annotation.MeasureExecutionTime;
-import com.netflix.discovery.EurekaClient;
-import com.netflix.discovery.shared.Applications;
+import com.example.hellospringboot.service.ReactiveService;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class AppController {
 
 
-    private final EurekaClient discoveryClient;
+    private final ReactiveService reactiveService;
 
-    @GetMapping("/apps")
-    @MeasureExecutionTime
-    Applications list() {
-        return discoveryClient.getApplications();
+
+    @GetMapping("/reactive")
+    public Observable<String> getReactive() {
+        return reactiveService.getObservable()
+                .subscribeOn(Schedulers.io());
     }
 }
