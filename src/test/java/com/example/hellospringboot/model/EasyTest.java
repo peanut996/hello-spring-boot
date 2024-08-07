@@ -11,20 +11,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EasyTest {
 
-    static Easy problem;
+    static Problem problem;
 
     @BeforeAll
     static void setUp() {
-        problem = new Easy();
+        problem = new Problem();
     }
 
 
     @Test
     void canMakeArithmeticProgression() {
-        int[] nums = new int[]{1,2,4};
+        int[] nums = new int[]{1, 2, 4};
         assertFalse(problem.canMakeArithmeticProgression(nums));
 
-        nums = new int[]{1,3,5};
+        nums = new int[]{1, 3, 5};
         assertTrue(problem.canMakeArithmeticProgression(nums));
     }
 
@@ -39,8 +39,8 @@ class EasyTest {
 
     @Test
     void easy88Merge() {
-        int[] nums1 = new int[] {1,2,3,0,0,0};
-        int[] nums2 = new int[] {2,5,6};
+        int[] nums1 = new int[]{1, 2, 3, 0, 0, 0};
+        int[] nums2 = new int[]{2, 5, 6};
         problem.merge(nums1, 3, nums2, 3);
         assertEquals("[1, 2, 2, 3, 5, 6]", Arrays.toString(nums1));
     }
