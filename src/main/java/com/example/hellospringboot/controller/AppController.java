@@ -16,7 +16,7 @@ public class AppController {
 
 
     @GetMapping("/reactive")
-    public Observable<String> getReactive() {
+    public Observable<Integer> getReactive() {
         return reactiveService.getObservable()
                 .subscribeOn(Schedulers.io());
     }
