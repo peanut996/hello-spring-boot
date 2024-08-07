@@ -190,4 +190,24 @@ public class Problem {
         }
         return res;
     }
+
+
+    /**
+     * <a href="https://leetcode.cn/problems/find-the-integer-added-to-array-i/">3131. 找出与数组相加的整数 I</a>
+     */
+    @Easy
+    public int addedInteger(int[] nums1, int[] nums2) {
+        return min(nums2) - min(nums1);
+    }
+
+    public int min(int[] nums) {
+        if (nums.length == 1) {
+            return nums[0];
+        }
+        int m = 1001;
+        for (int num : nums) {
+            m = Math.min(num, m);
+        }
+        return m;
+    }
 }
