@@ -3,12 +3,9 @@ package com.example.hellospringboot.model;
 
 import com.example.hellospringboot.annotation.Easy;
 import com.example.hellospringboot.annotation.Medium;
+import com.example.hellospringboot.enumerate.Point;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 public class Problem {
@@ -17,7 +14,7 @@ public class Problem {
      * 思路：滑动窗口
      * <a href="https://leetcode.cn/problems/minimum-number-of-operations-to-make-array-continuous/">...</a>
      */
-    @Easy
+    @Easy(title = "2009. 使数组连续的最少操作数", source = "https://leetcode.cn/problems/minimum-number-of-operations-to-make-array-continuous/")
     public int minOperations(int[] nums) {
         int len = nums.length;
         Set<Integer> set = new HashSet<>();
@@ -44,7 +41,7 @@ public class Problem {
      * 思路：二分搜索
      * <a href="https://leetcode.cn/problems/maximum-count-of-positive-integer-and-negative-integer/">...</a>
      */
-    @Easy
+    @Easy(title = "2529. 正整数和负整数的最大计数", source = "https://leetcode.cn/problems/maximum-count-of-positive-integer-and-negative-integer/")
     public int maximumCount(int[] nums) {
         int n = nums.length;
         int pos = binarySearch(nums, 1);
@@ -69,10 +66,8 @@ public class Problem {
         return start;
     }
 
-    /**
-     * <a href="https://leetcode.cn/problems/can-make-arithmetic-progression-from-sequence/description/"> 1502. 判断能否形成等差数列</a>
-     */
-    @Easy
+
+    @Easy(title = "1502. 判断能否形成等差数列", source = "https://leetcode.cn/problems/can-make-arithmetic-progression-from-sequence/description/")
     public boolean canMakeArithmeticProgression(int[] arr) {
         int length = arr.length;
         int max = Integer.MIN_VALUE, min = Integer.MAX_VALUE;
@@ -103,10 +98,7 @@ public class Problem {
     }
 
 
-    /**
-     * <a href="https://leetcode.cn/problems/modify-the-matrix/">3033. 修改矩阵</a>
-     */
-    @Easy
+    @Easy(title = "3033. 修改矩阵", source = "https://leetcode.cn/problems/modify-the-matrix/")
     public int[][] modifiedMatrix(int[][] matrix) {
         int row = matrix.length;
         int col = matrix[0].length;
@@ -133,7 +125,7 @@ public class Problem {
      * <a href="https://leetcode.cn/problems/merge-sorted-array/">88. 合并两个有序数组</a>
      * 原地倒排序
      */
-    @Easy
+    @Easy(title = "88. 合并两个有序数组", source = "https://leetcode.cn/problems/merge-sorted-array/")
     public void merge(int[] nums1, int m, int[] nums2, int n) {
         int nums1Index = m - 1;
         int nums2Index = n - 1;
@@ -158,10 +150,10 @@ public class Problem {
     }
 
 
-    /**
-     * <a href="https://leetcode.cn/problems/shortest-way-to-form-string/">1055. 形成字符串的最短路径</a>
-     */
-    @Medium
+    @Medium(
+            source = "https://leetcode.cn/problems/shortest-way-to-form-string/",
+            title = "1055. 形成字符串的最短路径"
+    )
     public int shortestWay(String source, String target) {
         int sourceLen = source.length();
         int targetLen = target.length();
@@ -192,10 +184,10 @@ public class Problem {
     }
 
 
-    /**
-     * <a href="https://leetcode.cn/problems/find-the-integer-added-to-array-i/">3131. 找出与数组相加的整数 I</a>
-     */
-    @Easy
+    @Easy(
+            title = "3131. 找出与数组相加的整数 I",
+            source = "https://leetcode.cn/problems/find-the-integer-added-to-array-i/"
+    )
     public int addedInteger(int[] nums1, int[] nums2) {
         return min(nums2) - min(nums1);
     }
@@ -209,5 +201,35 @@ public class Problem {
             m = Math.min(num, m);
         }
         return m;
+    }
+
+    @Medium(point = Point.SLIDE_WINDOW,
+            title = "159. 至多包含两个不同字符的最长子串",
+            source = "https://leetcode.cn/problems/longest-substring-with-at-most-two-distinct-characters/description")
+    public int lengthOfLongestSubstringTwoDistinct(String s) {
+        int sLength = s.length();
+        if (sLength < 3) {
+            return sLength;
+        }
+
+        int start = 0, end = 0;
+        int res = 2;
+        HashMap<Character, Integer> map = new HashMap<>();
+        while (end < sLength) {
+
+            map.put(s.charAt(end), end);
+            end++;
+
+            if (map.size() == 3) {
+                int delIndex = Collections.min(map.values());
+
+                map.remove(s.charAt(delIndex));
+                start = delIndex + 1;
+            }
+
+            res = Math.max(res, end - start);
+
+        }
+        return res;
     }
 }

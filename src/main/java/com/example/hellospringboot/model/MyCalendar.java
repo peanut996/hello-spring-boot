@@ -1,4 +1,4 @@
-package com.example.hellospringboot.model.problem;
+package com.example.hellospringboot.model;
 
 import com.example.hellospringboot.annotation.Easy;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @Easy
 public class MyCalendar {
 
-    static class Book{
+    static class Book {
         int start;
         int end;
 
@@ -29,9 +29,9 @@ public class MyCalendar {
     }
 
     public boolean book(int start, int end) {
-        for(Book existBook: books){
-            boolean canBook = (start >=existBook.end || end <= existBook.start);
-            if(!canBook){
+        for (Book existBook : books) {
+            boolean canBook = (start >= existBook.end || end <= existBook.start);
+            if (!canBook) {
                 return false;
             }
         }
