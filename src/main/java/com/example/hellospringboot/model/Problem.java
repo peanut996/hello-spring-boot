@@ -232,4 +232,33 @@ public class Problem {
         }
         return res;
     }
+
+    @Medium(title = "340. 至多包含 K 个不同字符的最长子串",
+            point = Point.SLIDE_WINDOW,
+            source = "https://leetcode.cn/problems/longest-substring-with-at-most-k-distinct-characters/description")
+    public int lengthOfLongestSubstringKDistinct(String s, int k) {
+        int sLength = s.length();
+        if (sLength < k + 1) {
+            return sLength;
+        }
+
+        int start = 0, end = 0;
+        int res = k;
+        HashMap<Character, Integer> map = new HashMap<>();
+        while (end < sLength) {
+            map.put(s.charAt(end), end);
+            end++;
+
+            if (map.size() == k + 1) {
+                int delIndex = Collections.min(map.values());
+
+                map.remove(s.charAt(delIndex));
+                start = delIndex + 1;
+            }
+
+            res = Math.max(res, end - start);
+
+        }
+        return res;
+    }
 }
