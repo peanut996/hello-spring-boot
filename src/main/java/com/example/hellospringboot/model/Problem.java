@@ -261,4 +261,31 @@ public class Problem {
         }
         return res;
     }
+
+
+    @Medium(point = Point.SLIDE_WINDOW, title = "487. 最大连续1的个数 II", source = "https://leetcode.cn/problems/max-consecutive-ones-ii/description")
+    public int findMaxConsecutiveOnes(int[] nums) {
+        int length = nums.length;
+
+        int start = 0, end = 0;
+        int zeroFlag = 0;
+        int zeroIndex = 0;
+        int res = 0;
+        while (end < length) {
+            if (nums[end] == 0) {
+                if (zeroFlag == 1) {
+                    zeroFlag = 0;
+                    start = zeroIndex + 1;
+                }
+                zeroIndex = end;
+                zeroFlag++;
+            }
+
+            end++;
+            res = Math.max(res, end - start);
+        }
+
+        return res;
+
+    }
 }
