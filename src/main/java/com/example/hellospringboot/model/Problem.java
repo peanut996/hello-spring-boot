@@ -263,7 +263,7 @@ public class Problem {
     }
 
 
-    @Medium(point = Point.SLIDE_WINDOW, title = "487. 最大连续1的个数 II", source = "https://leetcode.cn/problems/max-consecutive-ones-ii/description")
+    @Medium(point = Point.SLIDE_WINDOW, title = "c. 最大连续1的个数 II", source = "https://leetcode.cn/problems/max-consecutive-ones-ii/description")
     public int findMaxConsecutiveOnes(int[] nums) {
         int length = nums.length;
 
@@ -287,5 +287,26 @@ public class Problem {
 
         return res;
 
+    }
+
+    @Medium(title = "3132. 找出与数组相加的整数 II", source = "https://leetcode.cn/problems/find-the-integer-added-to-array-ii/description/")
+    public int minimumAddedInteger(int[] nums1, int[] nums2) {
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+
+        for (int i = 2; i >= 0; i--) {
+            int x = nums2[0] - nums1[i];
+            int right = 0;
+
+            for (int j = i; j < nums1.length; j++) {
+                if (nums1[j] + x == nums2[right]) {
+                    right++;
+                    if (nums2.length == right) {
+                        return x;
+                    }
+                }
+            }
+        }
+        return 0;
     }
 }
