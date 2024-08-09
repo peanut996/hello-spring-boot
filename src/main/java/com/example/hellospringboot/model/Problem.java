@@ -309,4 +309,40 @@ public class Problem {
         }
         return 0;
     }
+
+
+    @Medium(point = Point.SLIDE_WINDOW,
+            title = "1100. 长度为 K 的无重复字符子串",
+            source = "https://leetcode.cn/problems/find-k-length-substrings-with-no-repeated-characters")
+    public int numKLenSubstrNoRepeats(String s, int k) {
+        char[] str = s.toCharArray();
+        int length = str.length;
+
+        int start = 0, end = k - 1;
+
+        int res = 0;
+        while (end < length) {
+            if (!hasDuplicate(str, start, end)) {
+                res += 1;
+            }
+            start++;
+            end++;
+        }
+
+
+        return res;
+    }
+
+
+    private boolean hasDuplicate(char[] chars, int start, int end) {
+        char[] map = new char[26];
+
+        for (int i = start; i <= end; i++) {
+            if (map[chars[i] - 'a'] == 1) {
+                return true;
+            }
+            map[chars[i] - 'a'] += 1;
+        }
+        return false;
+    }
 }
