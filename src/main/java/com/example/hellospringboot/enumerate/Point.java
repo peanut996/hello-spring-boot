@@ -9,4 +9,9 @@ public enum Point {
      * 字典树
      */
     TRIE,
+
+    /**
+     * 哈希表
+     */
+    HASH,
 }

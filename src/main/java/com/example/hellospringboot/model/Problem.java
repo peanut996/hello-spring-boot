@@ -345,4 +345,23 @@ public class Problem {
         }
         return false;
     }
+
+    @Easy(point = Point.HASH,
+            title = "760. 找出变位映射",
+            source = "https://leetcode.cn/problems/find-anagram-mappings/description/")
+    public int[] anagramMappings(int[] nums1, int[] nums2) {
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < nums2.length; i++) {
+            map.put(nums2[i], i);
+        }
+
+        for (int i = 0; i < nums1.length; i++) {
+            int val = nums1[i];
+            nums1[i] = map.get(val);
+        }
+
+        return nums1;
+    }
 }
