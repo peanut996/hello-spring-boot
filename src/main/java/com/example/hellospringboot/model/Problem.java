@@ -442,4 +442,25 @@ public class Problem {
         return res;
     }
 
+
+    @Easy(point = Point.HASH, title = "1133. 最大唯一数", source = "https://leetcode.cn/problems/largest-unique-number/description/")
+    public int largestUniqueNumber(int[] nums) {
+
+        HashMap<Integer, Integer> dict = new HashMap<>();
+
+        for (int n : nums) {
+            dict.put(n, dict.getOrDefault(n, 0) + 1);
+        }
+
+        int max = -1;
+
+        for (int n : nums) {
+            if (dict.get(n) == 1) {
+                max = Math.max(max, n);
+            }
+        }
+
+        return max;
+    }
+
 }
