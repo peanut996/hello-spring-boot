@@ -390,4 +390,35 @@ public class Problem {
 
         return true;
     }
-}
+
+    @Easy(title = "734. 句子相似性",
+            point = Point.HASH, source = "https://leetcode.cn/problems/sentence-similarity/description")
+    public boolean areSentencesSimilar(String[] sentence1, String[] sentence2, List<List<String>> similarPairs) {
+        if (sentence1.length != sentence2.length) {
+            return false;
+        }
+
+        HashMap<String, Set<String>> dict = new HashMap<>();
+
+        for (List<String> pair : similarPairs) {
+            String word1 = pair.get(0);
+            String word2 = pair.get(1);
+
+            dict.putIfAbsent(word1, new HashSet<String>());
+            dict.get(word1).add(word2);
+
+            dict.putIfAbsent(word2, new HashSet<String>());
+            dict.get(word2).add(word1);
+        }
+
+        for (int i = 0; i < sentence1.length; i++) {
+            boolean isSame = sentence1[i].equals(sentence2[i]) || (dict.containsKey(sentence1[i]) && dict.get(sentence1[i]).contains(sentence2[i]));
+
+            if (!isSame) {
+                return false;
+            }
+        }
+
+        return true;
+
+    }
