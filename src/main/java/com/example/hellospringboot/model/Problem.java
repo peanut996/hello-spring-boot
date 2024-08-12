@@ -422,3 +422,24 @@ public class Problem {
         return true;
 
     }
+
+
+    @Easy(point = Point.HASH,
+            title = "1165. 单行键盘",
+            source = "https://leetcode.cn/problems/single-row-keyboard/description/")
+    public int calculateTime(String keyboard, String word) {
+        HashMap<Character, Integer> dict = new HashMap<>();
+        for (int i = 0; i < keyboard.length(); i++) {
+            dict.put(keyboard.charAt(i), i);
+        }
+
+        int res = 0;
+        char last = keyboard.charAt(0);
+        for (char c : word.toCharArray()) {
+            res += Math.abs(dict.get(c) - dict.get(last));
+            last = c;
+        }
+        return res;
+    }
+
+}
