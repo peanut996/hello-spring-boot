@@ -364,4 +364,30 @@ public class Problem {
 
         return nums1;
     }
+
+
+    @Easy(point = Point.HASH,
+            title = "266. 回文排列",
+            source = "https://leetcode.cn/problems/palindrome-permutation/description")
+    public boolean canPermutePalindrome(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        for (char c : s.toCharArray()) {
+            int count = map.getOrDefault(c, 0);
+            count++;
+            map.put(c, count);
+        }
+
+        int odd = 0;
+        for (int num : map.values()) {
+            if ((num % 2) != 0) {
+                odd++;
+                if (odd > 1) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 }
