@@ -1,4 +1,4 @@
-package com.example.hellospringboot.model;
+package com.example.hellospringboot.model.solution;
 
 import com.example.hellospringboot.annotation.Easy;
 
