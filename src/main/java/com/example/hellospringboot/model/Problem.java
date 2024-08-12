@@ -463,4 +463,24 @@ public class Problem {
         return max;
     }
 
+
+    @Easy(point = Point.HASH, title = "1426. 数元素", source = "https://leetcode.cn/problems/counting-elements/description/")
+    public int countElements(int[] arr) {
+        HashMap<Integer, Integer> dict = new HashMap<>();
+
+        for (int n : arr) {
+            dict.put(n, dict.getOrDefault(n, 0) + 1);
+        }
+
+        int res = 0;
+        for (int n : arr) {
+            int t = dict.getOrDefault(n + 1, 0);
+            if (t >= 1) {
+                res += 1;
+            }
+        }
+
+        return res;
+    }
+
 }
