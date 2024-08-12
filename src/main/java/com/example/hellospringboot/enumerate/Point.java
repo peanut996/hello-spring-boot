@@ -4,5 +4,9 @@ public enum Point {
     /**
      * 滑动窗口
      */
-    SLIDE_WINDOW
+    SLIDE_WINDOW,
+    /**
+     * 字典树
+     */
+    TRIE,
 }
