@@ -496,4 +496,33 @@ public class Problem {
         return true;
     }
 
+    @Medium(point = Point.HASH,
+            title = "249. 移位字符串分组",
+            source = "https://leetcode.cn/problems/group-shifted-strings/description")
+    public List<List<String>> groupStrings(String[] strings) {
+        if (strings == null || strings.length == 0) {
+            return new ArrayList<>();
+        }
+
+        String dash = "-";
+        HashMap<String, List<String>> dict = new HashMap<>();
+        for (String s : strings) {
+            StringBuilder tag = new StringBuilder();
+            char first = s.charAt(0);
+            for (char c : s.toCharArray()) {
+                tag.append(dash);
+                tag.append((c - first + 26) % 26);
+            }
+
+            String flag = tag.toString();
+            if (!dict.containsKey(flag)) {
+                dict.put(flag, new ArrayList<>());
+            }
+            dict.get(flag).add(s);
+
+        }
+
+        return new ArrayList<>(dict.values());
+    }
+
 }
