@@ -14,4 +14,9 @@ public enum Point {
      * 哈希表
      */
     HASH,
+
+    /**
+     * 二分查找
+     */
+    BIN_SEARCH,
 }

@@ -525,4 +525,33 @@ public class Problem {
         return new ArrayList<>(dict.values());
     }
 
+
+    @Medium(point = {Point.HASH, Point.BIN_SEARCH},
+            title = "1198. 找出所有行中最小公共元素",
+            source = "https://leetcode.cn/problems/find-smallest-common-element-in-all-rows/description")
+    public int smallestCommonElement(int[][] mat) {
+//        int count[] = new int[10001];
+//        int n = mat.length, m = mat[0].length;
+//        for (int j = 0; j < m; ++j) {
+//            for (int i = 0; i < n; ++i) {
+//                if (++count[mat[i][j]] == n) {
+//                    return mat[i][j];
+//                }
+//            }
+//        }
+//        return -1;
+
+        int n = mat.length, m = mat[0].length;
+        for (int j = 0; j < m; ++j) {
+            boolean found = true;
+            for (int i = 1; i < n && found; ++i) {
+                found = Arrays.binarySearch(mat[i], mat[0][j]) >= 0;
+            }
+            if (found) {
+                return mat[0][j];
+            }
+        }
+        return -1;
+    }
+
 }
