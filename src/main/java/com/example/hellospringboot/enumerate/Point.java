@@ -19,4 +19,9 @@ public enum Point {
      * 二分查找
      */
     BIN_SEARCH,
+
+    /**
+     * 矩阵
+     */
+    MATRIX
 }

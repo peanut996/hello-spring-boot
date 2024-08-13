@@ -554,4 +554,22 @@ public class Problem {
         return -1;
     }
 
+
+    @Easy(title = "422. 有效的单词方块",
+            source = "https://leetcode.cn/problems/valid-word-square/description",
+            point = Point.MATRIX)
+    public boolean validWordSquare(List<String> words) {
+        int size = words.size();
+
+        for (int i = 0; i < size; ++i) {
+            for (int j = 0; j < words.get(i).length(); ++j) {
+                if (j >= size || i >= words.get(j).length() || words.get(i).charAt(j) != words.get(j).charAt(i)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+
+    }
 }
