@@ -619,4 +619,43 @@ public class Problem {
         }
         return res;
     }
+
+
+    @Medium(
+            title = "531. 孤独像素 I",
+            source = "https://leetcode.cn/problems/lonely-pixel-i/description"
+    )
+    public int findLonelyPixel(char[][] picture) {
+        char black = 'B';
+
+        int m = picture.length;
+        int n = picture[0].length;
+
+
+        // 预处理
+        int[] row = new int[m];
+        int[] col = new int[n];
+
+        int res = 0;
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (picture[i][j] == black) {
+                    row[i]++;
+                    col[j]++;
+                }
+            }
+        }
+
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (picture[i][j] == black) {
+                    if (row[i] == 1 && col[j] == 1) {
+                        res += 1;
+                    }
+                }
+            }
+        }
+
+        return res;
+    }
 }
