@@ -23,5 +23,15 @@ public enum Point {
     /**
      * 矩阵
      */
-    MATRIX
+    MATRIX,
+
+    /**
+     * 前缀和
+     */
+    PREFIX,
+
+    /**
+     * 动态规划
+     */
+    DP,
 }

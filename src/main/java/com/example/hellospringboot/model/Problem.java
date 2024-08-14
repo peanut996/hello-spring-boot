@@ -572,4 +572,51 @@ public class Problem {
         return true;
 
     }
+
+    @Medium(point = Point.PREFIX,
+            title = "3152. 特殊数组 II",
+            source = "https://leetcode.cn/problems/special-array-ii/description/")
+    public boolean[] isArraySpecial(int[] nums, int[][] queries) {
+        int[] prefix = new int[nums.length];
+
+        for (int i = 1; i < nums.length; ++i) {
+            prefix[i] = prefix[i - 1] + (nums[i] % 2 == nums[i - 1] % 2 ? 1 : 0);
+        }
+        boolean[] res = new boolean[queries.length];
+
+        for (int i = 0; i < queries.length; ++i) {
+            res[i] = prefix[queries[i][0]] == prefix[queries[i][1]];
+        }
+
+        return res;
+    }
+
+    /**
+     * 根据题意可以知，对于每个索引 i 的最长特殊数组的长度 dp[i] 计算方法如下：
+     * <p>
+     * 如果 nums[i] 与左边相邻的元素 nums[i−1] 奇偶性相同，则此时 dp[i]=1;
+     * 如果 nums[i] 与左边相邻的元素 nums[i−1] 奇偶性不同，则此时 nums[i] 可以追加到以 nums[i−1] 为结尾的最长特殊数组的后面，则 dp[i]=dp[i−1]+1;
+     * 在判断两个元素奇偶性是否相同时，可以利用位运算来实现，对于给定的元素 a,b，当满足 (a⊕b)&1=1 时，则 a,b 的奇偶性不同，否则奇偶性相同；
+     */
+    @Medium(point = Point.DP,
+            title = "3152. 特殊数组 II",
+            source = "https://leetcode.cn/problems/special-array-ii/description/")
+    public boolean[] isArraySpecial_DP(int[] nums, int[][] queries) {
+        int[] dp = new int[nums.length];
+        dp[0] = 1;
+        for (int i = 1; i < nums.length; ++i) {
+            if (nums[i] % 2 != nums[i - 1] % 2) {
+                dp[i] = dp[i - 1] + 1;
+            } else {
+                dp[i] = 1;
+            }
+        }
+
+        boolean[] res = new boolean[queries.length];
+        for (int i = 0; i < queries.length; ++i) {
+            int y = queries[i][1], x = queries[i][0];
+            res[i] = dp[y] >= (y - x + 1);
+        }
+        return res;
+    }
 }
