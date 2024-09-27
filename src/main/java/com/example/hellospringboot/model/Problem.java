@@ -658,4 +658,50 @@ public class Problem {
 
         return res;
     }
+
+    @Medium(source = "https://leetcode.cn/problems/compare-strings-by-frequency-of-the-smallest-character/",
+            title = "1170. 比较字符串最小字母出现频次",
+            point = Point.BIN_SEARCH)
+    public int[] numSmallerByFrequency(String[] queries, String[] words) {
+        int[] queriesF = new int[queries.length];
+        int[] wordsF = new int[words.length];
+        for (int i = 0; i < queries.length; i++) {
+            queriesF[i] = f(queries[i]);
+        }
+        for (int i = 0; i < words.length; i++) {
+            wordsF[i] = f(words[i]);
+        }
+        Arrays.sort(wordsF);
+        for (int i = 0; i < queries.length; i++) {
+            queriesF[i] = wordsF.length - bin(wordsF, queriesF[i]);
+        }
+        return queriesF;
+
+    }
+
+    public int bin(int[] nums, int target) {
+        int left = -1, right = nums.length;
+        while (left + 1 != right) {
+            int mid = left + ((right - left) >> 1);
+            if (nums[mid] <= target) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+        return right;
+    }
+
+    public int f(String s) {
+        int[] dict = new int[26];
+        for (char c : s.toCharArray()) {
+            dict[c - 'a']++;
+        }
+        for (int i = 0; i < 26; i++) {
+            if (dict[i] > 0) {
+                return dict[i];
+            }
+        }
+        return 0;
+    }
 }

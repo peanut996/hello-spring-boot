@@ -32,4 +32,15 @@ class ProblemTest {
         int[] nums = new int[]{-2, -1, -1, 1, 2, 3};
         assertEquals(3, problem.maximumCount(nums));
     }
+
+    @Test
+    void numSmallerByFrequency() {
+        String[] queries = new String[]{"cbd"};
+        String[] words = new String[]{"zaaaz"};
+
+        int[] res = problem.numSmallerByFrequency(queries, words);
+        assertArrayEquals(new int[]{1}, res);
+    }
+
+
 }
