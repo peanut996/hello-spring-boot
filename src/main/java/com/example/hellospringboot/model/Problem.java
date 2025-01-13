@@ -775,4 +775,63 @@ public class Problem {
         }
         return max;
     }
+
+
+    /**
+     * 给定一个整数数组 nums，找出所有和为 0 的三元组，且不重复。
+     *
+     * @param nums 整数数组
+     * @return 所有和为 0 的三元组列表
+     */
+    @Medium(
+            title = "15. 三数之和",
+            point = Point.TWO_POINTER,
+            source = "https://leetcode.cn/problems/3sum/description/?envType=study-plan-v2&envId=top-100-liked"
+    )
+    public List<List<Integer>> threeSum(int[] nums) {
+        // 对数组进行排序
+        Arrays.sort(nums);
+        // 用于存储结果的列表
+        List<List<Integer>> res = new ArrayList<>();
+
+        // 遍历数组，i 作为第一个数的索引
+        for (int i = 0; i < nums.length - 2; i++) {
+            // 如果当前数与前一个数相同，则跳过，避免重复
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            // 左指针初始化为 i + 1，右指针初始化为数组末尾
+            int left = i + 1, right = nums.length - 1;
+            // 当左指针小于右指针时，进行循环
+            while (left < right) {
+                // 计算当前三个数的和
+                int sum = nums[i] + nums[left] + nums[right];
+                // 如果和为 0，则将这三个数添加到结果列表中
+                if (sum == 0) {
+                    res.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    // 跳过重复的数
+                    while (left < right && nums[left] == nums[left + 1]) {
+                        left++;
+                    }
+                    // 跳过重复的数
+                    while (left < right && nums[right] == nums[right - 1]) {
+                        right--;
+                    }
+                    // 移动指针，继续寻找下一个可能的解
+                    left++;
+                    right--;
+                    // 如果和小于 0，则左指针右移，增大和
+                } else if (sum < 0) {
+                    left++;
+                    // 如果和大于 0，则右指针左移，减小和
+                } else {
+                    right--;
+                }
+            }
+        }
+        // 返回结果列表
+        return res;
+    }
+
+
 }

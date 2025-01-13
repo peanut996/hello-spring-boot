@@ -43,4 +43,9 @@ class ProblemTest {
     }
 
 
+    @Test
+    void threeSum() {
+        int[] nums = new int[]{-1, 0, 1, 2, -1, -4};
+        problem.threeSum(nums);
+    }
 }
