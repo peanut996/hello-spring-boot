@@ -734,7 +734,11 @@ public class Problem {
         return longest;
     }
 
-    @Easy(point = Point.TWO_POINTER, title = "283. 移动零", source = "https://leetcode.cn/problems/move-zeroes/?envType=study-plan-v2&envId=top-100-liked")
+    @Easy(
+            point = Point.TWO_POINTER,
+            title = "283. 移动零",
+            source = "https://leetcode.cn/problems/move-zeroes/?envType=study-plan-v2&envId=top-100-liked"
+    )
     public void moveZeroes(int[] nums) {
         int slow = 0, fast = 0;
         while (fast < nums.length) {
@@ -747,5 +751,28 @@ public class Problem {
             }
             fast++;
         }
+    }
+
+
+    @Medium(
+            title = "11. 盛最多水的容器",
+            point = Point.TWO_POINTER,
+            source = "https://leetcode.cn/problems/container-with-most-water/?envType=study-plan-v2&envId=top-100-liked"
+    )
+    public int maxArea(int[] height) {
+        int left = 0, right = height.length - 1;
+        int max = 0;
+        while (left < right) {
+            int area;
+            if (height[left] < height[right]) {
+                area = height[left] * (right - left);
+                left++;
+            } else {
+                area = height[right] * (right - left);
+                right--;
+            }
+            max = Math.max(max, area);
+        }
+        return max;
     }
 }
