@@ -733,4 +733,19 @@ public class Problem {
         }
         return longest;
     }
+
+    @Easy(point = Point.TWO_POINTER, title = "283. 移动零", source = "https://leetcode.cn/problems/move-zeroes/?envType=study-plan-v2&envId=top-100-liked")
+    public void moveZeroes(int[] nums) {
+        int slow = 0, fast = 0;
+        while (fast < nums.length) {
+            if (nums[fast] != 0) {
+                nums[slow] = nums[fast];
+                if (slow != fast) {
+                    nums[fast] = 0;
+                }
+                slow++;
+            }
+            fast++;
+        }
+    }
 }
