@@ -886,4 +886,48 @@ public class Problem {
         return totalWater;
     }
 
+
+    /**
+     * 计算给定字符串中不重复字符的最长子串长度
+     *
+     * @param s 输入的字符串
+     * @return 最长子串的长度
+     */
+    @Medium(
+            title = "3. 无重复字符的最长子串",
+            point = {Point.SLIDE_WINDOW, Point.TWO_POINTER},
+            source = "https://leetcode.cn/problems/longest-substring-without-repeating-characters/"
+    )
+    public int lengthOfLongestSubstring(String s) {
+        // 将字符串转换为字符数组，以便于处理
+        char[] chars = s.toCharArray();
+
+        // 使用哈希集合来存储当前窗口中的字符，确保它们都是唯一的
+        Set<Character> charCache = new HashSet<>();
+
+        // 初始化最大长度为 0
+        int maxLength = 0;
+        // 初始化窗口的左边界
+        int left = 0;
+
+        // 遍历字符数组，right 指针表示窗口的右边界
+        for(int right = 0; right < chars.length; right++){
+            // 获取当前字符
+            char c = chars[right];
+            // 如果字符已经在窗口中，需要移动左边界，直到该字符被移除
+            while(charCache.contains(c)) {
+                // 从窗口中移除最左边的字符
+                charCache.remove(chars[left++]);
+            }
+            // 将当前字符添加到窗口中
+            charCache.add(c);
+            // 更新最大长度
+            maxLength = Math.max(maxLength,right - left + 1);
+        }
+
+        // 返回最长子串的长度
+        return maxLength;
+    }
+
+
 }
