@@ -930,4 +930,46 @@ public class Problem {
     }
 
 
+    @Medium(
+            title = "438. 找到字符串中所有字母异位词",
+            point = Point.SLIDE_WINDOW,
+            source = "https://leetcode.cn/problems/find-all-anagrams-in-a-string"
+    )
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> res = new ArrayList<>();
+        int[] cache = new int[26];
+        for (char c : p.toCharArray()) {
+            cache[c - 'a']++;
+        }
+
+        int left = 0;
+        char[] chars = s.toCharArray();
+
+        for (int right = 0; right < chars.length; right++) {
+            int c = chars[right];
+            cache[c - 'a']--;
+            while (left < chars.length && hasCacheSmallerThanZero(cache)) {
+                char leftChar = chars[left];
+                cache[leftChar - 'a']++;
+                left++;
+            }
+
+            if (right - left + 1 == p.length() && !hasCacheSmallerThanZero(cache)) {
+                res.add(left);
+            }
+        }
+
+        return res;
+    }
+
+    boolean hasCacheSmallerThanZero(int[] cache) {
+        for (int n : cache) {
+            if (n < 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }
