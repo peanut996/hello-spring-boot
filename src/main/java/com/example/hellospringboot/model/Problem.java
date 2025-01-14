@@ -2,6 +2,7 @@ package com.example.hellospringboot.model;
 
 
 import com.example.hellospringboot.annotation.Easy;
+import com.example.hellospringboot.annotation.Hard;
 import com.example.hellospringboot.annotation.Medium;
 import com.example.hellospringboot.enumerate.Point;
 
@@ -833,5 +834,56 @@ public class Problem {
         return res;
     }
 
+
+
+    /**
+     * 计算给定高度数组中可以捕获的雨水量
+     *
+     * @param height 整数数组，表示每个位置的高度
+     * @return 可以捕获的雨水量
+     */
+    @Hard(
+            title = "42. 接雨水",
+            point = Point.TWO_POINTER,
+            source = "https://leetcode.cn/problems/trapping-rain-water"
+    )
+    public int trap(int[] height) {
+        int left = 0, right = height.length - 1;
+        int maxLeft = 0, maxRight = 0;
+        int totalWater = 0;
+        // 从两端向中间遍历数组
+        while (left < right) {
+            // 如果左边的高度小于右边的高度
+            if (height[left] < height[right]) {
+                // 更新左边的当前高度
+                int currentLeft = height[left];
+                // 如果当前高度大于左边的最大高度，则更新最大高度
+                if (currentLeft > maxLeft) {
+                    maxLeft = currentLeft;
+                } else {
+                    // 否则，计算并累加当前位置可以捕获的雨水量
+                    totalWater += maxLeft - currentLeft;
+                }
+                // 左指针向右移动
+                left++;
+            }
+            // 如果右边的高度小于等于左边的高度
+            else {
+                // 更新右边的当前高度
+                int currentRight = height[right];
+                // 如果当前高度大于右边的最大高度，则更新最大高度
+                if (currentRight > maxRight) {
+                    maxRight = currentRight;
+                } else {
+                    // 否则，计算并累加当前位置可以捕获的雨水量
+                    totalWater += maxRight - currentRight;
+                }
+                // 右指针向左移动
+                right--;
+            }
+        }
+        // 返回总雨水量
+        return totalWater;
+    }
 
 }
