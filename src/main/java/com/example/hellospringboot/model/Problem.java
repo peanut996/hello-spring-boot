@@ -991,7 +991,7 @@ public class Problem {
             // 若哈希表中存在目标前缀和，将其出现次数累加到结果中
             res += preSumCount.getOrDefault(target, 0);
             // 更新前缀和的出现次数
-            preSumCount.merge(prefix, 1, (pre, cur) -> pre + cur);
+            preSumCount.merge(prefix, 1, Integer::sum);
         }
         return res;
     }
