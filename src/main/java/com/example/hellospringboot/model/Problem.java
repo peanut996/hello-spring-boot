@@ -971,5 +971,30 @@ public class Problem {
         return false;
     }
 
+    @Medium(
+            title = "560. 和为 K 的子数组",
+            point = Point.PREFIX,
+            source = "https://leetcode.cn/problems/subarray-sum-equals-k/"
+    )
+    public int subarraySum(int[] nums, int k) {
+        int prefix = 0;
+        int res = 0;
+        // 存储前缀和及其出现次数的哈希表
+        Map<Integer, Integer> preSumCount = new HashMap<>();
+        // 初始化前缀和为 0 的情况，出现次数为 1
+        preSumCount.put(0, 1);
+        for (int n : nums) {
+            // 计算当前前缀和
+            prefix += n;
+            // 计算目标前缀和
+            int target = prefix - k;
+            // 若哈希表中存在目标前缀和，将其出现次数累加到结果中
+            res += preSumCount.getOrDefault(target, 0);
+            // 更新前缀和的出现次数
+            preSumCount.merge(prefix, 1, (pre, cur) -> pre + cur);
+        }
+        return res;
+    }
+
 
 }
