@@ -4,5 +4,5 @@
 // see the documentation: https://zed.dev/docs/configuring-zed#settings-files
 {
   "formatter": "auto",
-  "format_on_save": "false"
+  "format_on_save": "off"
 }
