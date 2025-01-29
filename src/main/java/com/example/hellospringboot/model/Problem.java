@@ -996,5 +996,29 @@ public class Problem {
         return res;
     }
 
+    @Medium(
+        title = "56. 合并区间",
+        source = "https://leetcode.cn/problems/merge-intervals",
+        point = Point.ARRAY
+    )
+    public int[][] merge(int[][] intervals) {
+        Arrays.sort(intervals,
+                Comparator.comparingInt(interval -> interval[0]));
 
+        List<int[]> res = new ArrayList<>();
+
+        for (int[] interval : intervals) {
+            if (res.isEmpty()) {
+                res.add(interval);
+                continue;
+            }
+            int[] last = res.get(res.size() - 1);
+            if (interval[0] > last[1]) {
+                res.add(interval);
+            } else {
+                last[1] = Math.max(interval[1], last[1]);
+            }
+        }
+        return res.toArray(new int[0][0]);
+    }
 }

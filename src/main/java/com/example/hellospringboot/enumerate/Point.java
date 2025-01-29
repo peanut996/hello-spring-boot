@@ -39,4 +39,9 @@ public enum Point {
      * 双指针
      */
     TWO_POINTER,
+
+    /**
+     * 数组
+     */
+    ARRAY,
 }
