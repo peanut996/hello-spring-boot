@@ -10,9 +10,9 @@ import java.util.*;
 
 
 public class Problem {
+
     /**
-     * 2009. 使数组连续的最少操作数
-     * 思路：滑动窗口
+     * 2009. 使数组连续的最少操作数 思路：滑动窗口
      * <a href="https://leetcode.cn/problems/minimum-number-of-operations-to-make-array-continuous/">...</a>
      */
     @Easy(title = "2009. 使数组连续的最少操作数", source = "https://leetcode.cn/problems/minimum-number-of-operations-to-make-array-continuous/")
@@ -38,8 +38,7 @@ public class Problem {
     }
 
     /**
-     * 2529. 正整数和负整数的最大计数
-     * 思路：二分搜索
+     * 2529. 正整数和负整数的最大计数 思路：二分搜索
      * <a href="https://leetcode.cn/problems/maximum-count-of-positive-integer-and-negative-integer/">...</a>
      */
     @Easy(title = "2529. 正整数和负整数的最大计数", source = "https://leetcode.cn/problems/maximum-count-of-positive-integer-and-negative-integer/")
@@ -152,8 +151,8 @@ public class Problem {
 
 
     @Medium(
-            source = "https://leetcode.cn/problems/shortest-way-to-form-string/",
-            title = "1055. 形成字符串的最短路径"
+        source = "https://leetcode.cn/problems/shortest-way-to-form-string/",
+        title = "1055. 形成字符串的最短路径"
     )
     public int shortestWay(String source, String target) {
         int sourceLen = source.length();
@@ -186,8 +185,8 @@ public class Problem {
 
 
     @Easy(
-            title = "3131. 找出与数组相加的整数 I",
-            source = "https://leetcode.cn/problems/find-the-integer-added-to-array-i/"
+        title = "3131. 找出与数组相加的整数 I",
+        source = "https://leetcode.cn/problems/find-the-integer-added-to-array-i/"
     )
     public int addedInteger(int[] nums1, int[] nums2) {
         return min(nums2) - min(nums1);
@@ -205,8 +204,8 @@ public class Problem {
     }
 
     @Medium(point = Point.SLIDE_WINDOW,
-            title = "159. 至多包含两个不同字符的最长子串",
-            source = "https://leetcode.cn/problems/longest-substring-with-at-most-two-distinct-characters/description")
+        title = "159. 至多包含两个不同字符的最长子串",
+        source = "https://leetcode.cn/problems/longest-substring-with-at-most-two-distinct-characters/description")
     public int lengthOfLongestSubstringTwoDistinct(String s) {
         int sLength = s.length();
         if (sLength < 3) {
@@ -235,8 +234,8 @@ public class Problem {
     }
 
     @Medium(title = "340. 至多包含 K 个不同字符的最长子串",
-            point = Point.SLIDE_WINDOW,
-            source = "https://leetcode.cn/problems/longest-substring-with-at-most-k-distinct-characters/description")
+        point = Point.SLIDE_WINDOW,
+        source = "https://leetcode.cn/problems/longest-substring-with-at-most-k-distinct-characters/description")
     public int lengthOfLongestSubstringKDistinct(String s, int k) {
         int sLength = s.length();
         if (sLength < k + 1) {
@@ -313,8 +312,8 @@ public class Problem {
 
 
     @Medium(point = Point.SLIDE_WINDOW,
-            title = "1100. 长度为 K 的无重复字符子串",
-            source = "https://leetcode.cn/problems/find-k-length-substrings-with-no-repeated-characters")
+        title = "1100. 长度为 K 的无重复字符子串",
+        source = "https://leetcode.cn/problems/find-k-length-substrings-with-no-repeated-characters")
     public int numKLenSubstrNoRepeats(String s, int k) {
         char[] str = s.toCharArray();
         int length = str.length;
@@ -329,7 +328,6 @@ public class Problem {
             start++;
             end++;
         }
-
 
         return res;
     }
@@ -348,8 +346,8 @@ public class Problem {
     }
 
     @Easy(point = Point.HASH,
-            title = "760. 找出变位映射",
-            source = "https://leetcode.cn/problems/find-anagram-mappings/description/")
+        title = "760. 找出变位映射",
+        source = "https://leetcode.cn/problems/find-anagram-mappings/description/")
     public int[] anagramMappings(int[] nums1, int[] nums2) {
 
         HashMap<Integer, Integer> map = new HashMap<>();
@@ -368,8 +366,8 @@ public class Problem {
 
 
     @Easy(point = Point.HASH,
-            title = "266. 回文排列",
-            source = "https://leetcode.cn/problems/palindrome-permutation/description")
+        title = "266. 回文排列",
+        source = "https://leetcode.cn/problems/palindrome-permutation/description")
     public boolean canPermutePalindrome(String s) {
         HashMap<Character, Integer> map = new HashMap<>();
 
@@ -393,7 +391,7 @@ public class Problem {
     }
 
     @Easy(title = "734. 句子相似性",
-            point = Point.HASH, source = "https://leetcode.cn/problems/sentence-similarity/description")
+        point = Point.HASH, source = "https://leetcode.cn/problems/sentence-similarity/description")
     public boolean areSentencesSimilar(String[] sentence1, String[] sentence2, List<List<String>> similarPairs) {
         if (sentence1.length != sentence2.length) {
             return false;
@@ -413,7 +411,9 @@ public class Problem {
         }
 
         for (int i = 0; i < sentence1.length; i++) {
-            boolean isSame = sentence1[i].equals(sentence2[i]) || (dict.containsKey(sentence1[i]) && dict.get(sentence1[i]).contains(sentence2[i]));
+            boolean isSame =
+                sentence1[i].equals(sentence2[i]) || (dict.containsKey(sentence1[i]) && dict.get(sentence1[i])
+                    .contains(sentence2[i]));
 
             if (!isSame) {
                 return false;
@@ -426,8 +426,8 @@ public class Problem {
 
 
     @Easy(point = Point.HASH,
-            title = "1165. 单行键盘",
-            source = "https://leetcode.cn/problems/single-row-keyboard/description/")
+        title = "1165. 单行键盘",
+        source = "https://leetcode.cn/problems/single-row-keyboard/description/")
     public int calculateTime(String keyboard, String word) {
         HashMap<Character, Integer> dict = new HashMap<>();
         for (int i = 0; i < keyboard.length(); i++) {
@@ -486,7 +486,7 @@ public class Problem {
 
 
     @Easy(
-            title = "3151. 特殊数组 I", source = "https://leetcode.cn/problems/special-array-i/")
+        title = "3151. 特殊数组 I", source = "https://leetcode.cn/problems/special-array-i/")
     public boolean isArraySpecial(int[] nums) {
         for (int i = 1; i < nums.length; i++) {
             if (nums[i] % 2 == nums[i - 1] % 2) {
@@ -498,8 +498,8 @@ public class Problem {
     }
 
     @Medium(point = Point.HASH,
-            title = "249. 移位字符串分组",
-            source = "https://leetcode.cn/problems/group-shifted-strings/description")
+        title = "249. 移位字符串分组",
+        source = "https://leetcode.cn/problems/group-shifted-strings/description")
     public List<List<String>> groupStrings(String[] strings) {
         if (strings == null || strings.length == 0) {
             return new ArrayList<>();
@@ -528,8 +528,8 @@ public class Problem {
 
 
     @Medium(point = {Point.HASH, Point.BIN_SEARCH},
-            title = "1198. 找出所有行中最小公共元素",
-            source = "https://leetcode.cn/problems/find-smallest-common-element-in-all-rows/description")
+        title = "1198. 找出所有行中最小公共元素",
+        source = "https://leetcode.cn/problems/find-smallest-common-element-in-all-rows/description")
     public int smallestCommonElement(int[][] mat) {
 //        int count[] = new int[10001];
 //        int n = mat.length, m = mat[0].length;
@@ -557,8 +557,8 @@ public class Problem {
 
 
     @Easy(title = "422. 有效的单词方块",
-            source = "https://leetcode.cn/problems/valid-word-square/description",
-            point = Point.MATRIX)
+        source = "https://leetcode.cn/problems/valid-word-square/description",
+        point = Point.MATRIX)
     public boolean validWordSquare(List<String> words) {
         int size = words.size();
 
@@ -575,8 +575,8 @@ public class Problem {
     }
 
     @Medium(point = Point.PREFIX,
-            title = "3152. 特殊数组 II",
-            source = "https://leetcode.cn/problems/special-array-ii/description/")
+        title = "3152. 特殊数组 II",
+        source = "https://leetcode.cn/problems/special-array-ii/description/")
     public boolean[] isArraySpecial(int[] nums, int[][] queries) {
         int[] prefix = new int[nums.length];
 
@@ -595,13 +595,12 @@ public class Problem {
     /**
      * 根据题意可以知，对于每个索引 i 的最长特殊数组的长度 dp[i] 计算方法如下：
      * <p>
-     * 如果 nums[i] 与左边相邻的元素 nums[i−1] 奇偶性相同，则此时 dp[i]=1;
-     * 如果 nums[i] 与左边相邻的元素 nums[i−1] 奇偶性不同，则此时 nums[i] 可以追加到以 nums[i−1] 为结尾的最长特殊数组的后面，则 dp[i]=dp[i−1]+1;
-     * 在判断两个元素奇偶性是否相同时，可以利用位运算来实现，对于给定的元素 a,b，当满足 (a⊕b)&1=1 时，则 a,b 的奇偶性不同，否则奇偶性相同；
+     * 如果 nums[i] 与左边相邻的元素 nums[i−1] 奇偶性相同，则此时 dp[i]=1; 如果 nums[i] 与左边相邻的元素 nums[i−1] 奇偶性不同，则此时 nums[i] 可以追加到以 nums[i−1]
+     * 为结尾的最长特殊数组的后面，则 dp[i]=dp[i−1]+1; 在判断两个元素奇偶性是否相同时，可以利用位运算来实现，对于给定的元素 a,b，当满足 (a⊕b)&1=1 时，则 a,b 的奇偶性不同，否则奇偶性相同；
      */
     @Medium(point = Point.DP,
-            title = "3152. 特殊数组 II",
-            source = "https://leetcode.cn/problems/special-array-ii/description/")
+        title = "3152. 特殊数组 II",
+        source = "https://leetcode.cn/problems/special-array-ii/description/")
     public boolean[] isArraySpecial_DP(int[] nums, int[][] queries) {
         int[] dp = new int[nums.length];
         dp[0] = 1;
@@ -623,15 +622,14 @@ public class Problem {
 
 
     @Medium(
-            title = "531. 孤独像素 I",
-            source = "https://leetcode.cn/problems/lonely-pixel-i/description"
+        title = "531. 孤独像素 I",
+        source = "https://leetcode.cn/problems/lonely-pixel-i/description"
     )
     public int findLonelyPixel(char[][] picture) {
         char black = 'B';
 
         int m = picture.length;
         int n = picture[0].length;
-
 
         // 预处理
         int[] row = new int[m];
@@ -661,8 +659,8 @@ public class Problem {
     }
 
     @Medium(source = "https://leetcode.cn/problems/compare-strings-by-frequency-of-the-smallest-character/",
-            title = "1170. 比较字符串最小字母出现频次",
-            point = Point.BIN_SEARCH)
+        title = "1170. 比较字符串最小字母出现频次",
+        point = Point.BIN_SEARCH)
     public int[] numSmallerByFrequency(String[] queries, String[] words) {
         int[] queriesF = new int[queries.length];
         int[] wordsF = new int[words.length];
@@ -708,12 +706,11 @@ public class Problem {
 
 
     /**
-     * 给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。
-     * 请你设计并实现时间复杂度为 O(n) 的算法解决此问题。
+     * 给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。 请你设计并实现时间复杂度为 O(n) 的算法解决此问题。
      */
     @Medium(point = Point.HASH,
-            source = "https://leetcode.cn/problems/longest-consecutive-sequence/?envType=study-plan-v2&envId=top-100-liked",
-            title = "128. 最长连续序列")
+        source = "https://leetcode.cn/problems/longest-consecutive-sequence/?envType=study-plan-v2&envId=top-100-liked",
+        title = "128. 最长连续序列")
     public int longestConsecutive(int[] nums) {
         HashSet<Integer> set = new HashSet<>();
         for (int num : nums) {
@@ -736,9 +733,9 @@ public class Problem {
     }
 
     @Easy(
-            point = Point.TWO_POINTER,
-            title = "283. 移动零",
-            source = "https://leetcode.cn/problems/move-zeroes/?envType=study-plan-v2&envId=top-100-liked"
+        point = Point.TWO_POINTER,
+        title = "283. 移动零",
+        source = "https://leetcode.cn/problems/move-zeroes/?envType=study-plan-v2&envId=top-100-liked"
     )
     public void moveZeroes(int[] nums) {
         int slow = 0, fast = 0;
@@ -756,9 +753,9 @@ public class Problem {
 
 
     @Medium(
-            title = "11. 盛最多水的容器",
-            point = Point.TWO_POINTER,
-            source = "https://leetcode.cn/problems/container-with-most-water/?envType=study-plan-v2&envId=top-100-liked"
+        title = "11. 盛最多水的容器",
+        point = Point.TWO_POINTER,
+        source = "https://leetcode.cn/problems/container-with-most-water/?envType=study-plan-v2&envId=top-100-liked"
     )
     public int maxArea(int[] height) {
         int left = 0, right = height.length - 1;
@@ -785,9 +782,9 @@ public class Problem {
      * @return 所有和为 0 的三元组列表
      */
     @Medium(
-            title = "15. 三数之和",
-            point = Point.TWO_POINTER,
-            source = "https://leetcode.cn/problems/3sum/description/?envType=study-plan-v2&envId=top-100-liked"
+        title = "15. 三数之和",
+        point = Point.TWO_POINTER,
+        source = "https://leetcode.cn/problems/3sum/description/?envType=study-plan-v2&envId=top-100-liked"
     )
     public List<List<Integer>> threeSum(int[] nums) {
         // 对数组进行排序
@@ -835,7 +832,6 @@ public class Problem {
     }
 
 
-
     /**
      * 计算给定高度数组中可以捕获的雨水量
      *
@@ -843,9 +839,9 @@ public class Problem {
      * @return 可以捕获的雨水量
      */
     @Hard(
-            title = "42. 接雨水",
-            point = Point.TWO_POINTER,
-            source = "https://leetcode.cn/problems/trapping-rain-water"
+        title = "42. 接雨水",
+        point = Point.TWO_POINTER,
+        source = "https://leetcode.cn/problems/trapping-rain-water"
     )
     public int trap(int[] height) {
         int left = 0, right = height.length - 1;
@@ -894,9 +890,9 @@ public class Problem {
      * @return 最长子串的长度
      */
     @Medium(
-            title = "3. 无重复字符的最长子串",
-            point = {Point.SLIDE_WINDOW, Point.TWO_POINTER},
-            source = "https://leetcode.cn/problems/longest-substring-without-repeating-characters/"
+        title = "3. 无重复字符的最长子串",
+        point = {Point.SLIDE_WINDOW, Point.TWO_POINTER},
+        source = "https://leetcode.cn/problems/longest-substring-without-repeating-characters/"
     )
     public int lengthOfLongestSubstring(String s) {
         // 将字符串转换为字符数组，以便于处理
@@ -911,18 +907,18 @@ public class Problem {
         int left = 0;
 
         // 遍历字符数组，right 指针表示窗口的右边界
-        for(int right = 0; right < chars.length; right++){
+        for (int right = 0; right < chars.length; right++) {
             // 获取当前字符
             char c = chars[right];
             // 如果字符已经在窗口中，需要移动左边界，直到该字符被移除
-            while(charCache.contains(c)) {
+            while (charCache.contains(c)) {
                 // 从窗口中移除最左边的字符
                 charCache.remove(chars[left++]);
             }
             // 将当前字符添加到窗口中
             charCache.add(c);
             // 更新最大长度
-            maxLength = Math.max(maxLength,right - left + 1);
+            maxLength = Math.max(maxLength, right - left + 1);
         }
 
         // 返回最长子串的长度
@@ -931,9 +927,9 @@ public class Problem {
 
 
     @Medium(
-            title = "438. 找到字符串中所有字母异位词",
-            point = Point.SLIDE_WINDOW,
-            source = "https://leetcode.cn/problems/find-all-anagrams-in-a-string"
+        title = "438. 找到字符串中所有字母异位词",
+        point = Point.SLIDE_WINDOW,
+        source = "https://leetcode.cn/problems/find-all-anagrams-in-a-string"
     )
     public List<Integer> findAnagrams(String s, String p) {
         List<Integer> res = new ArrayList<>();
@@ -972,9 +968,9 @@ public class Problem {
     }
 
     @Medium(
-            title = "560. 和为 K 的子数组",
-            point = Point.PREFIX,
-            source = "https://leetcode.cn/problems/subarray-sum-equals-k/"
+        title = "560. 和为 K 的子数组",
+        point = Point.PREFIX,
+        source = "https://leetcode.cn/problems/subarray-sum-equals-k/"
     )
     public int subarraySum(int[] nums, int k) {
         int prefix = 0;
@@ -1003,7 +999,7 @@ public class Problem {
     )
     public int[][] merge(int[][] intervals) {
         Arrays.sort(intervals,
-                Comparator.comparingInt(interval -> interval[0]));
+            Comparator.comparingInt(interval -> interval[0]));
 
         List<int[]> res = new ArrayList<>();
 
@@ -1020,5 +1016,26 @@ public class Problem {
             }
         }
         return res.toArray(new int[0][0]);
+    }
+
+    @Medium(title = "189. 轮转数组",
+        source = "https://leetcode.cn/problems/rotate-array/",
+        point = Point.ARRAY)
+    public void rotate(int[] nums, int k) {
+        int len = nums.length;
+        k = k % nums.length;
+        reverse(nums, len - k, len - 1);
+        reverse(nums, 0, len - k - 1);
+        reverse(nums, 0, len - 1);
+    }
+
+    void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
     }
 }
