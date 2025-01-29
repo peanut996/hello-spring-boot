@@ -1038,4 +1038,27 @@ public class Problem {
             end--;
         }
     }
+
+    @Medium(title = "238. 除自身以外数组的乘积",
+        source = "https://leetcode.cn/problems/product-of-array-except-self/",
+        point = Point.ARRAY
+    )
+    public int[] productExceptSelf(int[] nums) {
+        int len = nums.length;
+        int[] leftPrefix = new int[len];
+        leftPrefix[0] = 1;
+
+        int[] rightPrefix = new int[len];
+        rightPrefix[len - 1]= 1;
+        for(int i = 1; i<len; i++) {
+            leftPrefix[i] = leftPrefix[i-1] * nums[i-1];
+        }
+        for(int i = len - 2; i>-1; i--) {
+            rightPrefix[i] = rightPrefix[i+1] * nums[i+1];
+        }
+        for(int i=0; i< len; i ++) {
+            nums[i] = leftPrefix[i] * rightPrefix[i];
+        }
+        return nums;
+    }
 }
