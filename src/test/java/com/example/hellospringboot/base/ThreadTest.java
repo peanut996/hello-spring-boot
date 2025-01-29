@@ -1,8 +1,13 @@
-package com.example.hellospringboot.unit;
+package com.example.hellospringboot.base;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ThreadTest {
     private static void print(ExecutorService t) {
@@ -20,7 +25,7 @@ public class ThreadTest {
 
 
     @Test
-    void threadPool() throws InterruptedException {
+    void threadPool() throws InterruptedException, ExecutionException {
         // 采用无界阻塞队列，不会拒绝任何任务，适合CPU密集型任务
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(9);
 
@@ -44,6 +49,42 @@ public class ThreadTest {
 
         System.out.println(res);
 
+    }
+
+    private String doSomething(String webSite) {
+        System.out.println("ready for parse " + webSite);
+        try {
+            Thread.sleep(1000);
+            return "";
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    void completableFuture() {
+        String[] webSites = new String[]{"https://www.baidu.com", "https://google.com"};
+
+        CompletableFuture[] allTasks = Arrays
+                .stream(webSites)
+                .map(s -> CompletableFuture.runAsync(() -> doSomething(s)))
+                .toArray(CompletableFuture[]::new);
+
+        CompletableFuture.allOf(allTasks).join();
+
+        List<String> result = Arrays.stream(allTasks)
+                .map(this::handleTask)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+    }
+
+    private String handleTask(Future<String> future) {
+        try {
+            return future.get();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }

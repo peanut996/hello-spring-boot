@@ -1,4 +1,4 @@
-package com.example.hellospringboot.unit;
+package com.example.hellospringboot.base;
 
 import org.junit.jupiter.api.Test;
 
