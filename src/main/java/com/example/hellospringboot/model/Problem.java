@@ -1248,4 +1248,38 @@ public class Problem {
         }
         return false;
     }
+
+    public class ListNode {
+
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+            next = null;
+        }
+    }
+
+    @Easy(
+        title = "160. 相交链表",
+        source = "https://leetcode.cn/problems/intersection-of-two-linked-lists/",
+        point = { Point.TWO_POINTERS }
+    )
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode a = headA;
+        ListNode b = headB;
+        while (a != b) {
+            if (a == null) {
+                a = headB;
+            } else {
+                a = a.next;
+            }
+            if (b == null) {
+                b = headA;
+            } else {
+                b = b.next;
+            }
+        }
+        return a;
+    }
 }
