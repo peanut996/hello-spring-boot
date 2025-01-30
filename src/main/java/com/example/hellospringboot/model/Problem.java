@@ -1189,8 +1189,8 @@ public class Problem {
                 nextRow < 0 ||
                 nextCol < 0 ||
                 nextRow > m - 1 ||
-            nextCol > n - 1 ||
-            visited[nextRow][nextCol]
+                nextCol > n - 1 ||
+                visited[nextRow][nextCol]
             ) {
                 directionIndex = (directionIndex + 1) % 4;
             }
