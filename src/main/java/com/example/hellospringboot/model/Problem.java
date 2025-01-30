@@ -1165,4 +1165,38 @@ public class Problem {
             }
         }
     }
+
+    @Medium(
+        title = "54. 螺旋矩阵",
+        point = Point.ARRAY,
+        source = "https://leetcode.cn/problems/spiral-matrix/"
+    )
+    public List<Integer> spiralOrder(int[][] matrix) {
+        final int[][] DIRECTIONS = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
+        List<Integer> res = new ArrayList<>();
+        int m = matrix.length;
+        int n = matrix[0].length;
+        boolean[][] visited = new boolean[m][n];
+        int row = 0, col = 0;
+        int directionIndex = 0;
+        for (int i = 0; i < m * n; i++) {
+            visited[row][col] = true;
+            res.add(matrix[row][col]);
+            int nextRow = row + DIRECTIONS[directionIndex][0];
+            int nextCol = col + DIRECTIONS[directionIndex][1];
+
+            if (
+                nextRow < 0 ||
+                nextCol < 0 ||
+                nextRow > m - 1 ||
+            nextCol > n - 1 ||
+            visited[nextRow][nextCol]
+            ) {
+                directionIndex = (directionIndex + 1) % 4;
+            }
+            row = row + DIRECTIONS[directionIndex][0];
+            col = col + DIRECTIONS[directionIndex][1];
+        }
+        return res;
+    }
 }
