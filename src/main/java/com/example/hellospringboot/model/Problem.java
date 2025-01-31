@@ -1497,4 +1497,37 @@ public class Problem {
         }
         return dummy.next;
     }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "19. 删除链表的倒数第 N 个结点",
+        source = "https://leetcode.cn/problems/remove-nth-node-from-end-of-list/",
+        point = { Point.LINKED_LIST, Point.TWO_POINTERS }
+    )
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        if (head == null) {
+            return null;
+        }
+
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode fast = head;
+        ListNode slow = dummy;
+
+        while (n-- > 0) {
+            if (fast == null) {
+                return head;
+            }
+            fast = fast.next;
+        }
+
+        while (fast != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+
+        slow.next = slow.next.next;
+
+        return dummy.next;
+    }
 }
