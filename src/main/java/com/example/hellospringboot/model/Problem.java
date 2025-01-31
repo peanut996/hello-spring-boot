@@ -1282,6 +1282,8 @@ public class Problem {
         int val;
         ListNode next;
 
+        ListNode() {}
+
         ListNode(int x) {
             val = x;
             next = null;
@@ -1434,5 +1436,38 @@ public class Problem {
             }
         }
         return null;
+    }
+
+    @LeetCode(
+        level = LeetCode.Level.EASY,
+        title = "21. 合并两个有序链表",
+        source = "https://leetcode.cn/problems/merge-two-sorted-lists/",
+        point = { Point.LINKED_LIST }
+    )
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        // 创建虚拟头节点
+        ListNode dummy = new ListNode();
+        ListNode current = dummy; // 使用 current 指针进行链表拼接
+
+        // 循环比较 list1 和 list2 的节点值
+        while (list1 != null && list2 != null) {
+            if (list1.val < list2.val) {
+                current.next = list1;
+                list1 = list1.next;
+            } else {
+                current.next = list2;
+                list2 = list2.next;
+            }
+            current = current.next; // current 指针后移
+        }
+
+        // 处理剩余节点
+        if (list1 != null) {
+            current.next = list1;
+        } else {
+            current.next = list2;
+        }
+
+        return dummy.next;
     }
 }
