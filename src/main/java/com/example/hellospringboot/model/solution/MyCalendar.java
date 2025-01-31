@@ -1,15 +1,11 @@
 package com.example.hellospringboot.model.solution;
 
-import com.example.hellospringboot.annotation.Easy;
-
+import com.example.hellospringboot.annotation.LeetCode;
+import com.example.hellospringboot.annotation.LeetCode.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 729. 我的日程安排表 I
- * <a href="https://leetcode.cn/problems/my-calendar-i/description/">729. 我的日程安排表 I</a>
- */
-@Easy
+@LeetCode(level = Level.EASY, title = "729. 我的日程安排表 I", source = "https://leetcode-cn.com/problems/my-calendar-i/")
 public class MyCalendar {
 
     static class Book {

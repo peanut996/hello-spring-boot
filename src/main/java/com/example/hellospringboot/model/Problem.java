@@ -1,18 +1,14 @@
 package com.example.hellospringboot.model;
 
-import com.example.hellospringboot.annotation.Easy;
-import com.example.hellospringboot.annotation.Hard;
-import com.example.hellospringboot.annotation.Medium;
-import com.example.hellospringboot.enumerate.Point;
+import com.example.hellospringboot.annotation.LeetCode;
+import com.example.hellospringboot.annotation.LeetCode.Level;
+import com.example.hellospringboot.annotation.LeetCode.Point;
 import java.util.*;
 
 public class Problem {
 
-    /**
-     * 2009. 使数组连续的最少操作数 思路：滑动窗口
-     * <a href="https://leetcode.cn/problems/minimum-number-of-operations-to-make-array-continuous/">...</a>
-     */
-    @Easy(
+    @LeetCode(
+        level = Level.EASY,
         title = "2009. 使数组连续的最少操作数",
         source = "https://leetcode.cn/problems/minimum-number-of-operations-to-make-array-continuous/"
     )
@@ -37,11 +33,8 @@ public class Problem {
         return res;
     }
 
-    /**
-     * 2529. 正整数和负整数的最大计数 思路：二分搜索
-     * <a href="https://leetcode.cn/problems/maximum-count-of-positive-integer-and-negative-integer/">...</a>
-     */
-    @Easy(
+    @LeetCode(
+        level = Level.EASY,
         title = "2529. 正整数和负整数的最大计数",
         source = "https://leetcode.cn/problems/maximum-count-of-positive-integer-and-negative-integer/"
     )
@@ -69,7 +62,8 @@ public class Problem {
         return start;
     }
 
-    @Easy(
+    @LeetCode(
+        level = Level.EASY,
         title = "1502. 判断能否形成等差数列",
         source = "https://leetcode.cn/problems/can-make-arithmetic-progression-from-sequence/description/"
     )
@@ -102,7 +96,8 @@ public class Problem {
         return true;
     }
 
-    @Easy(
+    @LeetCode(
+        level = Level.EASY,
         title = "3033. 修改矩阵",
         source = "https://leetcode.cn/problems/modify-the-matrix/"
     )
@@ -128,11 +123,8 @@ public class Problem {
         return matrix;
     }
 
-    /**
-     * <a href="https://leetcode.cn/problems/merge-sorted-array/">88. 合并两个有序数组</a>
-     * 原地倒排序
-     */
-    @Easy(
+    @LeetCode(
+        level = Level.EASY,
         title = "88. 合并两个有序数组",
         source = "https://leetcode.cn/problems/merge-sorted-array/"
     )
@@ -159,9 +151,10 @@ public class Problem {
         }
     }
 
-    @Medium(
-        source = "https://leetcode.cn/problems/shortest-way-to-form-string/",
-        title = "1055. 形成字符串的最短路径"
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "1055. 形成字符串的最短路径",
+        source = "https://leetcode.cn/problems/shortest-way-to-form-string/"
     )
     public int shortestWay(String source, String target) {
         int sourceLen = source.length();
@@ -192,7 +185,8 @@ public class Problem {
         return res;
     }
 
-    @Easy(
+    @LeetCode(
+        level = Level.EASY,
         title = "3131. 找出与数组相加的整数 I",
         source = "https://leetcode.cn/problems/find-the-integer-added-to-array-i/"
     )
@@ -211,10 +205,11 @@ public class Problem {
         return m;
     }
 
-    @Medium(
-        point = Point.SLIDE_WINDOW,
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "159. 至多包含两个不同字符的最长子串",
-        source = "https://leetcode.cn/problems/longest-substring-with-at-most-two-distinct-characters/description"
+        source = "https://leetcode.cn/problems/longest-substring-with-at-most-two-distinct-characters/description",
+        point = Point.SLIDE_WINDOW
     )
     public int lengthOfLongestSubstringTwoDistinct(String s) {
         int sLength = s.length();
@@ -241,10 +236,11 @@ public class Problem {
         return res;
     }
 
-    @Medium(
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "340. 至多包含 K 个不同字符的最长子串",
-        point = Point.SLIDE_WINDOW,
-        source = "https://leetcode.cn/problems/longest-substring-with-at-most-k-distinct-characters/description"
+        source = "https://leetcode.cn/problems/longest-substring-with-at-most-k-distinct-characters/description",
+        point = Point.SLIDE_WINDOW
     )
     public int lengthOfLongestSubstringKDistinct(String s, int k) {
         int sLength = s.length();
@@ -271,10 +267,11 @@ public class Problem {
         return res;
     }
 
-    @Medium(
-        point = Point.SLIDE_WINDOW,
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "c. 最大连续1的个数 II",
-        source = "https://leetcode.cn/problems/max-consecutive-ones-ii/description"
+        source = "https://leetcode.cn/problems/max-consecutive-ones-ii/description",
+        point = Point.SLIDE_WINDOW
     )
     public int findMaxConsecutiveOnes(int[] nums) {
         int length = nums.length;
@@ -300,7 +297,8 @@ public class Problem {
         return res;
     }
 
-    @Medium(
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "3132. 找出与数组相加的整数 II",
         source = "https://leetcode.cn/problems/find-the-integer-added-to-array-ii/description/"
     )
@@ -324,10 +322,11 @@ public class Problem {
         return 0;
     }
 
-    @Medium(
-        point = Point.SLIDE_WINDOW,
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "1100. 长度为 K 的无重复字符子串",
-        source = "https://leetcode.cn/problems/find-k-length-substrings-with-no-repeated-characters"
+        source = "https://leetcode.cn/problems/find-k-length-substrings-with-no-repeated-characters",
+        point = Point.SLIDE_WINDOW
     )
     public int numKLenSubstrNoRepeats(String s, int k) {
         char[] str = s.toCharArray();
@@ -359,10 +358,11 @@ public class Problem {
         return false;
     }
 
-    @Easy(
-        point = Point.HASH,
+    @LeetCode(
+        level = Level.EASY,
         title = "760. 找出变位映射",
-        source = "https://leetcode.cn/problems/find-anagram-mappings/description/"
+        source = "https://leetcode.cn/problems/find-anagram-mappings/description",
+        point = Point.HASH
     )
     public int[] anagramMappings(int[] nums1, int[] nums2) {
         HashMap<Integer, Integer> map = new HashMap<>();
@@ -379,10 +379,11 @@ public class Problem {
         return nums1;
     }
 
-    @Easy(
-        point = Point.HASH,
+    @LeetCode(
+        level = Level.EASY,
         title = "266. 回文排列",
-        source = "https://leetcode.cn/problems/palindrome-permutation/description"
+        source = "https://leetcode.cn/problems/palindrome-permutation/description",
+        point = Point.HASH
     )
     public boolean canPermutePalindrome(String s) {
         HashMap<Character, Integer> map = new HashMap<>();
@@ -406,10 +407,11 @@ public class Problem {
         return true;
     }
 
-    @Easy(
+    @LeetCode(
+        level = Level.EASY,
         title = "734. 句子相似性",
-        point = Point.HASH,
-        source = "https://leetcode.cn/problems/sentence-similarity/description"
+        source = "https://leetcode.cn/problems/sentence-similarity/description",
+        point = Point.HASH
     )
     public boolean areSentencesSimilar(
         String[] sentence1,
@@ -447,10 +449,11 @@ public class Problem {
         return true;
     }
 
-    @Easy(
-        point = Point.HASH,
+    @LeetCode(
+        level = Level.EASY,
         title = "1165. 单行键盘",
-        source = "https://leetcode.cn/problems/single-row-keyboard/description/"
+        source = "https://leetcode.cn/problems/single-row-keyboard/description",
+        point = Point.HASH
     )
     public int calculateTime(String keyboard, String word) {
         HashMap<Character, Integer> dict = new HashMap<>();
@@ -467,10 +470,11 @@ public class Problem {
         return res;
     }
 
-    @Easy(
-        point = Point.HASH,
+    @LeetCode(
+        level = Level.EASY,
         title = "1133. 最大唯一数",
-        source = "https://leetcode.cn/problems/largest-unique-number/description/"
+        source = "https://leetcode.cn/problems/largest-unique-number/description",
+        point = Point.HASH
     )
     public int largestUniqueNumber(int[] nums) {
         HashMap<Integer, Integer> dict = new HashMap<>();
@@ -490,10 +494,11 @@ public class Problem {
         return max;
     }
 
-    @Easy(
-        point = Point.HASH,
+    @LeetCode(
+        level = Level.EASY,
         title = "1426. 数元素",
-        source = "https://leetcode.cn/problems/counting-elements/description/"
+        source = "https://leetcode.cn/problems/counting-elements/description",
+        point = Point.HASH
     )
     public int countElements(int[] arr) {
         HashMap<Integer, Integer> dict = new HashMap<>();
@@ -513,7 +518,8 @@ public class Problem {
         return res;
     }
 
-    @Easy(
+    @LeetCode(
+        level = Level.EASY,
         title = "3151. 特殊数组 I",
         source = "https://leetcode.cn/problems/special-array-i/"
     )
@@ -527,10 +533,11 @@ public class Problem {
         return true;
     }
 
-    @Medium(
-        point = Point.HASH,
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "249. 移位字符串分组",
-        source = "https://leetcode.cn/problems/group-shifted-strings/description"
+        source = "https://leetcode.cn/problems/group-shifted-strings/description",
+        point = Point.HASH
     )
     public List<List<String>> groupStrings(String[] strings) {
         if (strings == null || strings.length == 0) {
@@ -557,10 +564,11 @@ public class Problem {
         return new ArrayList<>(dict.values());
     }
 
-    @Medium(
-        point = { Point.HASH, Point.BIN_SEARCH },
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "1198. 找出所有行中最小公共元素",
-        source = "https://leetcode.cn/problems/find-smallest-common-element-in-all-rows/description"
+        source = "https://leetcode.cn/problems/find-smallest-common-element-in-all-rows/description",
+        point = { Point.HASH, Point.BIN_SEARCH }
     )
     public int smallestCommonElement(int[][] mat) {
         //        int count[] = new int[10001];
@@ -587,7 +595,8 @@ public class Problem {
         return -1;
     }
 
-    @Easy(
+    @LeetCode(
+        level = Level.EASY,
         title = "422. 有效的单词方块",
         source = "https://leetcode.cn/problems/valid-word-square/description",
         point = Point.MATRIX
@@ -610,7 +619,8 @@ public class Problem {
         return true;
     }
 
-    @Medium(
+    @LeetCode(
+        level = Level.MEDIUM,
         point = Point.PREFIX,
         title = "3152. 特殊数组 II",
         source = "https://leetcode.cn/problems/special-array-ii/description/"
@@ -637,7 +647,8 @@ public class Problem {
      * 如果 nums[i] 与左边相邻的元素 nums[i−1] 奇偶性相同，则此时 dp[i]=1; 如果 nums[i] 与左边相邻的元素 nums[i−1] 奇偶性不同，则此时 nums[i] 可以追加到以 nums[i−1]
      * 为结尾的最长特殊数组的后面，则 dp[i]=dp[i−1]+1; 在判断两个元素奇偶性是否相同时，可以利用位运算来实现，对于给定的元素 a,b，当满足 (a⊕b)&1=1 时，则 a,b 的奇偶性不同，否则奇偶性相同；
      */
-    @Medium(
+    @LeetCode(
+        level = Level.MEDIUM,
         point = Point.DP,
         title = "3152. 特殊数组 II",
         source = "https://leetcode.cn/problems/special-array-ii/description/"
@@ -661,7 +672,8 @@ public class Problem {
         return res;
     }
 
-    @Medium(
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "531. 孤独像素 I",
         source = "https://leetcode.cn/problems/lonely-pixel-i/description"
     )
@@ -698,7 +710,8 @@ public class Problem {
         return res;
     }
 
-    @Medium(
+    @LeetCode(
+        level = Level.MEDIUM,
         source = "https://leetcode.cn/problems/compare-strings-by-frequency-of-the-smallest-character/",
         title = "1170. 比较字符串最小字母出现频次",
         point = Point.BIN_SEARCH
@@ -748,7 +761,8 @@ public class Problem {
     /**
      * 给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。 请你设计并实现时间复杂度为 O(n) 的算法解决此问题。
      */
-    @Medium(
+    @LeetCode(
+        level = Level.MEDIUM,
         point = Point.HASH,
         source = "https://leetcode.cn/problems/longest-consecutive-sequence/?envType=study-plan-v2&envId=top-100-liked",
         title = "128. 最长连续序列"
@@ -774,7 +788,8 @@ public class Problem {
         return longest;
     }
 
-    @Easy(
+    @LeetCode(
+        level = Level.EASY,
         point = Point.TWO_POINTER,
         title = "283. 移动零",
         source = "https://leetcode.cn/problems/move-zeroes/?envType=study-plan-v2&envId=top-100-liked"
@@ -793,7 +808,8 @@ public class Problem {
         }
     }
 
-    @Medium(
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "11. 盛最多水的容器",
         point = Point.TWO_POINTER,
         source = "https://leetcode.cn/problems/container-with-most-water/?envType=study-plan-v2&envId=top-100-liked"
@@ -821,7 +837,8 @@ public class Problem {
      * @param nums 整数数组
      * @return 所有和为 0 的三元组列表
      */
-    @Medium(
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "15. 三数之和",
         point = Point.TWO_POINTER,
         source = "https://leetcode.cn/problems/3sum/description/?envType=study-plan-v2&envId=top-100-liked"
@@ -877,7 +894,8 @@ public class Problem {
      * @param height 整数数组，表示每个位置的高度
      * @return 可以捕获的雨水量
      */
-    @Hard(
+    @LeetCode(
+        level = Level.HARD,
         title = "42. 接雨水",
         point = Point.TWO_POINTER,
         source = "https://leetcode.cn/problems/trapping-rain-water"
@@ -927,7 +945,8 @@ public class Problem {
      * @param s 输入的字符串
      * @return 最长子串的长度
      */
-    @Medium(
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "3. 无重复字符的最长子串",
         point = { Point.SLIDE_WINDOW, Point.TWO_POINTER },
         source = "https://leetcode.cn/problems/longest-substring-without-repeating-characters/"
@@ -963,7 +982,8 @@ public class Problem {
         return maxLength;
     }
 
-    @Medium(
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "438. 找到字符串中所有字母异位词",
         point = Point.SLIDE_WINDOW,
         source = "https://leetcode.cn/problems/find-all-anagrams-in-a-string"
@@ -1007,7 +1027,8 @@ public class Problem {
         return false;
     }
 
-    @Medium(
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "560. 和为 K 的子数组",
         point = Point.PREFIX,
         source = "https://leetcode.cn/problems/subarray-sum-equals-k/"
@@ -1032,10 +1053,11 @@ public class Problem {
         return res;
     }
 
-    @Medium(
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "56. 合并区间",
         source = "https://leetcode.cn/problems/merge-intervals",
-        point = Point.ARRAY
+        point = { Point.ARRAY }
     )
     public int[][] merge(int[][] intervals) {
         Arrays.sort(
@@ -1060,10 +1082,11 @@ public class Problem {
         return res.toArray(new int[0][0]);
     }
 
-    @Medium(
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "189. 轮转数组",
         source = "https://leetcode.cn/problems/rotate-array/",
-        point = Point.ARRAY
+        point = { Point.ARRAY }
     )
     public void rotate(int[] nums, int k) {
         int len = nums.length;
@@ -1083,10 +1106,11 @@ public class Problem {
         }
     }
 
-    @Medium(
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "238. 除自身以外数组的乘积",
         source = "https://leetcode.cn/problems/product-of-array-except-self/",
-        point = Point.ARRAY
+        point = { Point.ARRAY }
     )
     public int[] productExceptSelf(int[] nums) {
         int len = nums.length;
@@ -1107,10 +1131,11 @@ public class Problem {
         return nums;
     }
 
-    @Medium(
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "73. 矩阵置零",
         source = "https://leetcode.cn/problems/set-matrix-zeroes",
-        point = Point.ARRAY
+        point = { Point.ARRAY }
     )
     public void setZeroes(int[][] matrix) {
         int m = matrix.length;
@@ -1166,9 +1191,10 @@ public class Problem {
         }
     }
 
-    @Medium(
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "54. 螺旋矩阵",
-        point = Point.ARRAY,
+        point = { Point.ARRAY },
         source = "https://leetcode.cn/problems/spiral-matrix/"
     )
     public List<Integer> spiralOrder(int[][] matrix) {
@@ -1200,9 +1226,10 @@ public class Problem {
         return res;
     }
 
-    @Medium(
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "48. 旋转图像",
-        point = Point.ARRAY,
+        point = { Point.ARRAY },
         source = "https://leetcode.cn/problems/rotate-image"
     )
     public void rotate(int[][] matrix) {
@@ -1225,7 +1252,8 @@ public class Problem {
         }
     }
 
-    @Medium(
+    @LeetCode(
+        level = Level.MEDIUM,
         title = "240. 搜索二维矩阵 II",
         source = "https://leetcode.cn/problems/search-a-2d-matrix-ii/",
         point = { Point.ARRAY }
@@ -1260,7 +1288,8 @@ public class Problem {
         }
     }
 
-    @Easy(
+    @LeetCode(
+        level = Level.EASY,
         title = "160. 相交链表",
         source = "https://leetcode.cn/problems/intersection-of-two-linked-lists/",
         point = { Point.TWO_POINTERS, Point.LINKED_LIST }
@@ -1283,10 +1312,11 @@ public class Problem {
         return a;
     }
 
-    @Easy(
+    @LeetCode(
+        level = Level.EASY,
         title = "206. 反转链表",
         source = "https://leetcode.cn/problems/reverse-linked-list",
-        point = Point.LINKED_LIST
+        point = { Point.LINKED_LIST }
     )
     public ListNode reverseList(ListNode head) {
         if (head == null || head.next == null) {
@@ -1303,10 +1333,11 @@ public class Problem {
         return prev;
     }
 
-    @Easy(
+    @LeetCode(
+        level = Level.EASY,
         title = "234. 回文链表",
         source = "https://leetcode.cn/problems/palindrome-linked-list",
-        point = Point.LINKED_LIST
+        point = { Point.LINKED_LIST }
     )
     public boolean isPalindrome(ListNode head) {
         if (head == null || head.next == null) {
@@ -1333,6 +1364,7 @@ public class Problem {
 
         return true;
     }
+
     // 递归
     // ListNode isPalindrome_left;
 
@@ -1351,4 +1383,10 @@ public class Problem {
     //     isPalindrome_left = isPalindrome_left.next;
     //     return true;
     // }
+
+    @LeetCode(level = Level.EASY)
+    public boolean hasCycle(ListNode head) {
+        return false;
+        // if (head == null || head.next == null) {}
+    }
 }

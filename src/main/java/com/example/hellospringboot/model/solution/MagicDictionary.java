@@ -1,9 +1,11 @@
 package com.example.hellospringboot.model.solution;
 
-import com.example.hellospringboot.annotation.Medium;
+import com.example.hellospringboot.annotation.LeetCode;
+import com.example.hellospringboot.annotation.LeetCode.Level;
 import com.example.hellospringboot.enumerate.Point;
 
-@Medium(
+@LeetCode(
+    level = Level.MEDIUM,
         point = Point.TRIE,
         title = "676. 实现一个魔法字典",
         source = "https://leetcode.cn/problems/implement-magic-dictionary/description/")
