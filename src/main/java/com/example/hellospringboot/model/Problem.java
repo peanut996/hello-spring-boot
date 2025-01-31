@@ -1407,4 +1407,32 @@ public class Problem {
 
         return false;
     }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "142. 环形链表 II",
+        source = "https://leetcode.cn/problems/linked-list-cycle-ii/",
+        point = { Point.LINKED_LIST, Point.TWO_POINTERS }
+    )
+    public ListNode detectCycle(ListNode head) {
+        if (head == null || head.next == null) {
+            return null;
+        }
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                ListNode f = head;
+                while (f != null && f.next != null) {
+                    if (slow == f) {
+                        return slow;
+                    }
+                    slow = slow.next;
+                    f = f.next;
+                }
+            }
+        }
+        return null;
+    }
 }
