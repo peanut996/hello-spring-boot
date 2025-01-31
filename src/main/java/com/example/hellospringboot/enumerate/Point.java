@@ -49,4 +49,9 @@ public enum Point {
      * 双指针
      */
     TWO_POINTERS,
+
+    /**
+     * 链表
+     */
+    LINKED_LIST,
 }

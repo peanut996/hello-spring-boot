@@ -1282,4 +1282,24 @@ public class Problem {
         }
         return a;
     }
+
+    @Easy(
+        title = "206. 反转链表",
+        source = "https://leetcode.cn/problems/reverse-linked-list",
+        point = Point.LINKED_LIST
+    )
+    public ListNode reverseList(ListNode head) {
+        if (head == null || head.next == null) {
+            return null;
+        }
+        ListNode prev = null;
+        ListNode dummy = head;
+        while (dummy != null) {
+            ListNode tmp = dummy.next;
+            dummy.next = prev;
+            prev = dummy;
+            dummy = tmp;
+        }
+        return prev;
+    }
 }
