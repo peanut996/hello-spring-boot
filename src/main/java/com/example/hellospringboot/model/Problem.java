@@ -1288,6 +1288,11 @@ public class Problem {
             val = x;
             next = null;
         }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
     }
 
     @LeetCode(
@@ -1528,6 +1533,33 @@ public class Problem {
 
         slow.next = slow.next.next;
 
+        return dummy.next;
+    }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "24. 两两交换链表中的节点",
+        source = "https://leetcode.cn/problems/swap-nodes-in-pairs/",
+        point = { Point.LINKED_LIST }
+    )
+    public ListNode swapPairs(ListNode head) {
+        ListNode dummy = new ListNode(0, head);
+        ListNode prev = dummy;
+        ListNode current = head;
+
+        while (current != null && current.next != null) {
+            ListNode first = current;
+            ListNode second = current.next;
+
+            // 交换节点
+            first.next = second.next;
+            second.next = first;
+            prev.next = second;
+
+            // 更新指针
+            prev = first;
+            current = first.next;
+        }
         return dummy.next;
     }
 }
