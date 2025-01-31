@@ -2,13 +2,14 @@ package com.example.hellospringboot.model.solution;
 
 import com.example.hellospringboot.annotation.LeetCode;
 import com.example.hellospringboot.annotation.LeetCode.Level;
-import com.example.hellospringboot.enumerate.Point;
+import com.example.hellospringboot.annotation.LeetCode.Point;
 
 @LeetCode(
     level = Level.MEDIUM,
-        point = Point.TRIE,
-        title = "676. 实现一个魔法字典",
-        source = "https://leetcode.cn/problems/implement-magic-dictionary/description/")
+    point = Point.TRIE,
+    title = "676. 实现一个魔法字典",
+    source = "https://leetcode.cn/problems/implement-magic-dictionary/description/"
+)
 public class MagicDictionary {
 
     Trie root;
@@ -18,11 +19,9 @@ public class MagicDictionary {
     }
 
     public void buildDict(String[] dictionary) {
-
         for (String word : dictionary) {
             insert(word);
         }
-
     }
 
     private void insert(String word) {
@@ -46,9 +45,10 @@ public class MagicDictionary {
             return isMatch && node != null && node.exist;
         }
 
-
         if (node.children[word[index] - 'a'] != null) {
-            if (dfs(word, node.children[word[index] - 'a'], index + 1, isMatch)) {
+            if (
+                dfs(word, node.children[word[index] - 'a'], index + 1, isMatch)
+            ) {
                 return true;
             }
         }
@@ -63,11 +63,11 @@ public class MagicDictionary {
             }
         }
         return false;
-
     }
 }
 
 class Trie {
+
     Trie[] children;
     boolean exist;
 
@@ -76,7 +76,6 @@ class Trie {
         this.exist = false;
     }
 }
-
 /**
  * Your MagicDictionary object will be instantiated and called as such:
  * MagicDictionary obj = new MagicDictionary();
