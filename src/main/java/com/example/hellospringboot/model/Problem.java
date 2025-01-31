@@ -1263,7 +1263,7 @@ public class Problem {
     @Easy(
         title = "160. 相交链表",
         source = "https://leetcode.cn/problems/intersection-of-two-linked-lists/",
-        point = { Point.TWO_POINTERS }
+        point = { Point.TWO_POINTERS, Point.LINKED_LIST }
     )
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         ListNode a = headA;
@@ -1302,4 +1302,53 @@ public class Problem {
         }
         return prev;
     }
+
+    @Easy(
+        title = "234. 回文链表",
+        source = "https://leetcode.cn/problems/palindrome-linked-list",
+        point = Point.LINKED_LIST
+    )
+    public boolean isPalindrome(ListNode head) {
+        if (head == null || head.next == null) {
+            return true;
+        }
+        ListNode slow = head, fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        ListNode reversedHalf = reverseList(slow);
+
+        ListNode p1 = head, p2 = reversedHalf;
+
+        while (p2 != null) {
+            if (p1.val != p2.val) {
+                return false;
+            }
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+
+        return true;
+    }
+    // 递归
+    // ListNode isPalindrome_left;
+
+    // public boolean isPalindrome(ListNode head) {
+    //     isPalindrome_left = head;
+    //     return isPalindromeHelper(head);
+    // }
+
+    // boolean isPalindromeHelper(ListNode right) {
+    //     if (right == null) return true;
+    //     boolean res = isPalindromeHelper(right.next);
+    //     if (!res) return false;
+    //     if (isPalindrome_left.val != right.val) {
+    //         return false;
+    //     }
+    //     isPalindrome_left = isPalindrome_left.next;
+    //     return true;
+    // }
 }
