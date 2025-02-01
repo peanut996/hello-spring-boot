@@ -1277,24 +1277,6 @@ public class Problem {
         return false;
     }
 
-    public class ListNode {
-
-        int val;
-        ListNode next;
-
-        ListNode() {}
-
-        ListNode(int x) {
-            val = x;
-            next = null;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-    }
-
     @LeetCode(
         level = Level.EASY,
         title = "160. 相交链表",
@@ -1603,5 +1585,48 @@ public class Problem {
             pre = start;
             start = nextGroupStart;
         }
+    }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "138. 复制带随机指针的链表",
+        source = "https://leetcode.cn/problems/copy-list-with-random-pointer/",
+        point = { Point.LINKED_LIST, Point.HASH }
+    )
+    public Node copyRandomList(Node head) {
+        if (head == null) return null;
+
+        Node curr = head;
+
+        // 1. 创建复制节点并插入到原节点之后
+        while (curr != null) {
+            Node copy = new Node(curr.val);
+            copy.next = curr.next;
+            curr.next = copy;
+            curr = copy.next;
+        }
+
+        curr = head;
+        // 2. 设置复制节点的 random 指针
+        while (curr != null) {
+            if (curr.random != null) {
+                curr.next.random = curr.random.next;
+            }
+            curr = curr.next.next;
+        }
+
+        curr = head;
+        Node dummy = new Node(0);
+        Node copyCurr = dummy;
+        // 3. 分离原链表和复制链表
+        while (curr != null) {
+            Node copy = curr.next;
+            copyCurr.next = copy;
+            curr.next = copy.next;
+            copyCurr = copyCurr.next;
+            curr = curr.next;
+        }
+
+        return dummy.next;
     }
 }
