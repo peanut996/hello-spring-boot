@@ -68,6 +68,16 @@ public @interface LeetCode {
          * 链表
          */
         LINKED_LIST,
+
+        /**
+         * 排序
+         */
+        SORT,
+
+        /**
+         * 合并排序
+         */
+        MERGE_SORT,
     }
 
     Level level();

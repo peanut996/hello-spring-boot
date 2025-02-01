@@ -1629,4 +1629,59 @@ public class Problem {
 
         return dummy.next;
     }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "148. 排序链表",
+        source = "https://leetcode.cn/problems/sort-list/",
+        point = { Point.LINKED_LIST, Point.SORT, Point.MERGE_SORT }
+    )
+    public ListNode sortList(ListNode head) {
+        // 递归终止条件：空链表或只有一个节点的链表
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        // 快慢指针找到链表中点
+        ListNode slow = head;
+        ListNode fast = head.next; // fast 从 head.next 开始，确保 mid 偏左
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // 分割链表
+        ListNode mid = slow;
+        ListNode midNext = mid.next;
+        mid.next = null; // 断开前半部分链表
+
+        // 递归排序左右两部分
+        ListNode left = sortList(head);
+        ListNode right = sortList(midNext);
+
+        // 合并已排序的两个链表
+        ListNode dummy = new ListNode();
+        ListNode current = dummy;
+        while (left != null || right != null) { // 循环直到两个链表都为空
+            // 这里不需要每次都新建节点，直接接上原链表节点即可, 优化空间复杂度
+            if (left != null && right != null) {
+                if (left.val < right.val) {
+                    current.next = left;
+                    left = left.next;
+                } else {
+                    current.next = right;
+                    right = right.next;
+                }
+            } else if (left != null) {
+                current.next = left;
+                left = left.next;
+            } else {
+                current.next = right;
+                right = right.next;
+            }
+            current = current.next;
+        }
+
+        return dummy.next;
+    }
 }
