@@ -1330,12 +1330,12 @@ public class Problem {
             return null;
         }
         ListNode prev = null;
-        ListNode dummy = head;
-        while (dummy != null) {
-            ListNode tmp = dummy.next;
-            dummy.next = prev;
-            prev = dummy;
-            dummy = tmp;
+        ListNode current = head;
+        while (current != null) {
+            ListNode next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
         }
         return prev;
     }
