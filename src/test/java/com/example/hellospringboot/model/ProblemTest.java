@@ -48,4 +48,14 @@ class ProblemTest {
         int[] nums = new int[]{-1, 0, 1, 2, -1, -4};
         problem.threeSum(nums);
     }
+
+    @Test
+    void LRU() {
+        LRUCache cache = new LRUCache(1);
+        cache.put(2,1);
+        assert  1 == cache.get(2);
+        cache.put(3,2);
+        assert -1 == cache.get(2);
+        assert 2 == cache.get(3);
+    }
 }
