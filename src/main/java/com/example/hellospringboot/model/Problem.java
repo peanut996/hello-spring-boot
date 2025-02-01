@@ -1562,4 +1562,46 @@ public class Problem {
         }
         return dummy.next;
     }
+
+    @LeetCode(
+        level = Level.HARD,
+        title = "25. K 个一组翻转链表",
+        source = "https://leetcode.cn/problems/reverse-nodes-in-k-group/",
+        point = { Point.LINKED_LIST }
+    )
+    public ListNode reverseKGroup(ListNode head, int k) {
+        // 如果链表为空或者 k 小于等于 1，则不需要翻转，直接返回
+        if (head == null || k <= 1) {
+            return head;
+        }
+
+        ListNode dummy = new ListNode(0, head);
+        ListNode pre = dummy;
+        ListNode start = head;
+
+        while (true) {
+            ListNode end = start;
+            for (int i = 1; i < k; i++) {
+                if (end == null || end.next == null) {
+                    // 如果剩余节点不足 k 个，则不需要翻转，直接返回
+                    return dummy.next;
+                }
+                end = end.next;
+            }
+            ListNode nextGroupStart = end.next;
+
+            // 将当前 k 组的尾节点 next 指针置空，方便反转
+            end.next = null;
+
+            reverseList(start);
+
+            // 翻转后重新连接
+            pre.next = end;
+            start.next = nextGroupStart;
+
+            // 更新指针
+            pre = start;
+            start = nextGroupStart;
+        }
+    }
 }
