@@ -70,6 +70,11 @@ public @interface LeetCode {
         LINKED_LIST,
 
         /**
+         * 双向链表
+         */
+        DOUBLY_LINKED_LIST,
+
+        /**
          * 排序
          */
         SORT,
