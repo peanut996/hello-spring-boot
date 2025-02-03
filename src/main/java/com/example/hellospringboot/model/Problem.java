@@ -1898,4 +1898,25 @@ public class Problem {
 
         return res;
     }
+
+    @LeetCode(
+        level = Level.EASY,
+        title = "108. 将有序数组转换为二叉搜索树",
+        source = "https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/",
+        point = { Point.BINARY_TREE, Point.RECURSION, Point.DIVIDE_AND_CONQUER }
+    )
+    public TreeNode sortedArrayToBST(int[] nums) {
+        return sortedArrayToBSTHelper(nums, 0, nums.length - 1);
+    }
+
+    private TreeNode sortedArrayToBSTHelper(int[] nums, int left, int right) {
+        if (left > right) {
+            return null;
+        }
+        int mid = left + (right - left) / 2; // 防止溢出
+        TreeNode node = new TreeNode(nums[mid]);
+        node.left = sortedArrayToBSTHelper(nums, left, mid - 1);
+        node.right = sortedArrayToBSTHelper(nums, mid + 1, right);
+        return node;
+    }
 }
