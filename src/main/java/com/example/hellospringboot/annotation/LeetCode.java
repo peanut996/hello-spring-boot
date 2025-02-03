@@ -93,6 +93,16 @@ public @interface LeetCode {
          * 分治法
          */
         DIVIDE_AND_CONQUER,
+
+        TREE,
+
+        BINARY_TREE,
+
+        RECURSION,
+
+        TRAVERSAL,
+
+        MORRIS_TRAVERSAL,
     }
 
     Level level();

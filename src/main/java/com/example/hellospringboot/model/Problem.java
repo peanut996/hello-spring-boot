@@ -1746,4 +1746,30 @@ public class Problem {
         // 返回合并后的链表头节点（哑节点的下一个节点）
         return dummy.next;
     }
+
+    @LeetCode(
+        level = Level.EASY,
+        title = "94. 二叉树的中序遍历",
+        source = "https://leetcode.cn/problems/binary-tree-inorder-traversal/",
+        point = {
+            Point.BINARY_TREE,
+            Point.RECURSION,
+            Point.TRAVERSAL,
+            Point.MORRIS_TRAVERSAL,
+        }
+    )
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        inorder(root, res);
+        return res;
+    }
+
+    void inorder(TreeNode root, List<Integer> res) {
+        if (root == null) {
+            return;
+        }
+        inorder(root.left, res);
+        res.add(root.val);
+        inorder(root.right, res);
+    }
 }
