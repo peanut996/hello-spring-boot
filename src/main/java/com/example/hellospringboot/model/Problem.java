@@ -1684,4 +1684,46 @@ public class Problem {
 
         return dummy.next;
     }
+
+    @LeetCode(
+        level = Level.HARD,
+        title = "23. 合并 K 个升序链表",
+        source = "https://leetcode.cn/problems/merge-k-sorted-lists/",
+        point = { Point.LINKED_LIST, Point.MERGE_SORT }
+    )
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists == null || lists.length < 1) {
+            return null;
+        }
+
+        ListNode dummy = lists[0];
+        for (int i = 1; i < lists.length; i++) {
+            dummy = merge(dummy, lists[i]);
+        }
+        return dummy;
+    }
+
+    ListNode merge(ListNode first, ListNode second) {
+        ListNode dummy = new ListNode();
+        ListNode current = dummy;
+        while (first != null || second != null) {
+            if (first != null && second != null) {
+                if (first.val < second.val) {
+                    current.next = first;
+                    first = first.next;
+                } else {
+                    current.next = second;
+                    second = second.next;
+                }
+                current = current.next;
+            } else if (first != null) {
+                current.next = first;
+                break;
+            } else {
+                current.next = second;
+                break;
+            }
+        }
+        return dummy.next;
+    }
 }
