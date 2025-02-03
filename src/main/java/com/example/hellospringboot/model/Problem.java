@@ -1947,6 +1947,42 @@ public class Problem {
         );
     }
 
+    private int count = 0;
+    private int result = 0;
+
+    @LeetCode(
+        level = Level.EASY,
+        title = "230. 二叉搜索树中第K小的元素",
+        source = "https://leetcode.cn/problems/kth-smallest-element-in-a-bst/",
+        point = { Point.BINARY_TREE, Point.RECURSION, Point.BINARY_SEARCH_TREE }
+    )
+    public int kthSmallest(TreeNode root, int k) {
+        count = 0; // Reset count for each test case
+        inorder(root, k);
+        return result;
+    }
+
+    private void inorder(TreeNode root, int k) {
+        if (root == null) {
+            return;
+        }
+
+        // 遍历左子树
+        inorder(root.left, k);
+
+        // 访问当前节点
+        count++;
+        if (count == k) {
+            result = root.val;
+            return; // 找到第 k 小的元素，停止遍历
+        }
+
+        // 遍历右子树（如果还没找到第 k 小的元素）
+        if (count < k) {
+            inorder(root.right, k);
+        }
+    }
+
     int rightSideViewMaxDepth; // 记录当前最大深度
     ArrayList<Integer> rightSideViewAns; // 存储结果
 
