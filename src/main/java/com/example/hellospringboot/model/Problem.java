@@ -1788,4 +1788,25 @@ public class Problem {
             return Math.max(leftDepth, rightDepth) + 1;
         }
     }
+
+    @LeetCode(
+        level = Level.EASY,
+        title = "226. 翻转二叉树",
+        source = "https://leetcode.cn/problems/invert-binary-tree/",
+        point = { Point.BINARY_TREE, Point.RECURSION }
+    )
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+
+        // 递归地翻转左右子树，并直接交换
+        TreeNode left = invertTree(root.right);
+        TreeNode right = invertTree(root.left);
+
+        root.left = left;
+        root.right = right;
+
+        return root;
+    }
 }
