@@ -1835,4 +1835,35 @@ public class Problem {
             isSymmetricHelper(left.left, right.right)
         );
     }
+
+    int diameterOfBinaryTreeMaxDiameter = 0; // 用于记录最大直径
+
+    @LeetCode(
+        level = Level.EASY,
+        title = "543. 二叉树的直径",
+        source = "https://leetcode.cn/problems/diameter-of-binary-tree/",
+        point = { Point.BINARY_TREE, Point.RECURSION }
+    )
+    public int diameterOfBinaryTree(TreeNode root) {
+        diameterOfBinaryTreeMaxDepth(root);
+        return diameterOfBinaryTreeMaxDiameter;
+    }
+
+    private int diameterOfBinaryTreeMaxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int leftDepth = diameterOfBinaryTreeMaxDepth(root.left);
+        int rightDepth = diameterOfBinaryTreeMaxDepth(root.right);
+
+        // 计算通过当前节点的直径并更新 maxDiameter
+        diameterOfBinaryTreeMaxDiameter = Math.max(
+            diameterOfBinaryTreeMaxDiameter,
+            leftDepth + rightDepth
+        );
+
+        // 返回当前节点的最大深度
+        return Math.max(leftDepth, rightDepth) + 1;
+    }
 }
