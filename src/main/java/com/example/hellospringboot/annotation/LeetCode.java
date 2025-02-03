@@ -103,6 +103,10 @@ public @interface LeetCode {
         TRAVERSAL,
 
         MORRIS_TRAVERSAL,
+
+        DFS,
+
+        BFS,
     }
 
     Level level();
