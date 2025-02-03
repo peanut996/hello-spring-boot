@@ -1866,4 +1866,36 @@ public class Problem {
         // 返回当前节点的最大深度
         return Math.max(leftDepth, rightDepth) + 1;
     }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "102. 二叉树的层序遍历",
+        source = "https://leetcode.cn/problems/binary-tree-level-order-traversal/",
+        point = { Point.BINARY_TREE, Point.BFS }
+    )
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) return res;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int size = queue.size(); // 记录当前层的节点数量
+            List<Integer> current = new ArrayList<>();
+            for (int i = 0; i < size; i++) { // 只处理当前层的节点
+                TreeNode node = queue.poll();
+                current.add(node.val);
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+            res.add(current);
+        }
+
+        return res;
+    }
 }
