@@ -83,6 +83,11 @@ public @interface LeetCode {
          * 合并排序
          */
         MERGE_SORT,
+
+        /**
+         * 堆
+         */
+        HEAP,
     }
 
     Level level();

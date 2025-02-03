@@ -1689,18 +1689,44 @@ public class Problem {
         level = Level.HARD,
         title = "23. 合并 K 个升序链表",
         source = "https://leetcode.cn/problems/merge-k-sorted-lists/",
-        point = { Point.LINKED_LIST, Point.MERGE_SORT }
+        point = { Point.LINKED_LIST, Point.MERGE_SORT, Point.HEAP }
     )
     public ListNode mergeKLists(ListNode[] lists) {
         if (lists == null || lists.length < 1) {
             return null;
         }
 
-        ListNode dummy = lists[0];
-        for (int i = 1; i < lists.length; i++) {
-            dummy = merge(dummy, lists[i]);
+        // 创建最小堆，并自定义比较器，按照节点的值进行比较
+        PriorityQueue<ListNode> heap = new PriorityQueue<>(
+            (a, b) -> a.val - b.val
+        );
+
+        // 将所有链表的头节点加入到最小堆中
+        for (ListNode node : lists) {
+            if (node != null) {
+                heap.add(node);
+            }
         }
-        return dummy;
+
+        // 创建哑节点作为合并后链表的头节点
+        ListNode dummy = new ListNode();
+        ListNode tail = dummy;
+
+        // 循环执行以下操作，直到堆为空
+        while (!heap.isEmpty()) {
+            // 从堆顶取出最小节点
+            ListNode minNode = heap.poll();
+            // 将最小节点添加到合并后链表的末尾
+            tail.next = minNode;
+            tail = tail.next; // 更新 tail 指针
+
+            // 如果最小节点的下一个节点不为空，则将其加入堆中
+            if (minNode.next != null) {
+                heap.add(minNode.next);
+            }
+        }
+
+        return dummy.next;
     }
 
     ListNode merge(ListNode first, ListNode second) {
