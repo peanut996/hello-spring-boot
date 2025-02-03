@@ -1689,67 +1689,61 @@ public class Problem {
         level = Level.HARD,
         title = "23. 合并 K 个升序链表",
         source = "https://leetcode.cn/problems/merge-k-sorted-lists/",
-        point = { Point.LINKED_LIST, Point.MERGE_SORT, Point.HEAP }
+        point = {
+            Point.LINKED_LIST,
+            Point.MERGE_SORT,
+            Point.HEAP,
+            Point.DIVIDE_AND_CONQUER,
+        }
     )
     public ListNode mergeKLists(ListNode[] lists) {
-        if (lists == null || lists.length < 1) {
+        // 边界条件处理：如果 lists 为 null 或空数组，直接返回 null
+        if (lists == null || lists.length == 0) {
             return null;
         }
+        // 使用分治法合并链表
+        return mergeKListsHelper(lists, 0, lists.length - 1);
+    }
 
-        // 创建最小堆，并自定义比较器，按照节点的值进行比较
-        PriorityQueue<ListNode> heap = new PriorityQueue<>(
-            (a, b) -> a.val - b.val
-        );
-
-        // 将所有链表的头节点加入到最小堆中
-        for (ListNode node : lists) {
-            if (node != null) {
-                heap.add(node);
-            }
+    ListNode mergeKListsHelper(ListNode[] lists, int start, int end) {
+        // 递归终止条件：如果 start > end，说明没有链表需要合并，返回 null
+        if (start > end) {
+            return null;
+        }
+        // 递归终止条件：如果 start == end，说明只有一个链表，直接返回该链表
+        if (start == end) {
+            return lists[start];
         }
 
-        // 创建哑节点作为合并后链表的头节点
-        ListNode dummy = new ListNode();
-        ListNode tail = dummy;
-
-        // 循环执行以下操作，直到堆为空
-        while (!heap.isEmpty()) {
-            // 从堆顶取出最小节点
-            ListNode minNode = heap.poll();
-            // 将最小节点添加到合并后链表的末尾
-            tail.next = minNode;
-            tail = tail.next; // 更新 tail 指针
-
-            // 如果最小节点的下一个节点不为空，则将其加入堆中
-            if (minNode.next != null) {
-                heap.add(minNode.next);
-            }
-        }
-
-        return dummy.next;
+        // 计算中间索引，避免 (start + end) 可能导致的整数溢出
+        int mid = start + (end - start) / 2;
+        // 递归合并左半部分链表
+        ListNode first = mergeKListsHelper(lists, start, mid);
+        // 递归合并右半部分链表，注意起始索引是 mid + 1
+        ListNode second = mergeKListsHelper(lists, mid + 1, end);
+        // 合并左右两部分链表
+        return merge(first, second);
     }
 
     ListNode merge(ListNode first, ListNode second) {
+        // 创建哑节点作为合并后链表的头节点
         ListNode dummy = new ListNode();
+        // current 指针用于构建合并后的链表
         ListNode current = dummy;
-        while (first != null || second != null) {
-            if (first != null && second != null) {
-                if (first.val < second.val) {
-                    current.next = first;
-                    first = first.next;
-                } else {
-                    current.next = second;
-                    second = second.next;
-                }
-                current = current.next;
-            } else if (first != null) {
+        // 循环比较两个链表的节点值，将较小的节点添加到合并后的链表中
+        while (first != null && second != null) {
+            if (first.val < second.val) {
                 current.next = first;
-                break;
+                first = first.next;
             } else {
                 current.next = second;
-                break;
+                second = second.next;
             }
+            current = current.next;
         }
+        // 将剩余的节点添加到合并后的链表中
+        current.next = first == null ? second : first;
+        // 返回合并后的链表头节点（哑节点的下一个节点）
         return dummy.next;
     }
 }

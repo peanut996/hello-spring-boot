@@ -88,6 +88,11 @@ public @interface LeetCode {
          * 堆
          */
         HEAP,
+
+        /**
+         * 分治法
+         */
+        DIVIDE_AND_CONQUER,
     }
 
     Level level();
