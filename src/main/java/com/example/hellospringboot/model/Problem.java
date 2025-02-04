@@ -2049,4 +2049,45 @@ public class Problem {
 
         return root;
     }
+
+    int pathSumAns; // 结果
+
+    Map<Long, Integer> pathSumPrefix = new HashMap<Long, Integer>(); // 前缀和及其出现次数
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "437. 路径总和 III",
+        source = "https://leetcode.cn/problems/path-sum-iii/",
+        point = { Point.BINARY_TREE, Point.DFS }
+    )
+    public int pathSum(TreeNode root, int targetSum) {
+        if (root == null) {
+            return 0;
+        }
+        // 初始化前缀和，0出现一次
+        pathSumPrefix.put(0L, 1);
+        // 深度优先搜索
+        dfs(root, (long) targetSum, 0L);
+
+        return pathSumAns;
+    }
+
+    private void dfs(TreeNode node, long targetSum, long currentSum) {
+        if (node == null) {
+            return;
+        }
+
+        // 更新当前前缀和
+        currentSum += node.val;
+
+        // 计算以当前节点结尾的路径中，和为targetSum的路径数量
+        pathSumAns += pathSumPrefix.getOrDefault(currentSum - targetSum, 0);
+        // 更新前缀和及其出现次数
+        pathSumPrefix.merge(currentSum, 1, (p, c) -> p + c);
+        // 递归处理左右子树
+        dfs(node.left, targetSum, currentSum);
+        dfs(node.right, targetSum, currentSum);
+        // 回溯，移除当前节点对前缀和的影响
+        pathSumPrefix.merge(currentSum, -1, (p, c) -> p + c);
+    }
 }
