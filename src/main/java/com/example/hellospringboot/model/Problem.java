@@ -1972,4 +1972,81 @@ public class Problem {
         }
         current.right = tmp; // 将暂存的右子树接到当前右子树的末端
     }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "105. 从前序与中序遍历序列构造二叉树",
+        source = "https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/",
+        point = { Point.BINARY_TREE, Point.RECURSION, Point.DIVIDE_AND_CONQUER }
+    )
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        if (preorder == null || inorder == null) {
+            return null;
+        }
+        return buildTreeHelper(
+            preorder,
+            inorder,
+            0,
+            preorder.length - 1,
+            0,
+            inorder.length - 1
+        );
+    }
+
+    // 查找元素在数组中的索引
+    int indexOf(int[] nums, int val) {
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == val) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // 辅助函数，用于递归构建二叉树
+    public TreeNode buildTreeHelper(
+        int[] preorder,
+        int[] inorder,
+        int preStart,
+        int preEnd,
+        int inStart,
+        int inEnd
+    ) {
+        // 递归终止条件：子树为空
+        if (preStart > preEnd || inStart > inEnd) {
+            return null;
+        }
+        // 前序遍历的第一个元素为根节点的值
+        int val = preorder[preStart];
+        // 在中序遍历中查找根节点的索引
+        int indexInOrder = indexOf(inorder, val);
+
+        // 创建根节点
+        TreeNode root = new TreeNode(val);
+
+        // 左子树的节点数量
+        int leftTreeNodeNums = indexInOrder - inStart;
+
+        // 递归构建左子树
+        root.left = buildTreeHelper(
+            preorder,
+            inorder,
+            preStart + 1,
+            preStart + leftTreeNodeNums,
+            inStart,
+            indexInOrder - 1
+        );
+
+        // 递归构建右子树
+        root.right = buildTreeHelper(
+            preorder,
+            inorder,
+            preStart + leftTreeNodeNums + 1,
+            preEnd,
+            indexInOrder + 1,
+            inEnd
+        );
+
+        return root;
+    }
 }
