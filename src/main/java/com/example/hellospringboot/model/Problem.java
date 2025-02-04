@@ -1919,4 +1919,33 @@ public class Problem {
         node.right = sortedArrayToBSTHelper(nums, mid + 1, right);
         return node;
     }
+
+    int rightSideViewMaxDepth; // 记录当前最大深度
+    ArrayList<Integer> rightSideViewAns; // 存储结果
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "199. 二叉树的右视图",
+        source = "https://leetcode.cn/problems/binary-tree-right-side-view/",
+        point = { Point.BINARY_TREE, Point.DFS }
+    )
+    public List<Integer> rightSideView(TreeNode root) {
+        rightSideViewAns = new ArrayList<>();
+        dfs(root, 1);
+        return rightSideViewAns;
+    }
+
+    void dfs(TreeNode root, int depth) {
+        if (root == null) {
+            return;
+        }
+        // 如果当前节点的深度大于最大深度，则将其值添加到结果列表中，并更新最大深度
+        if (depth > rightSideViewMaxDepth) {
+            rightSideViewAns.add(root.val);
+            rightSideViewMaxDepth = depth;
+        }
+        // 优先遍历右子树
+        dfs(root.right, depth + 1);
+        dfs(root.left, depth + 1);
+    }
 }
