@@ -1948,4 +1948,28 @@ public class Problem {
         dfs(root.right, depth + 1);
         dfs(root.left, depth + 1);
     }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "114. 二叉树展开为链表",
+        source = "https://leetcode.cn/problems/flatten-binary-tree-to-linked-list/",
+        point = { Point.BINARY_TREE, Point.RECURSION }
+    )
+    public void flatten(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        flatten(root.left); // 递归展开左子树
+        flatten(root.right); // 递归展开右子树
+
+        TreeNode tmp = root.right; // 暂存右子树
+        root.right = root.left; // 将左子树设置为右子树
+        root.left = null; // 将左子树置空
+
+        TreeNode current = root;
+        while (current.right != null) {
+            current = current.right; // 找到当前右子树的末端
+        }
+        current.right = tmp; // 将暂存的右子树接到当前右子树的末端
+    }
 }
