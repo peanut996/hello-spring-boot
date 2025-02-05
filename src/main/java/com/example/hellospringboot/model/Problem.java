@@ -2116,4 +2116,35 @@ public class Problem {
         // 否则，最近公共祖先在左子树或右子树中
         return left == null ? right : left;
     }
+
+    int maxPathSumMaxSum = Integer.MIN_VALUE; // 用于存储最大路径和，初始化为最小值
+
+    @LeetCode(
+        level = Level.HARD,
+        title = "124. 二叉树中的最大路径和",
+        source = "https://leetcode.cn/problems/binary-tree-maximum-path-sum/",
+        point = { Point.BINARY_TREE, Point.RECURSION }
+    )
+    public int maxPathSum(TreeNode root) {
+        maxContribution(root); // 调用计算最大贡献值的方法
+        return maxPathSumMaxSum; // 返回最大路径和
+    }
+
+    // 计算一个节点的最大贡献值
+    public int maxContribution(TreeNode root) {
+        if (root == null) {
+            return 0; // 如果节点为空，则贡献值为0
+        }
+        // 递归计算左子节点的最大贡献值，如果小于0，则为0
+        int leftContribution = Math.max(maxContribution(root.left), 0);
+        // 递归计算右子节点的最大贡献值，如果小于0，则为0
+        int rightContribution = Math.max(maxContribution(root.right), 0);
+        // 更新最大路径和，当前节点的最大路径和为：左子节点的贡献值 + 右子节点的贡献值 + 当前节点的值
+        maxPathSumMaxSum = Math.max(
+            maxPathSumMaxSum,
+            leftContribution + rightContribution + root.val
+        );
+        // 返回当前节点的最大贡献值：当前节点的值 + 左子节点和右子节点贡献值中的较大值
+        return root.val + Math.max(leftContribution, rightContribution);
+    }
 }
