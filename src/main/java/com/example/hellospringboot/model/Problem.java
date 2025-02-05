@@ -2090,4 +2090,30 @@ public class Problem {
         // 回溯，移除当前节点对前缀和的影响
         pathSumPrefix.merge(currentSum, -1, (p, c) -> p + c);
     }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "236. 二叉树的最近公共祖先",
+        source = "https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/",
+        point = { Point.BINARY_TREE, Point.RECURSION }
+    )
+    public TreeNode lowestCommonAncestor(
+        TreeNode root,
+        TreeNode p,
+        TreeNode q
+    ) {
+        // 递归终止条件：找到p或q，或者到达叶子节点
+        if (root == null || root == p || root == q) {
+            return root;
+        }
+        // 递归查找左子树和右子树
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        // 如果p和q分别在左右子树中，则当前节点为最近公共祖先
+        if (left != null && right != null) {
+            return root;
+        }
+        // 否则，最近公共祖先在左子树或右子树中
+        return left == null ? right : left;
+    }
 }
