@@ -2147,4 +2147,50 @@ public class Problem {
         // 返回当前节点的最大贡献值：当前节点的值 + 左子节点和右子节点贡献值中的较大值
         return root.val + Math.max(leftContribution, rightContribution);
     }
+
+    int numIslandsM, numIslandsN; // 网格的行数和列数
+    int count; // 岛屿的数量
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "200. 岛屿数量",
+        source = "https://leetcode.cn/problems/number-of-islands/",
+        point = { Point.DFS, Point.BFS }
+    )
+    public int numIslands(char[][] grid) {
+        numIslandsM = grid.length;
+        numIslandsN = grid[0].length;
+        // 遍历网格
+        for (int i = 0; i < numIslandsM; i++) {
+            for (int j = 0; j < numIslandsN; j++) {
+                // 如果当前单元格是陆地，则岛屿数量加1，并进行深度优先搜索
+                if (grid[i][j] == '1') {
+                    count++;
+                    dfs(grid, i, j);
+                }
+            }
+        }
+        return count; // 返回岛屿的数量
+    }
+
+    // 深度优先搜索
+    void dfs(char[][] grid, int x, int y) {
+        // 递归终止条件：超出网格边界、当前单元格是水域
+        if (
+            x < 0 ||
+            y < 0 ||
+            x >= numIslandsM ||
+            y >= numIslandsN ||
+            grid[x][y] == '0'
+        ) {
+            return;
+        }
+        // 将当前单元格标记为已访问
+        grid[x][y] = '0';
+        // 递归搜索相邻的单元格
+        dfs(grid, x + 1, y);
+        dfs(grid, x - 1, y);
+        dfs(grid, x, y + 1);
+        dfs(grid, x, y - 1);
+    }
 }
