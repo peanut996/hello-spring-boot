@@ -2193,4 +2193,77 @@ public class Problem {
         dfs(grid, x, y + 1);
         dfs(grid, x, y - 1);
     }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "994. 腐烂的橘子",
+        source = "https://leetcode.cn/problems/rotting-oranges/",
+        point = { Point.BFS }
+    )
+    public int orangesRotting(int[][] grid) {
+        int rows = grid.length; // 网格的行数
+        int cols = grid[0].length; // 网格的列数
+
+        Queue<int[]> rottenOranges = new LinkedList<>(); // 存储腐烂橘子的队列
+        int freshOranges = 0; // 新鲜橘子的数量
+
+        int[][] directions = new int[][] {
+            { 0, 1 },
+            { 0, -1 },
+            { 1, 0 },
+            { -1, 0 },
+        }; // 四个方向
+
+        // 扫描网格，找到腐烂的橘子和新鲜的橘子
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (grid[i][j] == 2) {
+                    rottenOranges.offer(new int[] { i, j }); // 将腐烂的橘子加入队列
+                } else if (grid[i][j] == 1) {
+                    freshOranges++; // 统计新鲜橘子的数量
+                }
+            }
+        }
+        int minte = 0; // 腐烂所需的最短时间
+        // 广度优先搜索
+        while (!rottenOranges.isEmpty()) {
+            boolean newRottenOrange = false; // 标记是否有新的橘子腐烂
+            int size = rottenOranges.size(); // 当前队列的大小
+            // 遍历当前队列中的所有腐烂橘子
+            for (int i = 0; i < size; i++) {
+                int[] loc = rottenOranges.poll(); // 取出队首的橘子
+                int x = loc[0]; // 橘子的横坐标
+                int y = loc[1]; // 橘子的纵坐标
+                // 遍历四个方向
+                for (int[] direction : directions) {
+                    int nextX = x + direction[0]; // 下一个橘子的横坐标
+                    int nextY = y + direction[1]; // 下一个橘子的纵坐标
+                    // 检查下一个橘子是否越界
+                    if (
+                        nextX >= grid.length ||
+                        nextY >= grid[0].length ||
+                        nextX < 0 ||
+                        nextY < 0
+                    ) {
+                        continue;
+                    }
+                    // 如果下一个橘子是新鲜的，则将其腐烂
+                    if (grid[nextX][nextY] == 1) {
+                        freshOranges--; // 新鲜橘子的数量减1
+                        grid[nextX][nextY] = 2; // 将橘子腐烂
+                        newRottenOrange = true; // 标记有新的橘子腐烂
+                        rottenOranges.offer(new int[] { nextX, nextY }); // 将腐烂的橘子加入队列
+                    }
+                }
+            }
+            if (newRottenOrange) minte++; // 如果有新的橘子腐烂，则时间加1
+        }
+
+        // 如果还有新鲜的橘子，则无法全部腐烂
+        if (freshOranges > 0) {
+            return -1;
+        }
+
+        return minte; // 返回腐烂所需的最短时间
+    }
 }
