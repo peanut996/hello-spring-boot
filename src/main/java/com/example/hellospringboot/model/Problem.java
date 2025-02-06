@@ -2356,4 +2356,40 @@ public class Problem {
         }
     }
 
+    @LeetCode(
+            level = Level.MEDIUM,
+            title = "47. 全排列 II",
+            source = "https://leetcode.cn/problems/permutations-ii/",
+            point = { Point.BACKTRACKING }
+    )
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        Arrays.sort(nums);
+        boolean[] visited = new boolean[nums.length];
+        backtracking(nums, visited, new ArrayList<>(), ans);
+        return ans;
+    }
+
+    void backtracking(int[] nums, boolean[] visited, List<Integer> current, List<List<Integer>> ans) {
+        if (nums.length == current.size()) {
+            ans.add(new ArrayList(current));
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            int n = nums[i];
+            // 剪枝条件：
+            // 1. 当前元素已经被访问过
+            // 2. 当前元素与前一个元素相同，并且前一个元素没有被访问过
+            if(visited[i] || (i > 0 && nums[i] == nums[i-1] && !visited[i-1])){
+                continue;
+            }
+            current.add(n);
+            visited[i] = true;
+            backtracking(nums, visited, current, ans);
+            visited[i] = false;
+            current.remove(current.size() - 1);
+
+        }
+    }
+
 }
