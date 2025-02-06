@@ -2324,4 +2324,36 @@ public class Problem {
         return true; // 不存在环
     }
 
+    @LeetCode(
+            level = Level.MEDIUM,
+            title = "46. 全排列",
+            source = "https://leetcode.cn/problems/permutations/",
+            point = { Point.BACKTRACKING }
+    )
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        boolean[] visited = new boolean[nums.length];
+        backtrace(nums, visited, new ArrayList<>(), ans);
+        return ans;
+    }
+
+    void backtrace(int[] nums, boolean[] visited, List<Integer> current, List<List<Integer>> ans) {
+        if (nums.length == current.size()) {
+            ans.add(new ArrayList(current));
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            int n = nums[i];
+
+            if (!visited[i]) {
+
+                current.add(n);
+                visited[i] = true;
+                backtrace(nums, visited, current, ans);
+                visited[i] = false;
+                current.remove(current.size() - 1);
+            }
+        }
+    }
+
 }

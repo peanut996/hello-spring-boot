@@ -110,7 +110,7 @@ public @interface LeetCode {
 
         GRAPH,
 
-        TOPOLOGICAL_SORT,
+        TOPOLOGICAL_SORT, BACKTRACKING,
     }
 
     Level level();
