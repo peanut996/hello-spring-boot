@@ -107,6 +107,10 @@ public @interface LeetCode {
         DFS,
 
         BFS,
+
+        GRAPH,
+
+        TOPOLOGICAL_SORT,
     }
 
     Level level();

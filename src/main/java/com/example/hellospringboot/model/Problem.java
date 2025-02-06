@@ -2266,4 +2266,62 @@ public class Problem {
 
         return minte; // 返回腐烂所需的最短时间
     }
+
+    @LeetCode(
+            level = Level.MEDIUM,
+            title = "207. 课程表",
+            source = "https://leetcode.cn/problems/course-schedule/",
+            point = { Point.DFS, Point.GRAPH, Point.TOPOLOGICAL_SORT }
+    )
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        // 创建邻接表
+        List<List<Integer>> graph = new ArrayList<>(numCourses);
+        for (int i = 0; i < numCourses; i++) {
+            graph.add(new ArrayList<>());
+        }
+
+        // 填充邻接表
+        for (int[] prerequisite : prerequisites) {
+            int course = prerequisite[0]; // 后修课程
+            int pre = prerequisite[1]; // 先修课程
+            graph.get(pre).add(course); // 添加依赖关系
+        }
+
+        // 标记节点访问状态：0-未访问，1-正在访问，2-已完成访问
+        int[] visited = new int[numCourses];
+        // 遍历所有课程，检查是否存在环
+        for (int i = 0; i < numCourses; i++) {
+            if (!dfs(visited, graph, i)) {
+                return false; // 存在环，无法完成所有课程
+            }
+        }
+
+        return true; // 不存在环，可以完成所有课程
+    }
+
+    // 深度优先搜索，判断是否存在环
+    boolean dfs(int[] visited, List<List<Integer>> graph, int i) {
+        // 如果当前节点正在被访问，说明存在环
+        if (visited[i] == 1) {
+            return false;
+        }
+        // 如果当前节点已经完成访问，说明该节点及其依赖的节点都不存在环
+        if (visited[i] == 2) {
+            return true;
+        }
+        // 标记当前节点正在被访问
+        visited[i] = 1;
+        // 遍历当前节点依赖的所有节点
+        for (Integer pre : graph.get(i)) {
+            // 递归访问依赖节点，如果发现环，则返回false
+            if (!dfs(visited, graph, pre)) {
+                return false;
+            }
+        }
+
+        // 标记当前节点已经完成访问
+        visited[i] = 2;
+        return true; // 不存在环
+    }
+
 }
