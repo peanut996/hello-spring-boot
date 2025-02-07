@@ -2404,50 +2404,53 @@ public class Problem {
     }
 
     @LeetCode(
-            level = Level.MEDIUM,
-            title = "17. 电话号码的字母组合",
-            source = "https://leetcode.cn/problems/letter-combinations-of-a-phone-number/",
-            point = { Point.BACKTRACKING, Point.STRING }
-        )
-        public List<String> letterCombinations(String digits) {
-            if (digits.length() == 0) {
-                return Collections.emptyList();
-            }
-            char[][] keys = new char[][] {
-                    "abc".toCharArray(),
-                    "def".toCharArray(),
-                    "ghi".toCharArray(),
-                    "jkl".toCharArray(),
-                    "mno".toCharArray(),
-                    "pqrs".toCharArray(),
-                    "tuv".toCharArray(),
-                    "wxyz".toCharArray()
-            };
+        level = Level.MEDIUM,
+        title = "17. 电话号码的字母组合",
+        source = "https://leetcode.cn/problems/letter-combinations-of-a-phone-number/",
+        point = { Point.BACKTRACKING, Point.STRING }
+    )
+    public List<String> letterCombinations(String digits) {
+        if (digits.length() == 0) {
+            return Collections.emptyList();
+        }
+        char[][] keys = new char[][] {
+            "abc".toCharArray(),
+            "def".toCharArray(),
+            "ghi".toCharArray(),
+            "jkl".toCharArray(),
+            "mno".toCharArray(),
+            "pqrs".toCharArray(),
+            "tuv".toCharArray(),
+            "wxyz".toCharArray(),
+        };
 
-            List<char[]> allKeys = new ArrayList<>();
-            for (char c : digits.toCharArray()) {
-                int index = c - '2';
-                allKeys.add(keys[index]);
-            }
-            List<String> ans = new ArrayList<>();
-            dfs(allKeys, 0, new StringBuilder(), ans);
-            return ans;
+        List<char[]> allKeys = new ArrayList<>();
+        for (char c : digits.toCharArray()) {
+            int index = c - '2';
+            allKeys.add(keys[index]);
+        }
+        List<String> ans = new ArrayList<>();
+        dfs(allKeys, 0, new StringBuilder(), ans);
+        return ans;
+    }
 
+    void dfs(
+        List<char[]> all,
+        int index,
+        StringBuilder current,
+        List<String> ans
+    ) {
+        if (index == all.size()) {
+            // 当index等于all的size时，说明已经遍历完所有的数字，将current添加到ans中
+            ans.add(current.toString());
+            return;
         }
 
-        void dfs(List<char[]> all, int index, StringBuilder current, List<String> ans) {
-            if (index == all.size()) {
-                // 当index等于all的size时，说明已经遍历完所有的数字，将current添加到ans中
-                ans.add(current.toString());
-                return;
-            }
-
-            char[] chars = all.get(index);
-            for (int j = 0; j < chars.length; j++) {
-                current.append(chars[j]);
-                dfs(all, index + 1, current, ans);
-                current.deleteCharAt(current.length() - 1);
-            }
+        char[] chars = all.get(index);
+        for (int j = 0; j < chars.length; j++) {
+            current.append(chars[j]);
+            dfs(all, index + 1, current, ans);
+            current.deleteCharAt(current.length() - 1);
         }
     }
 }
