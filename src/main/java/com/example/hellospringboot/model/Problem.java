@@ -4,6 +4,7 @@ import com.example.hellospringboot.annotation.LeetCode;
 import com.example.hellospringboot.annotation.LeetCode.Level;
 import com.example.hellospringboot.annotation.LeetCode.Point;
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class Problem {
 
@@ -2451,6 +2452,44 @@ public class Problem {
             current.append(chars[j]);
             dfs(all, index + 1, current, ans);
             current.deleteCharAt(current.length() - 1);
+        }
+    }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "39. 组合总和",
+        source = "https://leetcode.cn/problems/combination-sum/",
+        point = { Point.BACKTRACKING, Point.ARRAY }
+    )
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        dfs(candidates, 0, target, new ArrayList<>(), ans);
+        return ans;
+    }
+
+    void dfs(
+        int[] candidates,
+        int start,
+        int target,
+        List<Integer> current,
+        List<List<Integer>> ans
+    ) {
+        // 如果 target 为 0，则表示找到一个组合，将其添加到结果集中
+        if (target == 0) {
+            ans.add(new ArrayList<>(current));
+            return;
+        }
+        // 如果 target 小于 0，则表示当前组合的和已经超过了 target，直接返回
+        if (target < 0) {
+            return;
+        }
+
+        // 从 start 开始遍历候选数组
+        for (int i = start; i < candidates.length; i++) {
+            current.add(candidates[i]);
+            // 递归调用 dfs 函数，注意这里第二个参数是 i，表示可以重复选择当前元素
+            dfs(candidates, i, target - candidates[i], current, ans);
+            current.remove(current.size() - 1); // 回溯，移除最后一个元素
         }
     }
 }
