@@ -2268,10 +2268,10 @@ public class Problem {
     }
 
     @LeetCode(
-            level = Level.MEDIUM,
-            title = "207. 课程表",
-            source = "https://leetcode.cn/problems/course-schedule/",
-            point = { Point.DFS, Point.GRAPH, Point.TOPOLOGICAL_SORT }
+        level = Level.MEDIUM,
+        title = "207. 课程表",
+        source = "https://leetcode.cn/problems/course-schedule/",
+        point = { Point.DFS, Point.GRAPH, Point.TOPOLOGICAL_SORT }
     )
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         // 创建邻接表
@@ -2325,10 +2325,10 @@ public class Problem {
     }
 
     @LeetCode(
-            level = Level.MEDIUM,
-            title = "46. 全排列",
-            source = "https://leetcode.cn/problems/permutations/",
-            point = { Point.BACKTRACKING }
+        level = Level.MEDIUM,
+        title = "46. 全排列",
+        source = "https://leetcode.cn/problems/permutations/",
+        point = { Point.BACKTRACKING }
     )
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
@@ -2337,7 +2337,12 @@ public class Problem {
         return ans;
     }
 
-    void backtrace(int[] nums, boolean[] visited, List<Integer> current, List<List<Integer>> ans) {
+    void backtrace(
+        int[] nums,
+        boolean[] visited,
+        List<Integer> current,
+        List<List<Integer>> ans
+    ) {
         if (nums.length == current.size()) {
             ans.add(new ArrayList(current));
         }
@@ -2346,7 +2351,6 @@ public class Problem {
             int n = nums[i];
 
             if (!visited[i]) {
-
                 current.add(n);
                 visited[i] = true;
                 backtrace(nums, visited, current, ans);
@@ -2357,10 +2361,10 @@ public class Problem {
     }
 
     @LeetCode(
-            level = Level.MEDIUM,
-            title = "47. 全排列 II",
-            source = "https://leetcode.cn/problems/permutations-ii/",
-            point = { Point.BACKTRACKING }
+        level = Level.MEDIUM,
+        title = "47. 全排列 II",
+        source = "https://leetcode.cn/problems/permutations-ii/",
+        point = { Point.BACKTRACKING }
     )
     public List<List<Integer>> permuteUnique(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
@@ -2370,7 +2374,12 @@ public class Problem {
         return ans;
     }
 
-    void backtracking(int[] nums, boolean[] visited, List<Integer> current, List<List<Integer>> ans) {
+    void backtracking(
+        int[] nums,
+        boolean[] visited,
+        List<Integer> current,
+        List<List<Integer>> ans
+    ) {
         if (nums.length == current.size()) {
             ans.add(new ArrayList(current));
         }
@@ -2380,7 +2389,10 @@ public class Problem {
             // 剪枝条件：
             // 1. 当前元素已经被访问过
             // 2. 当前元素与前一个元素相同，并且前一个元素没有被访问过
-            if(visited[i] || (i > 0 && nums[i] == nums[i-1] && !visited[i-1])){
+            if (
+                visited[i] ||
+                (i > 0 && nums[i] == nums[i - 1] && !visited[i - 1])
+            ) {
                 continue;
             }
             current.add(n);
@@ -2388,8 +2400,54 @@ public class Problem {
             backtracking(nums, visited, current, ans);
             visited[i] = false;
             current.remove(current.size() - 1);
-
         }
     }
 
+    @LeetCode(
+            level = Level.MEDIUM,
+            title = "17. 电话号码的字母组合",
+            source = "https://leetcode.cn/problems/letter-combinations-of-a-phone-number/",
+            point = { Point.BACKTRACKING, Point.STRING }
+        )
+        public List<String> letterCombinations(String digits) {
+            if (digits.length() == 0) {
+                return Collections.emptyList();
+            }
+            char[][] keys = new char[][] {
+                    "abc".toCharArray(),
+                    "def".toCharArray(),
+                    "ghi".toCharArray(),
+                    "jkl".toCharArray(),
+                    "mno".toCharArray(),
+                    "pqrs".toCharArray(),
+                    "tuv".toCharArray(),
+                    "wxyz".toCharArray()
+            };
+
+            List<char[]> allKeys = new ArrayList<>();
+            for (char c : digits.toCharArray()) {
+                int index = c - '2';
+                allKeys.add(keys[index]);
+            }
+            List<String> ans = new ArrayList<>();
+            dfs(allKeys, 0, new StringBuilder(), ans);
+            return ans;
+
+        }
+
+        void dfs(List<char[]> all, int index, StringBuilder current, List<String> ans) {
+            if (index == all.size()) {
+                // 当index等于all的size时，说明已经遍历完所有的数字，将current添加到ans中
+                ans.add(current.toString());
+                return;
+            }
+
+            char[] chars = all.get(index);
+            for (int j = 0; j < chars.length; j++) {
+                current.append(chars[j]);
+                dfs(all, index + 1, current, ans);
+                current.deleteCharAt(current.length() - 1);
+            }
+        }
+    }
 }
