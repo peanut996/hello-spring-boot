@@ -2535,4 +2535,85 @@ public class Problem {
         path[index] = right; // 放置右括号
         dfs(index + 1, open, path, ans); // 递归
     }
+
+    int[][] directions = new int[][] {
+        { 0, 1 },
+        { 0, -1 },
+        { 1, 0 },
+        { -1, 0 },
+    };
+    int m;
+    int n;
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "79. 单词搜索",
+        source = "https://leetcode.cn/problems/word-search/",
+        point = { Point.BACKTRACKING, Point.ARRAY }
+    )
+    public boolean exist(char[][] board, String word) {
+        m = board.length;
+        n = board[0].length;
+        for (int row = 0; row < board.length; row++) {
+            for (int col = 0; col < board[0].length; col++) {
+                boolean[][] visited = new boolean[m][n];
+                if (dfs(board, visited, row, col, 0, word)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 深度优先搜索函数
+     *
+     * @param board    字符矩阵
+     * @param visited  标记访问状态的二维数组
+     * @param row      当前行
+     * @param col      当前列
+     * @param index    单词匹配的索引
+     * @param word     要匹配的单词
+     * @return 是否能找到匹配的路径
+     */
+    boolean dfs(
+        char[][] board,
+        boolean[][] visited,
+        int row,
+        int col,
+        int index,
+        String word
+    ) {
+        // 如果已经匹配到单词末尾，返回 true
+        if (index == word.length()) {
+            return true;
+        }
+
+        // 如果越界、已访问或字符不匹配，返回 false
+        if (
+            row < 0 ||
+            row >= m ||
+            col < 0 ||
+            col >= n ||
+            visited[row][col] ||
+            board[row][col] != word.charAt(index)
+        ) {
+            return false;
+        }
+
+        visited[row][col] = true;
+
+        for (int[] direction : directions) {
+            int nextRow = row + direction[0];
+            int nextCol = col + direction[1];
+
+            // 递归搜索下一位置
+            if (dfs(board, visited, nextRow, nextCol, index + 1, word)) {
+                return true;
+            }
+        }
+        visited[row][col] = false;
+
+        return false;
+    }
 }
