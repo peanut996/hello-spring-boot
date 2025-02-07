@@ -2492,4 +2492,47 @@ public class Problem {
             current.remove(current.size() - 1); // 回溯，移除最后一个元素
         }
     }
+
+    char left = '(';
+
+    char right = ')';
+
+    int num;
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "22. 括号生成",
+        source = "https://leetcode.cn/problems/generate-parentheses/",
+        point = { Point.STRING, Point.BACKTRACKING }
+    )
+    public List<String> generateParenthesis(int n) {
+        num = n;
+        List<String> ans = new ArrayList<>();
+        char[] path = new char[2 * n];
+
+        dfs(0, 0, path, ans);
+        return ans;
+    }
+
+    void dfs(int index, int open, char[] path, List<String> ans) {
+        // index: 当前遍历到的位置
+        // open: 左括号的数量
+        // path: 当前生成的括号字符串
+        // ans: 结果集
+
+        if (num * 2 == index && open == num) { // 生成完成，加入结果集
+            ans.add(new String(path));
+            return;
+        }
+
+        int leftNum = open; // 左括号数量
+        int rightNum = index - open; // 右括号数量
+        if (leftNum > num || rightNum > leftNum) { // 剪枝：左括号数量超过n或右括号数量超过左括号数量
+            return;
+        }
+        path[index] = left; // 放置左括号
+        dfs(index + 1, open + 1, path, ans); // 递归
+        path[index] = right; // 放置右括号
+        dfs(index + 1, open, path, ans); // 递归
+    }
 }
