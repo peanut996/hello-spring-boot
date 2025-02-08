@@ -2658,4 +2658,71 @@ public class Problem {
         }
         return true;
     }
+
+    Set<Integer> dia1;
+    Set<Integer> dia2;
+
+    @LeetCode(
+        level = Level.HARD,
+        title = "51. N 皇后",
+        source = "https://leetcode.cn/problems/n-queens/",
+        point = { Point.BACKTRACKING }
+    )
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> ans = new ArrayList<>();
+        dia1 = new HashSet<>();
+        dia2 = new HashSet<>();
+        dfs(n, 0, new ArrayList<>(), ans);
+
+        return ans;
+    }
+
+    /**
+     * 根据数字列表构建字符串列表
+     *
+     * @param nums 数字列表
+     * @return     对应的字符串列表
+     */
+    List<String> buildString(List<Integer> nums) {
+        List<String> strs = new ArrayList<>();
+        for (int n : nums) {
+            char[] chars = new char[nums.size()];
+            Arrays.fill(chars, '.');
+            chars[n] = 'Q';
+            strs.add(new String(chars));
+        }
+
+        return strs;
+    }
+
+    /**
+     * 深度优先搜索方法
+     *
+     * @param n     棋盘大小
+     * @param row   当前行
+     * @param path  皇后放置的列索引路径
+     * @param ans   最终结果列表
+     */
+    void dfs(int n, int row, List<Integer> path, List<List<String>> ans) {
+        if (row == n) {
+            ans.add(buildString(path));
+            return;
+        }
+
+        for (int col = 0; col < n; col++) {
+            if (
+                !path.contains(col) &&
+                !dia1.contains(row + col) &&
+                !dia2.contains(row - col)
+            ) {
+                path.add(col);
+                dia1.add(row + col);
+                dia2.add(row - col);
+                dfs(n, row + 1, path, ans);
+                path.remove(path.size() - 1);
+                dia1.remove(row + col);
+                dia2.remove(row - col);
+            }
+        }
+    }
 }
