@@ -2616,4 +2616,46 @@ public class Problem {
 
         return false;
     }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "131. 分割回文串",
+        source = "https://leetcode.cn/problems/palindrome-partitioning/",
+        point = { Point.BACKTRACKING }
+    )
+    public List<List<String>> partition(String s) {
+        List<List<String>> ans = new ArrayList<>();
+        char[] chars = s.toCharArray();
+        dfs(chars, 0, new ArrayList<>(), ans);
+        return ans;
+    }
+
+    public void dfs(
+        char[] chars,
+        int start,
+        List<String> path,
+        List<List<String>> ans
+    ) {
+        // start 为下一个新的回文串的开始
+        if (start == chars.length) {
+            ans.add(new ArrayList<>(path));
+        }
+
+        for (int end = start; end < chars.length; end++) {
+            if (isPalindrome(chars, start, end)) {
+                path.add(new String(chars, start, end - start + 1));
+                dfs(chars, end + 1, path, ans);
+                path.remove(path.size() - 1);
+            }
+        }
+    }
+
+    public boolean isPalindrome(char[] chars, int start, int end) {
+        while (start < end) {
+            if (chars[start++] != chars[end--]) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
