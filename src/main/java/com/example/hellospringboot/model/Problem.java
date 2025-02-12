@@ -2792,4 +2792,42 @@ public class Problem {
         // 如果未找到中位数，返回 -1（理论上不应到达此情况）
         return -1;
     }
+
+    @LeetCode(
+            level = Level.MEDIUM,
+            title = "394. 字符串解码",
+            source = "https://leetcode.cn/problems/decode-string/",
+            point = { Point.STACK }
+    )
+    public String decodeString(String s) {
+
+        int mul = 0;
+        StringBuilder res = new StringBuilder();
+
+        Stack<Integer> numStack = new Stack<>();
+        Stack<String> stack = new Stack<>();
+
+        for (char c : s.toCharArray()) {
+            if (c >= '0' && c <= '9') {
+                mul = mul * 10 + Integer.valueOf(c - '0');
+            } else if (c == '[') {
+                stack.push(res.toString());
+                numStack.push(mul);
+                mul = 0;
+                res = new StringBuilder();
+            } else if (c == ']') {
+                int n = numStack.pop();
+                String str = stack.pop();
+                StringBuilder tmp = new StringBuilder();
+                for (int i = 0; i < n; i++) {
+                    tmp.append(res);
+                }
+                res = new StringBuilder(str + tmp);
+            } else {
+                res.append(c);
+            }
+        }
+        return res.toString();
+    }
+
 }

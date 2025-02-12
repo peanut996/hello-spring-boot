@@ -58,4 +58,12 @@ class ProblemTest {
         assert -1 == cache.get(2);
         assert 2 == cache.get(3);
     }
+
+    @Test
+    void decodeString() {
+        String res = problem.decodeString("3[a]2[bc]");
+        assert "aaabcbc".equals(res);
+
+        assert "accaccacc".equals(problem.decodeString("3[a2[c]]"));
+    }
 }
