@@ -94,27 +94,65 @@ public @interface LeetCode {
          */
         DIVIDE_AND_CONQUER,
 
+        /**
+         * 树
+         */
         TREE,
 
+        /**
+         * 二叉树
+         */
         BINARY_TREE,
 
+        /**
+         * 递归
+         */
         RECURSION,
 
+        /**
+         * 遍历
+         */
         TRAVERSAL,
 
+        /**
+         * 莫里斯遍历
+         */
         MORRIS_TRAVERSAL,
 
+        /**
+         * 深度优先搜索
+         */
         DFS,
 
+        /**
+         * 广度优先搜索
+         */
         BFS,
 
+        /**
+         * 图
+         */
         GRAPH,
 
+        /**
+         * 拓扑排序
+         */
         TOPOLOGICAL_SORT,
 
+        /**
+         * 回溯
+         */
         BACKTRACKING,
 
+        /**
+         * 字符串
+         */
         STRING,
+
+        /**
+         * 栈
+         */
+        STACK,
     }
 
     Level level();
