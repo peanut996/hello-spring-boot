@@ -569,7 +569,7 @@ public class Problem {
         level = Level.MEDIUM,
         title = "1198. 找出所有行中最小公共元素",
         source = "https://leetcode.cn/problems/find-smallest-common-element-in-all-rows/description",
-        point = { Point.HASH, Point.BIN_SEARCH }
+        point = { Point.HASH, Point.BINARY_SEARCH }
     )
     public int smallestCommonElement(int[][] mat) {
         //        int count[] = new int[10001];
@@ -715,7 +715,7 @@ public class Problem {
         level = Level.MEDIUM,
         source = "https://leetcode.cn/problems/compare-strings-by-frequency-of-the-smallest-character/",
         title = "1170. 比较字符串最小字母出现频次",
-        point = Point.BIN_SEARCH
+        point = Point.BINARY_SEARCH
     )
     public int[] numSmallerByFrequency(String[] queries, String[] words) {
         int[] queriesF = new int[queries.length];
@@ -2724,5 +2724,72 @@ public class Problem {
                 dia2.remove(row - col);
             }
         }
+    }
+
+    public int searchInsert(int[] nums, int target) {
+        int start = 0, end = nums.length - 1;
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] > target) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+        return start;
+    }
+
+    @LeetCode(
+        level = Level.HARD,
+        title = "4. 寻找两个正序数组的中位数",
+        source = "https://leetcode.cn/problems/median-of-two-sorted-arrays/",
+        point = { Point.BINARY_SEARCH, Point.TWO_POINTERS }
+    )
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        // 如果 nums1 的长度大于 nums2 的长度，交换两者，确保 nums1 长度较小
+        if (nums1.length > nums2.length) {
+            return findMedianSortedArrays(nums2, nums1);
+        }
+
+        int m = nums1.length;
+        int n = nums2.length;
+
+        int left = 0;
+        int right = m;
+
+        while (left <= right) {
+            // 计算在 nums1 中的分割位置 i
+            int i = (left + right) / 2;
+            // 根据两个数组的总长度和 i，计算在 nums2 中的分割位置 j
+            int j = (m + n + 1) / 2 - i;
+
+            // 获取 nums1 分割位置左边的最大值
+            int maxLeft1 = (i == 0) ? Integer.MIN_VALUE : nums1[i - 1];
+            // 获取 nums1 分割位置右边的最小值
+            int minRight1 = (i == m) ? Integer.MAX_VALUE : nums1[i];
+            // 获取 nums2 分割位置左边的最大值
+            int maxLeft2 = (j == 0) ? Integer.MIN_VALUE : nums2[j - 1];
+            // 获取 nums2 分割位置右边的最小值
+            int minRight2 = (j == n) ? Integer.MAX_VALUE : nums2[j];
+
+            // 如果满足条件，找到中位数
+            if (maxLeft1 <= minRight2 && maxLeft2 <= minRight1) {
+                int max = Math.max(maxLeft1, maxLeft2);
+                int min = Math.min(minRight1, minRight2);
+                // 如果总长度为偶数，返回两个中间值的平均值；否则，返回较大的中间值
+                return (m + n) % 2 == 0 ? (max + min) / 2.0 : max;
+            } else if (maxLeft1 > minRight2) {
+                // 如果 nums1 左边的最大值大于 nums2 右边的最小值，缩小 i 的范围
+                right = i - 1;
+            } else {
+                // 否则，增大 i 的范围
+                left = i + 1;
+            }
+        }
+        // 如果未找到中位数，返回 -1（理论上不应到达此情况）
+        return -1;
     }
 }

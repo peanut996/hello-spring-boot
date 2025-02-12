@@ -32,7 +32,7 @@ public @interface LeetCode {
         /**
          * 二分查找
          */
-        BIN_SEARCH,
+        BINARY_SEARCH,
 
         /**
          * 矩阵
