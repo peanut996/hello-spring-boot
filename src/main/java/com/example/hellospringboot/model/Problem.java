@@ -2794,13 +2794,12 @@ public class Problem {
     }
 
     @LeetCode(
-            level = Level.MEDIUM,
-            title = "394. 字符串解码",
-            source = "https://leetcode.cn/problems/decode-string/",
-            point = { Point.STACK }
+        level = Level.MEDIUM,
+        title = "394. 字符串解码",
+        source = "https://leetcode.cn/problems/decode-string/",
+        point = { Point.STACK }
     )
     public String decodeString(String s) {
-
         int mul = 0;
         StringBuilder res = new StringBuilder();
 
@@ -2830,27 +2829,27 @@ public class Problem {
         return res.toString();
     }
 
-
     @LeetCode(
-            level = Level.MEDIUM,
-            title = "739. 每日温度",
-            source = "https://leetcode.cn/problems/daily-temperatures/",
-            point = { Point.STACK, Point.MONOTONIC_STACK }
-        )
-        public int[] dailyTemperatures(int[] temperatures) {
-            int[] answer = new int[temperatures.length];
-            Stack<Integer> stack = new Stack<>();
+        level = Level.MEDIUM,
+        title = "739. 每日温度",
+        source = "https://leetcode.cn/problems/daily-temperatures/",
+        point = { Point.STACK, Point.MONOTONIC_STACK }
+    )
+    public int[] dailyTemperatures(int[] temperatures) {
+        int[] answer = new int[temperatures.length];
+        Deque<Integer> stack = new ArrayDeque<>();
 
-            for (int i = 0; i < temperatures.length; i++) {
-                // 当栈不为空，且当前温度大于栈顶元素对应的温度时
-                while(!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()] ){
-                    int prev= stack.pop();
-                    answer[prev] = i - prev;
-                }
-                stack.push(i);
+        for (int i = 0; i < temperatures.length; i++) {
+            // 当栈不为空，且当前温度大于栈顶元素对应的温度时
+            while (
+                !stack.isEmpty() &&
+                temperatures[i] > temperatures[stack.peekLast()]
+            ) {
+                int prev = stack.removeLast();
+                answer[prev] = i - prev;
             }
-            return answer;
+            stack.addLast(i);
         }
-
-
+        return answer;
+    }
 }
