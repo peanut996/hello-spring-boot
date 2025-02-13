@@ -153,6 +153,11 @@ public @interface LeetCode {
          * 栈
          */
         STACK,
+
+        /**
+         * 单调栈
+         */
+        MONOTONIC_STACK,
     }
 
     Level level();

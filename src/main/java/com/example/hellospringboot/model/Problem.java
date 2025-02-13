@@ -2830,4 +2830,27 @@ public class Problem {
         return res.toString();
     }
 
+
+    @LeetCode(
+            level = Level.MEDIUM,
+            title = "739. 每日温度",
+            source = "https://leetcode.cn/problems/daily-temperatures/",
+            point = { Point.STACK, Point.MONOTONIC_STACK }
+        )
+        public int[] dailyTemperatures(int[] temperatures) {
+            int[] answer = new int[temperatures.length];
+            Stack<Integer> stack = new Stack<>();
+
+            for (int i = 0; i < temperatures.length; i++) {
+                // 当栈不为空，且当前温度大于栈顶元素对应的温度时
+                while(!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()] ){
+                    int prev= stack.pop();
+                    answer[prev] = i - prev;
+                }
+                stack.push(i);
+            }
+            return answer;
+        }
+
+
 }
