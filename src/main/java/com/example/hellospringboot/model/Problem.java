@@ -2852,4 +2852,48 @@ public class Problem {
         }
         return answer;
     }
+
+    @LeetCode(
+        level = Level.HARD,
+        title = "84. 柱状图中最大的矩形",
+        source = "https://leetcode.cn/problems/largest-rectangle-in-histogram/",
+        point = { Point.STACK, Point.ARRAY }
+    )
+    public int largestRectangleArea(int[] heights) {
+        int length = heights.length;
+        // 任务 1：创建并初始化用于存储左边和右边第一个小于当前柱子位置的数组 left 和 right。
+        int[] left = new int[length];
+        int[] right = new int[length];
+        // 任务 2：使用一个栈来计算每个柱子左边第一个小于它的柱子的位置，将结果存储在 left 数组中。
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < length; i++) {
+            // 当栈不为空且栈顶柱子高度大于等于当前柱子高度时，弹出栈顶元素
+            while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]) {
+                stack.pop();
+            }
+            int prev = stack.isEmpty() ? 0 : stack.peek() + 1;
+            left[i] = prev;
+            stack.push(i);
+        }
+
+        // 任务 3：清空栈，再使用一个栈来计算每个柱子右边第一个小于它的柱子的位置，将结果存储在 right 数组中。
+        stack.clear();
+        for (int i = length - 1; i >= 0; i--) {
+            // 当栈不为空且栈顶柱子高度大于等于当前柱子高度时，弹出栈顶元素
+            while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]) {
+                stack.pop();
+            }
+            int prev = stack.isEmpty() ? length - 1 : stack.peek() - 1;
+            right[i] = prev;
+            stack.push(i);
+        }
+
+        // 任务 4：遍历所有柱子，计算以每个柱子高度为矩形高度，左右边界为 left 和 right 数组中对应值时的矩形面积，并更新最大矩形面积。
+
+        int maxArea = 0;
+        for (int i = 0; i < length; i++) {
+            maxArea = Math.max(maxArea, heights[i] * (right[i] - left[i] + 1));
+        }
+        return maxArea;
+    }
 }
