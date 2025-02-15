@@ -2958,4 +2958,43 @@ public class Problem {
         }
         return maxArea;
     }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "347. 前 K 个高频元素",
+        source = "https://leetcode.cn/problems/top-k-frequent-elements/",
+        point = { Point.HASH, Point.ARRAY }
+    )
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> fre = new HashMap<>();
+
+        for (int num : nums) {
+            fre.merge(num, 1, (p, c) -> p + c);
+        }
+
+        List<Integer>[] bucket = new List[nums.length + 1];
+        for (int key : fre.keySet()) {
+            List cur = bucket[fre.get(key)];
+            if (cur == null) {
+                bucket[fre.get(key)] = new ArrayList<>();
+                cur = bucket[fre.get(key)];
+            }
+            cur.add(key);
+        }
+
+        int[] result = new int[k];
+        int index = 0;
+        for (int i = bucket.length - 1; i >= 0; i--) {
+            List<Integer> cur = bucket[i];
+            if (cur != null) {
+                for (int num : cur) {
+                    result[index++] = num;
+                    if (index == k) {
+                        return result;
+                    }
+                }
+            }
+        }
+        return result;
+    }
 }
