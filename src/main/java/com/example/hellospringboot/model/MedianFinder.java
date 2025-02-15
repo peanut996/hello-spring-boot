@@ -42,4 +42,26 @@ class MedianFinder {
         }
         return maxHeap.peek();
     }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "55. 跳跃游戏",
+        source = "https://leetcode.cn/problems/jump-game/",
+        point = { Point.ARRAY }
+    )
+    public boolean canJump(int[] nums) {
+        int maxReach = 0;
+        // 遍历数组
+        for (int i = 0; i < nums.length; i++) {
+            if (i <= maxReach) {
+                // 更新能到达的最远距离
+                maxReach = Math.max(maxReach, i + nums[i]);
+            }
+        }
+        // 判断是否能到达数组末尾
+        if (nums.length - 1 <= maxReach) {
+            return true;
+        }
+        return false;
+    }
 }
