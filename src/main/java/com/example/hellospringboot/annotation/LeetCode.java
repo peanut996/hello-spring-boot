@@ -163,6 +163,11 @@ public @interface LeetCode {
          * 单调栈
          */
         MONOTONIC_STACK,
+
+        /**
+         * 贪心
+         */
+        GREEDY,
     }
 
     Level level();

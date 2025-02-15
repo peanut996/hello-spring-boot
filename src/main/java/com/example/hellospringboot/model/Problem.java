@@ -2997,4 +2997,77 @@ public class Problem {
         }
         return result;
     }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "55. 跳跃游戏",
+        source = "https://leetcode.cn/problems/jump-game/",
+        point = { Point.ARRAY }
+    )
+    public boolean canJump(int[] nums) {
+        int maxReach = 0;
+        // 遍历数组
+        for (int i = 0; i < nums.length; i++) {
+            if (i <= maxReach) {
+                // 更新能到达的最远距离
+                maxReach = Math.max(maxReach, i + nums[i]);
+            }
+        }
+        // 判断是否能到达数组末尾
+        if (nums.length - 1 <= maxReach) {
+            return true;
+        }
+        return false;
+    }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "45. 跳跃游戏 II",
+        source = "https://leetcode.cn/problems/jump-game-ii/",
+        point = { Point.ARRAY }
+    )
+    public int jump(int[] nums) {
+        int jumps = 0; // 跳跃次数
+        int currentJumpEnd = 0; // 当前跳跃能到达的边界
+        int farthest = 0; // 在当前跳跃范围内，能到达的最远位置
+
+        for (int i = 0; i < nums.length - 1; i++) { // 注意：这里是 nums.length - 1，因为到达最后一个位置不需要再跳
+            // 不断更新“当前跳跃范围内能到达的最远位置”
+            farthest = Math.max(farthest, i + nums[i]);
+
+            // 到达当前跳跃边界
+            if (i == currentJumpEnd) {
+                jumps++; // 跳跃次数加 1
+                currentJumpEnd = farthest; // 更新当前跳跃边界为“当前跳跃范围内能到达的最远位置”
+            }
+        }
+
+        return jumps;
+    }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "763. 划分字母区间",
+        source = "https://leetcode.cn/problems/partition-labels/",
+        point = { Point.GREEDY, Point.TWO_POINTERS, Point.HASH, Point.STRING }
+    )
+    public List<Integer> partitionLabels(String s) {
+        char[] chars = s.toCharArray();
+        int[] last = new int[26];
+        for (int i = 0; i < chars.length; i++) {
+            last[chars[i] - 'a'] = i;
+        }
+
+        int start = 0;
+        int end = 0;
+        List<Integer> ans = new ArrayList<>();
+        for (int i = 0; i < chars.length; i++) {
+            end = last[chars[i] - 'a'];
+            if (end == i) {
+                ans.add(end - start + 1);
+                start = end + 1;
+            }
+        }
+        return ans;
+    }
 }
