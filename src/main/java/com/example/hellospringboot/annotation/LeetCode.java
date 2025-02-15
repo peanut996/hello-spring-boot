@@ -110,6 +110,11 @@ public @interface LeetCode {
         RECURSION,
 
         /**
+         * 二叉搜索树
+         */
+        BINARY_SEARCH_TREE,
+
+        /**
          * 遍历
          */
         TRAVERSAL,
