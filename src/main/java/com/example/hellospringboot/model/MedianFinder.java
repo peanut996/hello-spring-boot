@@ -64,4 +64,29 @@ class MedianFinder {
         }
         return false;
     }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "45. 跳跃游戏 II",
+        source = "https://leetcode.cn/problems/jump-game-ii/",
+        point = { Point.ARRAY }
+    )
+    public int jump(int[] nums) {
+        int jumps = 0; // 跳跃次数
+        int currentJumpEnd = 0; // 当前跳跃能到达的边界
+        int farthest = 0; // 在当前跳跃范围内，能到达的最远位置
+
+        for (int i = 0; i < nums.length - 1; i++) { // 注意：这里是 nums.length - 1，因为到达最后一个位置不需要再跳
+            // 不断更新“当前跳跃范围内能到达的最远位置”
+            farthest = Math.max(farthest, i + nums[i]);
+
+            // 到达当前跳跃边界
+            if (i == currentJumpEnd) {
+                jumps++; // 跳跃次数加 1
+                currentJumpEnd = farthest; // 更新当前跳跃边界为“当前跳跃范围内能到达的最远位置”
+            }
+        }
+
+        return jumps;
+    }
 }
