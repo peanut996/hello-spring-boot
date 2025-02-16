@@ -3136,4 +3136,24 @@ public class Problem {
         }
         return memo[nums.length - 1];
     }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "279. 完全平方数",
+        source = "https://leetcode.cn/problems/perfect-squares/",
+        point = { Point.DYNAMIC_PROGRAMMING }
+    )
+    public int numSquares(int n) {
+        int[] dp = new int[n + 1];
+        // 初始化 dp 数组为最大值
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0] = 0;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j * j <= i; j++) {
+                // 计算当前数字最少由几个完全平方数组成
+                dp[i] = Math.min(dp[i], dp[i - j * j] + 1);
+            }
+        }
+        return dp[n];
+    }
 }
