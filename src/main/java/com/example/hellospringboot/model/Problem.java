@@ -1,3 +1,5 @@
+package com.example.hellospringboot.model;
+
 import com.example.hellospringboot.annotation.LeetCode;
 import com.example.hellospringboot.annotation.LeetCode.Level;
 import com.example.hellospringboot.annotation.LeetCode.Point;
