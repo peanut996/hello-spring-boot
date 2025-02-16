@@ -3156,4 +3156,29 @@ public class Problem {
         }
         return dp[n];
     }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "322. 零钱兑换",
+        source = "https://leetcode.cn/problems/coin-change/",
+        point = { Point.DYNAMIC_PROGRAMMING }
+    )
+    public int coinChange(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0] = 0;
+        for (int i = 1; i <= amount; i++) {
+            for (int coinIndex = 0; coinIndex < coins.length; coinIndex++) {
+                // 只有在当前金额减去硬币面额大于等于 0 且减去后的金额对应的最小硬币数不是最大值时，才进行计算
+                if (
+                    i - coins[coinIndex] >= 0 &&
+                    dp[i - coins[coinIndex]] != Integer.MAX_VALUE
+                ) {
+                    dp[i] = Math.min(dp[i - coins[coinIndex]] + 1, dp[i]);
+                }
+            }
+        }
+        // 如果最终结果为最大值，则返回 -1 ，否则返回结果
+        return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
+    }
 }
