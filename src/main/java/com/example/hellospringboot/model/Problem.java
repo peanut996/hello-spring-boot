@@ -3207,4 +3207,29 @@ public class Problem {
             return dp[length];
         }
 
+        @LeetCode(
+                level = Level.MEDIUM,
+                title = "300. 最长递增子序列",
+                source = "https://leetcode.cn/problems/longest-increasing-subsequence/",
+                point = { Point.DYNAMIC_PROGRAMMING }
+            )
+            public int lengthOfLIS(int[] nums) {
+                int length = nums.length;
+                int[] dp = new int[length];
+                Arrays.fill(dp, 1);
+                int lis = Integer.MIN_VALUE;
+                for(int i = 0; i<nums.length; i++){
+                    for(int j = 0; j < i;j++){
+                        // 如果前面的数字小于当前数字，更新当前位置的最长递增子序列长度
+                        if(nums[j] < nums[i]){
+                            dp[i] = Math.max(dp[i], dp[j]+1);
+                        }
+                    }
+                    // 记录最大的最长递增子序列长度
+                    lis = Math.max(dp[i], lis);
+                }
+                return lis;
+            }
+
+
 }
