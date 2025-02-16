@@ -3113,4 +3113,25 @@ public class Problem {
         }
         return nums;
     }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "198. 打家劫舍",
+        source = "https://leetcode.cn/problems/house-robber/",
+        point = { Point.DYNAMIC_PROGRAMMING }
+    )
+    public int rob(int[] nums) {
+        if (nums.length == 1) {
+            return nums[0];
+        }
+        int[] memo = new int[nums.length];
+        memo[0] = nums[0];
+        memo[1] = Math.max(nums[0], nums[1]);
+
+        for (int i = 2; i < nums.length; i++) {
+            // 计算当前位置能获取的最大金额
+            memo[i] = Math.max(memo[i - 1], memo[i - 2] + nums[i]);
+        }
+        return memo[nums.length - 1];
+    }
 }
