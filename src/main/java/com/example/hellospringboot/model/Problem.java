@@ -1,5 +1,3 @@
-package com.example.hellospringboot.model;
-
 import com.example.hellospringboot.annotation.LeetCode;
 import com.example.hellospringboot.annotation.LeetCode.Level;
 import com.example.hellospringboot.annotation.LeetCode.Point;
@@ -3069,5 +3067,50 @@ public class Problem {
             }
         }
         return ans;
+    }
+
+    @LeetCode(
+        level = Level.EASY,
+        title = "70. 爬楼梯",
+        source = "https://leetcode.cn/problems/climbing-stairs/",
+        point = { Point.DYNAMIC_PROGRAMMING }
+    )
+    public int climbStairs(int n) {
+        if (n <= 2) {
+            return n;
+        }
+        int prevprev = 1;
+        int prev = 2;
+        for (int i = 3; i <= n; i++) {
+            int cur = prev + prevprev;
+            prevprev = prev;
+            prev = cur;
+        }
+        return prev;
+    }
+
+    @LeetCode(
+        level = Level.EASY,
+        title = "118. 杨辉三角",
+        source = "https://leetcode.cn/problems/pascals-triangle/",
+        point = { Point.ARRAY, Point.DYNAMIC_PROGRAMMING }
+    )
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> nums = new ArrayList<>();
+        for (int i = 0; i < numRows; i++) {
+            List<Integer> line = new ArrayList<>();
+
+            for (int j = 0; j <= i; j++) {
+                if (j == 0 || j == i) {
+                    line.add(1);
+                } else {
+                    line.add(
+                        nums.get(i - 1).get(j - 1) + nums.get(i - 1).get(j)
+                    );
+                }
+            }
+            nums.add(line);
+        }
+        return nums;
     }
 }

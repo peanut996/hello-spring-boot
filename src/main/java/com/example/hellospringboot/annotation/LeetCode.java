@@ -168,6 +168,11 @@ public @interface LeetCode {
          * 贪心
          */
         GREEDY,
+
+        /**
+         * 动态规划
+         */
+        DYNAMIC_PROGRAMMING,
     }
 
     Level level();
