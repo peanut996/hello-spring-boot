@@ -2862,7 +2862,6 @@ public class Problem {
         point = { Point.STACK }
     )
     public String decodeString(String s) {
-        s.sub
         int mul = 0;
         StringBuilder res = new StringBuilder();
 
@@ -3184,52 +3183,84 @@ public class Problem {
     }
 
     @LeetCode(
-            level = Level.MEDIUM,
-            title = "139. 单词拆分",
-            source = "https://leetcode.cn/problems/word-break/",
-            point = { Point.DYNAMIC_PROGRAMMING }
-        )
-        public boolean wordBreak(String s, List<String> wordDict) {
-            Set<String> wordSet = new HashSet<>(wordDict);
-            int length = s.length();
-            boolean[] dp = new boolean[length + 1];
-            dp[0] = true;
+        level = Level.MEDIUM,
+        title = "139. 单词拆分",
+        source = "https://leetcode.cn/problems/word-break/",
+        point = { Point.DYNAMIC_PROGRAMMING }
+    )
+    public boolean wordBreak(String s, List<String> wordDict) {
+        Set<String> wordSet = new HashSet<>(wordDict);
+        int length = s.length();
+        boolean[] dp = new boolean[length + 1];
+        dp[0] = true;
 
-            for (int i = 1; i <= length; i++) {
-                for (int j = 0; j < i; j++) {
-                    // 如果前面的子串可以拆分且当前子串在字典中，则当前位置可拆分
-                    if (dp[j] && wordSet.contains(s.substring(j, i))) {
-                        dp[i] = true;
-                        break;
-                    }
+        for (int i = 1; i <= length; i++) {
+            for (int j = 0; j < i; j++) {
+                // 如果前面的子串可以拆分且当前子串在字典中，则当前位置可拆分
+                if (dp[j] && wordSet.contains(s.substring(j, i))) {
+                    dp[i] = true;
+                    break;
                 }
             }
-            return dp[length];
+        }
+        return dp[length];
+    }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "300. 最长递增子序列",
+        source = "https://leetcode.cn/problems/longest-increasing-subsequence/",
+        point = { Point.DYNAMIC_PROGRAMMING }
+    )
+    public int lengthOfLIS(int[] nums) {
+        int length = nums.length;
+        int[] dp = new int[length];
+        Arrays.fill(dp, 1);
+        int lis = Integer.MIN_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = 0; j < i; j++) {
+                // 如果前面的数字小于当前数字，更新当前位置的最长递增子序列长度
+                if (nums[j] < nums[i]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+            // 记录最大的最长递增子序列长度
+            lis = Math.max(dp[i], lis);
+        }
+        return lis;
+    }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "152. 乘积最大子数组",
+        source = "https://leetcode.cn/problems/maximum-product-subarray/",
+        point = { Point.ARRAY }
+    )
+    public int maxProduct(int[] nums) {
+        int length = nums.length;
+        if (length == 0) {
+            return 0;
+        }
+        int maxSoFar = nums[0];
+        int minSoFar = nums[0];
+        int maxProductNum = nums[0];
+
+        for (int i = 1; i < nums.length; i++) {
+            int tmp = maxSoFar;
+            // 计算当前位置的最大乘积
+            maxSoFar = Math.max(
+                nums[i],
+                Math.max(maxSoFar * nums[i], minSoFar * nums[i])
+            );
+            // 计算当前位置的最小乘积
+            minSoFar = Math.min(
+                nums[i],
+                Math.min(tmp * nums[i], minSoFar * nums[i])
+            );
+
+            maxProductNum = Math.max(maxProductNum, maxSoFar);
         }
 
-        @LeetCode(
-                level = Level.MEDIUM,
-                title = "300. 最长递增子序列",
-                source = "https://leetcode.cn/problems/longest-increasing-subsequence/",
-                point = { Point.DYNAMIC_PROGRAMMING }
-            )
-            public int lengthOfLIS(int[] nums) {
-                int length = nums.length;
-                int[] dp = new int[length];
-                Arrays.fill(dp, 1);
-                int lis = Integer.MIN_VALUE;
-                for(int i = 0; i<nums.length; i++){
-                    for(int j = 0; j < i;j++){
-                        // 如果前面的数字小于当前数字，更新当前位置的最长递增子序列长度
-                        if(nums[j] < nums[i]){
-                            dp[i] = Math.max(dp[i], dp[j]+1);
-                        }
-                    }
-                    // 记录最大的最长递增子序列长度
-                    lis = Math.max(dp[i], lis);
-                }
-                return lis;
-            }
-
-
+        return maxProductNum;
+    }
 }
