@@ -173,6 +173,11 @@ public @interface LeetCode {
          * 动态规划
          */
         DYNAMIC_PROGRAMMING,
+
+        /**
+         * 优先队列
+         */
+        PRIORITY_QUEUE,
     }
 
     Level level();

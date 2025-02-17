@@ -3263,4 +3263,23 @@ public class Problem {
 
         return maxProductNum;
     }
+
+    @LeetCode(
+            level = Level.MEDIUM,
+            title = "215. 数组中的第 K 个最大元素",
+            source = "https://leetcode.cn/problems/kth-largest-element-in-an-array/",
+            point = { Point.PRIORITY_QUEUE }
+    )
+    public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> heap = new PriorityQueue<>((a, b) -> b - a);
+        for (int n : nums) {
+            heap.add(n);
+        }
+        int num = Integer.MIN_VALUE;
+        for (int i = 0; i < k; i++) {
+            num = heap.poll();
+        }
+        return num;
+    }
+
 }
