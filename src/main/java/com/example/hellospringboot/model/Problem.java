@@ -3316,32 +3316,41 @@ public class Problem {
         level = Level.HARD,
         title = "32. 最长有效括号",
         source = "https://leetcode.cn/problems/longest-valid-parentheses/",
-        point = { Point.STACK }
+        point = { Point.STACK, Point.DDYNAMIC_PROGRAMMING }
     )
     public int longestValidParentheses(String s) {
         char left = '(';
         char right = ')';
+
+        int[] dp = new int[s.length()];
         char[] chars = s.toCharArray();
-        int length = chars.length;
         int maxLen = 0;
-        Deque<Integer> stack = new ArrayDeque<>();
-        stack.addLast(-1); // 初始化一个边界值
-        for (int i = 0; i < length; i++) {
-            if (chars[i] == left) {
-                stack.addLast(i);
-            }
+        for (int i = 1; i < s.length(); i++) {
             if (chars[i] == right) {
-                if (!stack.isEmpty()) {
-                    stack.removeLast();
-                    if (!stack.isEmpty()) {
+                if (chars[i - 1] == left) {
+                    // 如果当前是 ')' 且前一个是 '(' ，长度为 2 加上前面的长度
+                    dp[i] = (i >= 2 ? 2 + dp[i - 2] : 2);
+                } else {
+                    // 前一个是')'
+                    if (
+                        i - dp[i - 1] - 1 >= 0 &&
+                        chars[i - dp[i - 1] - 1] == left
+                    ) {
                         // 计算当前有效括号的长度
-                        maxLen = Math.max(maxLen, i - stack.peekLast());
-                    } else {
-                        stack.addLast(i);
+                        // 加上前一个')'的数值dp[i-1] 再加上前面的长度 i - dp[i - 1] - 2
+                        dp[i] =
+                            2 +
+                            dp[i - 1] +
+                            (i - dp[i - 1] - 2 >= 0
+                                    ? dp[i - dp[i - 1] - 2]
+                                    : 0);
                     }
                 }
             }
+            // 更新最大长度
+            maxLen = Math.max(maxLen, dp[i]);
         }
+
         return maxLen;
     }
 }
