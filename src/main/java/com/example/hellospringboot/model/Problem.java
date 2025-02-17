@@ -3265,10 +3265,10 @@ public class Problem {
     }
 
     @LeetCode(
-            level = Level.MEDIUM,
-            title = "215. 数组中的第 K 个最大元素",
-            source = "https://leetcode.cn/problems/kth-largest-element-in-an-array/",
-            point = { Point.PRIORITY_QUEUE }
+        level = Level.MEDIUM,
+        title = "215. 数组中的第 K 个最大元素",
+        source = "https://leetcode.cn/problems/kth-largest-element-in-an-array/",
+        point = { Point.PRIORITY_QUEUE }
     )
     public int findKthLargest(int[] nums, int k) {
         PriorityQueue<Integer> heap = new PriorityQueue<>((a, b) -> b - a);
@@ -3282,4 +3282,33 @@ public class Problem {
         return num;
     }
 
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "416. 分割等和子集",
+        source = "https://leetcode.cn/problems/partition-equal-subset-sum/",
+        point = { Point.DYNAMIC_PROGRAMMING }
+    )
+    public boolean canPartition(int[] nums) {
+        int sum = 0;
+        for (int n : nums) {
+            sum += n;
+        }
+        if (sum % 2 != 0) {
+            return false;
+        }
+        sum = sum / 2;
+
+        boolean[][] dp = new boolean[nums.length + 1][sum + 1];
+        dp[0][0] = true;
+
+        for (int i = 1; i <= nums.length; i++) {
+            for (int j = 0; j <= sum; j++) {
+                dp[i][j] =
+                    (nums[i - 1] <= j && dp[i - 1][j - nums[i - 1]]) ||
+                    dp[i - 1][j];
+            }
+        }
+
+        return dp[nums.length][sum];
+    }
 }
