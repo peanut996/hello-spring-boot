@@ -3311,4 +3311,37 @@ public class Problem {
 
         return dp[nums.length][sum];
     }
+
+    @LeetCode(
+        level = Level.HARD,
+        title = "32. 最长有效括号",
+        source = "https://leetcode.cn/problems/longest-valid-parentheses/",
+        point = { Point.STACK }
+    )
+    public int longestValidParentheses(String s) {
+        char left = '(';
+        char right = ')';
+        char[] chars = s.toCharArray();
+        int length = chars.length;
+        int maxLen = 0;
+        Deque<Integer> stack = new ArrayDeque<>();
+        stack.addLast(-1); // 初始化一个边界值
+        for (int i = 0; i < length; i++) {
+            if (chars[i] == left) {
+                stack.addLast(i);
+            }
+            if (chars[i] == right) {
+                if (!stack.isEmpty()) {
+                    stack.removeLast();
+                    if (!stack.isEmpty()) {
+                        // 计算当前有效括号的长度
+                        maxLen = Math.max(maxLen, i - stack.peekLast());
+                    } else {
+                        stack.addLast(i);
+                    }
+                }
+            }
+        }
+        return maxLen;
+    }
 }
