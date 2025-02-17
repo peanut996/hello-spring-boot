@@ -3316,7 +3316,7 @@ public class Problem {
         level = Level.HARD,
         title = "32. 最长有效括号",
         source = "https://leetcode.cn/problems/longest-valid-parentheses/",
-        point = { Point.STACK, Point.DDYNAMIC_PROGRAMMING }
+        point = { Point.STACK, Point.DYNAMIC_PROGRAMMING }
     )
     public int longestValidParentheses(String s) {
         char left = '(';
