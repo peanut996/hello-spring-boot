@@ -178,6 +178,11 @@ public @interface LeetCode {
          * 优先队列
          */
         PRIORITY_QUEUE,
+
+        /**
+         * 哈希表
+         */
+        HASH_MAP,
     }
 
     Level level();

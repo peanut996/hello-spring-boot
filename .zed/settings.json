@@ -22,6 +22,7 @@
       "initialization_options": {
         "settings": {
           "java": {
+            "home": "/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home",
             "jdt": {
               "ls": {
                 "lombokSupport": {
