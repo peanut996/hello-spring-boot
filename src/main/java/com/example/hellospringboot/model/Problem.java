@@ -3414,4 +3414,51 @@ public class Problem {
 
         return maxLen;
     }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "72. 编辑距离",
+        source = "https://leetcode.cn/problems/edit-distance/",
+        point = { Point.STRING, Point.DYNAMIC_PROGRAMMING }
+    )
+    public int minDistance(String word1, String word2) {
+        int m = word1.length();
+        int n = word2.length();
+
+        // dp[i][j] 表示 word1 的前 i 个字符转换成 word2 的前 j 个字符所使用的最少操作数
+        int[][] dp = new int[m + 1][n + 1];
+
+        // 初始化
+        for (int i = 0; i <= m; i++) {
+            dp[i][0] = i; // word2 为空，word1 全部删除
+        }
+
+        for (int j = 0; j <= n; j++) {
+            dp[0][j] = j; // word1 为空，word2 全部插入
+        }
+
+        // 动态规划
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                // 注意：charAt(i) 是获取第 i+1 个字符，因为 dp 数组的索引从 1 开始
+                if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+                    // 如果最后一个字符相同，则不需要操作
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else {
+                    // 否则，需要选择以下三种操作之一：
+                    // 1. 替换：将 word1 的最后一个字符替换成 word2 的最后一个字符
+                    int replace = dp[i - 1][j - 1] + 1;
+                    // 2. 删除：删除 word1 的最后一个字符
+                    int delete = dp[i - 1][j] + 1;
+                    // 3. 插入：在 word1 的末尾插入一个与 word2 最后一个字符相同的字符
+                    int add = dp[i][j - 1] + 1;
+                    // 选择操作数最小的一个
+                    int minOps = Math.min(replace, Math.min(add, delete));
+                    dp[i][j] = minOps;
+                }
+            }
+        }
+
+        return dp[m][n];
+    }
 }
