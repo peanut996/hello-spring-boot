@@ -3421,7 +3421,7 @@ public class Problem {
         source = "https://leetcode.cn/problems/edit-distance/",
         point = { Point.STRING, Point.DYNAMIC_PROGRAMMING }
     )
-    public int minDistance(String word1, String word2) {
+    public int _minDistance(String word1, String word2) {
         int m = word1.length();
         int n = word2.length();
 
@@ -3437,7 +3437,6 @@ public class Problem {
             dp[0][j] = j; // word1 为空，word2 全部插入
         }
 
-        // 动态规划
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
                 // 注意：charAt(i) 是获取第 i+1 个字符，因为 dp 数组的索引从 1 开始
@@ -3460,5 +3459,43 @@ public class Problem {
         }
 
         return dp[m][n];
+    }
+
+    // 空间优化版本
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "72. 编辑距离",
+        source = "https://leetcode.cn/problems/edit-distance/",
+        point = { Point.STRING, Point.DYNAMIC_PROGRAMMING }
+    )
+    int minDistance(String word1, String word2) {
+        int m = word1.length();
+        int n = word2.length();
+        if (m < n) {
+            return minDistance(word2, word1); // 确保 word1 是较长的字符串，减少空间复杂度
+        }
+
+        int[] dp = new int[n + 1]; // 使用一维数组优化空间复杂度
+        for (int i = 0; i <= n; i++) {
+            dp[i] = i; // 初始化：word1 为空时，转换为 word2 的操作数
+        }
+
+        for (int i = 1; i <= m; i++) {
+            int prev = dp[0]; // 存储 dp[i-1][j-1]
+            dp[0] = i; // 初始化：word2 为空时，转换为 word1 的操作数
+            for (int j = 1; j <= n; j++) {
+                int temp = dp[j]; // 存储 dp[i-1][j]
+                if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+                    dp[j] = prev; // 如果当前字符相同，则不需要操作
+                } else {
+                    // 否则，选择插入、删除、替换操作中最小的操作数
+                    dp[j] = Math.min(temp, Math.min(dp[j - 1], prev)) + 1;
+                    // temp: dp[i-1][j], dp[j-1]: dp[i][j-1], prev: dp[i-1][j-1]
+                }
+                prev = temp; // 更新 prev 为 dp[i-1][j]，用于下一次迭代
+            }
+        }
+
+        return dp[n]; // 返回 word1 转换为 word2 的最小操作数
     }
 }
