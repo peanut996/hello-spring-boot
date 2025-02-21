@@ -3498,4 +3498,19 @@ public class Problem {
 
         return dp[n]; // 返回 word1 转换为 word2 的最小操作数
     }
+
+    @LeetCode(
+        level = Level.EASY,
+        title = "136. 只出现一次的数字",
+        source = "https://leetcode.cn/problems/single-number/",
+        point = { Point.ARRAY, Point.BIT_MANIPULATION }
+    )
+    public int singleNumber(int[] nums) {
+        int ans = 0;
+        // 利用异或运算的性质：任何数和 0 异或都等于其本身，相同的数异或等于 0
+        for (int i = 0; i < nums.length; i++) {
+            ans = ans ^ nums[i];
+        }
+        return ans;
+    }
 }

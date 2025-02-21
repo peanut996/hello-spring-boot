@@ -183,6 +183,11 @@ public @interface LeetCode {
          * 哈希表
          */
         HASH_MAP,
+
+        /**
+         * 位运算
+         */
+        BIT_MANIPULATION,
     }
 
     Level level();
