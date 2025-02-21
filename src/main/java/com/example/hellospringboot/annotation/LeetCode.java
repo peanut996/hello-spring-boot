@@ -188,6 +188,11 @@ public @interface LeetCode {
          * 位运算
          */
         BIT_MANIPULATION,
+
+        /**
+         * 摩尔投票法
+         */
+        BOYER_MOORE_VOTING_ALGORITHM,
     }
 
     Level level();

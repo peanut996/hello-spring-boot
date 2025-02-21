@@ -3,6 +3,7 @@ package com.example.hellospringboot.model;
 import com.example.hellospringboot.annotation.LeetCode;
 import com.example.hellospringboot.annotation.LeetCode.Level;
 import com.example.hellospringboot.annotation.LeetCode.Point;
+import java.nio.channels.Pipe;
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -3512,5 +3513,31 @@ public class Problem {
             ans = ans ^ nums[i];
         }
         return ans;
+    }
+
+    @LeetCode(
+        level = Level.EASY,
+        title = "169. 多数元素",
+        source = "https://leetcode.cn/problems/majority-element/",
+        point = { Point.BOYER_MOORE_VOTING_ALGORITHM }
+    )
+    public int majorityElement(int[] nums) {
+        int candidate = 0; // 候选众数
+        int count = 0; // 候选众数的计数
+
+        for (int num : nums) {
+            // 如果计数为0，更换候选众数
+            if (count == 0) {
+                candidate = num;
+            }
+            // 如果当前数字等于候选众数，计数加1，否则减1
+            if (num == candidate) {
+                count++;
+            } else {
+                count--;
+            }
+        }
+
+        return candidate;
     }
 }
