@@ -3540,4 +3540,47 @@ public class Problem {
 
         return candidate;
     }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "31. 下一个排列",
+        source = "https://leetcode.cn/problems/next-permutation/",
+        point = { Point.ARRAY }
+    )
+    public void nextPermutation(int[] nums) {
+        int length = nums.length;
+        int swapIndex = -1; // 需要交换的较小元素的索引
+        // 从后向前找到第一个 nums[i] < nums[i + 1] 的 i
+        for (int i = length - 2; i >= 0; i--) {
+            if (nums[i] < nums[i + 1]) {
+                swapIndex = i;
+                break;
+            }
+        }
+        // 如果不存在这样的 i，说明数组是完全降序的，直接反转数组
+        if (swapIndex < 0) {
+            Arrays.sort(nums); // 或者手动实现反转
+            return;
+        }
+
+        // 从后向前找到第一个大于 nums[swapIndex] 的元素，进行交换
+        for (int i = length - 1; i > swapIndex; i--) {
+            if (nums[i] > nums[swapIndex]) {
+                int tmp = nums[i];
+                nums[i] = nums[swapIndex];
+                nums[swapIndex] = tmp;
+                break;
+            }
+        }
+        // 交换 swapIndex 后面的元素，使之升序排列
+        int left = swapIndex + 1;
+        int right = length - 1;
+        while (left < right) {
+            int tmp = nums[left];
+            nums[left] = nums[right];
+            nums[right] = tmp;
+            left++;
+            right--;
+        }
+    }
 }
