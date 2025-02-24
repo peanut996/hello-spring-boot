@@ -211,7 +211,7 @@ public class Problem {
         level = Level.MEDIUM,
         title = "159. 至多包含两个不同字符的最长子串",
         source = "https://leetcode.cn/problems/longest-substring-with-at-most-two-distinct-characters/description",
-        point = Point.SLIDE_WINDOW
+        point = Point.SLIDING_WINDOW
     )
     public int lengthOfLongestSubstringTwoDistinct(String s) {
         int sLength = s.length();
@@ -242,7 +242,7 @@ public class Problem {
         level = Level.MEDIUM,
         title = "340. 至多包含 K 个不同字符的最长子串",
         source = "https://leetcode.cn/problems/longest-substring-with-at-most-k-distinct-characters/description",
-        point = Point.SLIDE_WINDOW
+        point = Point.SLIDING_WINDOW
     )
     public int lengthOfLongestSubstringKDistinct(String s, int k) {
         int sLength = s.length();
@@ -273,7 +273,7 @@ public class Problem {
         level = Level.MEDIUM,
         title = "c. 最大连续1的个数 II",
         source = "https://leetcode.cn/problems/max-consecutive-ones-ii/description",
-        point = Point.SLIDE_WINDOW
+        point = Point.SLIDING_WINDOW
     )
     public int findMaxConsecutiveOnes(int[] nums) {
         int length = nums.length;
@@ -328,7 +328,7 @@ public class Problem {
         level = Level.MEDIUM,
         title = "1100. 长度为 K 的无重复字符子串",
         source = "https://leetcode.cn/problems/find-k-length-substrings-with-no-repeated-characters",
-        point = Point.SLIDE_WINDOW
+        point = Point.SLIDING_WINDOW
     )
     public int numKLenSubstrNoRepeats(String s, int k) {
         char[] str = s.toCharArray();
@@ -950,7 +950,7 @@ public class Problem {
     @LeetCode(
         level = Level.MEDIUM,
         title = "3. 无重复字符的最长子串",
-        point = { Point.SLIDE_WINDOW, Point.TWO_POINTER },
+        point = { Point.SLIDING_WINDOW, Point.TWO_POINTER },
         source = "https://leetcode.cn/problems/longest-substring-without-repeating-characters/"
     )
     public int lengthOfLongestSubstring(String s) {
@@ -987,7 +987,7 @@ public class Problem {
     @LeetCode(
         level = Level.MEDIUM,
         title = "438. 找到字符串中所有字母异位词",
-        point = Point.SLIDE_WINDOW,
+        point = Point.SLIDING_WINDOW,
         source = "https://leetcode.cn/problems/find-all-anagrams-in-a-string"
     )
     public List<Integer> findAnagrams(String s, String p) {
@@ -3604,5 +3604,35 @@ public class Problem {
             fast = nums[fast];
         }
         return fast; // slow == fast
+    }
+
+    @LeetCode(
+        level = Level.HARD,
+        title = "239. 滑动窗口最大值",
+        source = "https://leetcode.cn/problems/sliding-window-maximum/",
+        point = { Point.ARRAY, Point.SLIDING_WINDOW, Point.HEAP }
+    )
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int length = nums.length;
+        Deque<Integer> deque = new LinkedList<>(); // 双端队列，存储数组下标
+        List<Integer> maxVals = new ArrayList<>(); // 存储每个滑动窗口的最大值
+
+        for (int i = 0; i <= length - 1; i++) {
+            // 移除队列中比当前元素小的所有元素，保证队列递减
+            while (!deque.isEmpty() && nums[deque.peekLast()] <= nums[i]) {
+                deque.pollLast();
+            }
+            deque.offerLast(i); // 将当前元素的下标加入队列
+            // 移除超出窗口范围的元素
+            while (deque.peekFirst() <= i - k) {
+                deque.pollFirst();
+            }
+            // 当窗口大小达到k时，开始记录最大值
+            if (i >= k - 1) {
+                maxVals.add(nums[deque.peekFirst()]); // 队列头部元素为当前窗口最大值的下标
+            }
+        }
+
+        return maxVals.stream().mapToInt(i -> i).toArray();
     }
 }

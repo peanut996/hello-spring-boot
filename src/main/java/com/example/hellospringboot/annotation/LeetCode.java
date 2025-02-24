@@ -18,7 +18,7 @@ public @interface LeetCode {
         /**
          * 滑动窗口
          */
-        SLIDE_WINDOW,
+        SLIDING_WINDOW,
         /**
          * 字典树
          */
