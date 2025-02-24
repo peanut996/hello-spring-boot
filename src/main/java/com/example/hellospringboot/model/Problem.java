@@ -3583,4 +3583,26 @@ public class Problem {
             right--;
         }
     }
+
+    @LeetCode(
+        level = Level.MEDIUM,
+        title = "287. 寻找重复数",
+        source = "https://leetcode.cn/problems/find-the-duplicate-number/",
+        point = { Point.ARRAY, Point.TWO_POINTERS, Point.BINARY_SEARCH }
+    )
+    public int findDuplicate(int[] nums) {
+        int slow = nums[0];
+        int fast = nums[nums[0]];
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        }
+
+        slow = 0;
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+        return fast; // slow == fast
+    }
 }
