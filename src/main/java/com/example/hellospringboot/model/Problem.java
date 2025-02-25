@@ -3669,4 +3669,82 @@ public class Problem {
         // 如果所有数字都在正确位置上，则缺失的第一个正数是 n+1
         return n + 1;
     }
+
+    @LeetCode(
+        level = Level.HARD,
+        title = "76. 最小覆盖子串",
+        source = "https://leetcode.cn/problems/minimum-window-substring/",
+        point = { Point.STRING, Point.SLIDING_WINDOW, Point.HASH }
+    )
+    public String minWindow(String s, String t) {
+        // 边界条件判断
+        if (s == null || t == null || s.length() == 0 || t.length() == 0) {
+            return "";
+        }
+        if (s.length() < t.length()) {
+            return "";
+        }
+
+        int length = s.length();
+        char[] source = s.toCharArray();
+        char[] target = t.toCharArray();
+
+        // 统计目标字符串中每个字符出现的次数
+        Map<Character, Integer> dict = new HashMap<>();
+        for (char c : target) {
+            dict.merge(c, 1, Integer::sum);
+        }
+
+        // 目标字符串的字符集合
+        Set<Character> targetSet = dict.keySet();
+        // 需要匹配的字符种类数量
+        int matched = targetSet.size();
+
+        int left = 0;
+        // 最小覆盖子串的长度
+        int minLength = Integer.MAX_VALUE;
+        // 最小覆盖子串的起始位置
+        int minStart = -1;
+        // 当前已经匹配的字符种类数量
+        int currentMatched = 0;
+
+        // 滑动窗口的右指针
+        for (int right = 0; right < length; right++) {
+            char character = source[right];
+            // 如果当前字符在目标字符串中
+            if (dict.containsKey(character)) {
+                // 将字典中对应字符的计数减1
+                dict.merge(character, -1, Integer::sum);
+                // 如果减1后，该字符的计数变为0，则表示该字符已经完全匹配
+                if (dict.get(character) == 0) {
+                    currentMatched++;
+                }
+            }
+
+            // 当所有字符都匹配时，开始收缩窗口
+            while (left <= right && currentMatched == matched) {
+                // 如果当前窗口的长度小于最小长度，则更新最小长度和起始位置
+                if (right - left + 1 < minLength) {
+                    minLength = right - left + 1;
+                    minStart = left;
+                }
+
+                char leftChar = source[left];
+                // 如果左指针指向的字符在目标字符串中
+                if (dict.containsKey(leftChar)) {
+                    // 将字典中对应字符的计数加1
+                    dict.merge(leftChar, 1, Integer::sum);
+                    // 如果加1后，该字符的计数大于0，则表示该字符不再完全匹配
+                    if (dict.get(leftChar) > 0) {
+                        currentMatched--;
+                    }
+                }
+                // 左指针右移
+                left++;
+            }
+        }
+
+        // 如果没有找到覆盖子串，则返回空字符串，否则返回最小覆盖子串
+        return minStart == -1 ? "" : new String(source, minStart, minLength);
+    }
 }
