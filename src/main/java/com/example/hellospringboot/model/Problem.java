@@ -3747,4 +3747,35 @@ public class Problem {
         // 如果没有找到覆盖子串，则返回空字符串，否则返回最小覆盖子串
         return minStart == -1 ? "" : new String(source, minStart, minLength);
     }
+
+
+    @LeetCode(
+            level = Level.MEDIUM,
+            title = "1792. 最大平均通过率",
+            source = "https://leetcode.cn/problems/maximum-average-pass-ratio/",
+            point = {Point.GREEDY, Point.PRIORITY_QUEUE, Point.ARRAY}
+    )
+    public double maxAverageRatio(int[][] classes, int extraStudents) {
+        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> {
+            double diff1 = (double) (a[0] + 1) / (a[1]+1) - (double) a[0] /a[1];
+            double diff2 = (double) (b[0] + 1) / (b[1]+1) - (double) b[0] /b[1];
+            return Double.compare(diff1, diff2);
+        });
+        for(int[] cls: classes) {
+            heap.offer(cls);
+        }
+
+        for(int i =0; i<extraStudents; i++) {
+            int[] cls = heap.poll();
+            cls[0]++;
+            cls[1]++;
+            heap.offer(cls);
+        }
+
+        double res = 0;
+        for(int[] cls: classes) {
+            res += (double) cls[0] / cls[1];
+        }
+        return res / classes.length;
+    }
 }
