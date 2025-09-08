@@ -37,13 +37,14 @@ public class DistributedLockAspect {
         RLock lock = redissonClient.getLock(lockKey);
         
         boolean isLocked = false;
+        boolean leaseTimeAutoRelease = distributedLock.leaseTime() <= 0;
         try {
             long leaseTime = distributedLock.leaseTime();
             long waitTime = distributedLock.waitTime();
             
             log.debug("Attempting to acquire lock: {}, waitTime: {}ms, leaseTime: {}ms", lockKey, waitTime, leaseTime);
             
-            if (leaseTime <= 0) {
+            if (leaseTimeAutoRelease) {
                 // leaseTime <= 0 时自动释放：不设置leaseTime，执行完自动释放
                 isLocked = lock.tryLock(waitTime, TimeUnit.MILLISECONDS);
                 log.debug("Lock attempt result (auto-release) for {}: {}", lockKey, isLocked);
@@ -63,11 +64,11 @@ public class DistributedLockAspect {
             return joinPoint.proceed();
             
         } finally {
-            if (isLocked && lock.isHeldByCurrentThread()) {
-//                lock.unlock();
+            if (leaseTimeAutoRelease && isLocked && lock.isHeldByCurrentThread()) {
+                lock.unlock();
                 log.info("Released distributed lock: {}", lockKey);
             } else {
-                log.warn("Lock release skipped - isLocked: {}, isHeldByCurrentThread: {}, lockKey: {}", 
+                log.warn("Lock release skipped - isLocked: {}, isHeldByCurrentThread: {}, lockKey: {}",
                         isLocked, lock.isHeldByCurrentThread(), lockKey);
             }
         }
