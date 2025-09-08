@@ -33,3 +33,9 @@ eureka:
   client:
     serviceUrl:
       defaultZone: "http://localhost:8761/eureka/, http://localhost:8761/eureka/"
+
+logging:
+  level:
+    org.redisson: DEBUG
+    com.example.hellospringboot.aspect.DistributedLockAspect: DEBUG
+    root: INFO

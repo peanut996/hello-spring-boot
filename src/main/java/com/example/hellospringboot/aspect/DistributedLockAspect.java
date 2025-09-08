@@ -39,15 +39,18 @@ public class DistributedLockAspect {
         boolean isLocked = false;
         try {
             long leaseTime = distributedLock.leaseTime();
+            long waitTime = distributedLock.waitTime();
+            
+            log.debug("Attempting to acquire lock: {}, waitTime: {}ms, leaseTime: {}ms", lockKey, waitTime, leaseTime);
             
             if (leaseTime <= 0) {
                 // leaseTime <= 0 时自动释放：不设置leaseTime，执行完自动释放
-                isLocked = lock.tryLock(distributedLock.waitTime(), TimeUnit.MILLISECONDS);
-                log.debug("Acquiring lock with auto-release: {}", lockKey);
+                isLocked = lock.tryLock(waitTime, TimeUnit.MILLISECONDS);
+                log.debug("Lock attempt result (auto-release) for {}: {}", lockKey, isLocked);
             } else {
                 // leaseTime > 0 时使用固定时间
-                isLocked = lock.tryLock(distributedLock.waitTime(), leaseTime, TimeUnit.MILLISECONDS);
-                log.debug("Acquiring lock with lease time {}ms: {}", leaseTime, lockKey);
+                isLocked = lock.tryLock(waitTime, leaseTime, TimeUnit.MILLISECONDS);
+                log.debug("Lock attempt result (lease time {}ms) for {}: {}", leaseTime, lockKey, isLocked);
             }
             
             if (!isLocked) {
@@ -55,13 +58,17 @@ public class DistributedLockAspect {
                 throw new RuntimeException("Failed to acquire distributed lock: " + lockKey);
             }
             
-            log.debug("Successfully acquired distributed lock: {}", lockKey);
+            log.info("Successfully acquired distributed lock: {}, isHeldByCurrentThread: {}", 
+                    lockKey, lock.isHeldByCurrentThread());
             return joinPoint.proceed();
             
         } finally {
             if (isLocked && lock.isHeldByCurrentThread()) {
-                lock.unlock();
-                log.debug("Released distributed lock: {}", lockKey);
+//                lock.unlock();
+                log.info("Released distributed lock: {}", lockKey);
+            } else {
+                log.warn("Lock release skipped - isLocked: {}, isHeldByCurrentThread: {}, lockKey: {}", 
+                        isLocked, lock.isHeldByCurrentThread(), lockKey);
             }
         }
     }
