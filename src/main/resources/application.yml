@@ -15,6 +15,12 @@ spring:
     password:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+  redis:
+    redisson:
+      config: |
+        singleServerConfig:
+          address: "redis://127.0.0.1:6379"
+          database: 0
 
 mybatis:
   auto-mapping-behavior: none
