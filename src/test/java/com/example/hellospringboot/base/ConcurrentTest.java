@@ -104,6 +104,39 @@ public class ConcurrentTest {
 
         Thread.sleep(5000);
     }
+
+    @Test
+    void VirtualThread() throws InterruptedException {
+        // 创建虚拟线程执行任务
+        Thread virtualThread1 = Thread.ofVirtual().name("virtual-1").start(() -> {
+            System.out.println("Virtual thread " + Thread.currentThread().getName() + " is running");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            System.out.println("Virtual thread " + Thread.currentThread().getName() + " finished");
+        });
+
+        // 使用虚拟线程工厂创建多个虚拟线程
+        Thread.Builder virtualThreadBuilder = Thread.ofVirtual().name("virtual-worker-", 0);
+        for (int i = 0; i < 5; i++) {
+            final int taskNum = i;
+            virtualThreadBuilder.start(() -> {
+                System.out.println("Worker " + taskNum + " running on " + Thread.currentThread().getName());
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+                System.out.println("Worker " + taskNum + " completed");
+            });
+        }
+
+        // 等待虚拟线程执行完成
+        virtualThread1.join();
+        Thread.sleep(2000);
+    }
 }
 
 
